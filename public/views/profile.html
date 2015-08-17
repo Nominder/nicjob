@@ -1,0 +1,137 @@
+<h2>profile</h2>
+
+
+<style type="text/css">
+	
+</style>
+
+
+<div class="col-md-12">
+	<div class="col-md-4">
+		<div class="col-md-12">
+			<img ng-src="{{get_avatar_uri(profile.images)}}">
+		</div>
+	</div>
+	<div class="col-md-8">
+		<div class="col-md-12">
+			{{profile.info.firstname}}
+			{{profile.info.lastname}}
+			{{profile.info.middlename}}, 
+			{{get_current_age(profile.info.birthday)}} лет
+		</div>
+		<div class="  col-md-12">
+			<span ng-repeat="i in profile.industryPost">
+				{{getFromList('industry', i.industry)}} {{i.post}}{{$last ? '' : ', '}}
+			</span>
+		</div>
+		<div class="  col-md-12">
+			<div class="  col-md-12" ng-repeat="(_i, i) in profile.career">
+				<div>
+					<span>Последние место работы </span>
+					<b>{{profile.career[profile.career.length-1].organization}}</b>
+				</div>
+				<div>
+					<span>Должность </span>
+					<b>{{profile.career[profile.career.length-1].vac_industryPost.post}}</b>
+				</div>
+			</div>
+		</div>
+		<div class="  col-md-12">
+			<b>О себе:</b> {{profile.about}}
+		</div>
+		<div class="col-md-12">
+			<h3>Видеорезюме</h3>
+			<span ng-repeat="(_i, i) in profile.videos">
+				<iframe class="xvideoiframe" width="320" height="240" x-code="http://boomstream.com/player.html?code={{i.video}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+			</span>
+		</div>
+		<div class="  col-md-12">
+			<h3>Карьера</h3>
+			<div class="  col-md-12" ng-repeat="(_i, i) in profile.career">
+				<div>
+					<span>Отрасль</span>
+					<b>{{getFromList('industry', i.vac_industryPost.industry)}}</b>
+				</div>
+				<div>
+					<span>Должность </span>
+					<b>{{i.vac_industryPost.post}}</b>
+				</div>
+				<div>
+					<span>Место работы </span>
+					<b>{{i.organization}}</b>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<h3>Портфолио</h3>
+			<div ng-repeat="(_i, i) in profile.portfolio.images">
+				<div class="col-md-4">
+					<h4>
+						{{i.title}} 
+						<a href="" ng-click="removeImage(profile.portfolio.images, _i);">
+							<i class="fa fa-close"></i>
+						</a>
+					</h4>
+					<img ng-src="/openapi/0.1/images/get?id={{i.image}}&amp;size=320">
+					<p>{{i.description}}</p>
+				</div>
+			</div>
+			<div ng-repeat="(_i, i) in profile.portfolio.videos">
+				<div class="col-md-4">
+					<h4>
+						{{i.title}} 
+						<a href="" ng-click="removeVideo(profile.portfolio.videos, _i);">
+							<i class="fa fa-close"></i>
+						</a>
+					</h4>
+					<iframe class="xvideoiframe" width="320" height="240" x-code="http://boomstream.com/player.html?code={{i.video}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+					<p>{{i.description}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<h3>
+				Образование
+			</h3>
+			<div ng-repeat="i in profile.education">
+				<div class="col-md-12">
+					<div class="col-md-4">Уровень образования</div>
+					<div class="col-md-8">
+						{{getFromList('level', i.level)}}
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-4">Учебное заведение</div>
+					<div class="col-md-8">{{i.hs}}</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-4">Специальность</div>
+					<div class="col-md-8">
+						{{i.speciality}}
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-4">Год окончания обучения</div>
+					<div class="col-md-8">{{i.year}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12"></div>
+		<div class="col-md-12"></div>
+		<div class="col-md-12"></div>
+		div.col-md-12
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

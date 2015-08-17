@@ -1,0 +1,73 @@
+
+
+script#resume-tmpl(type="text/x-jsrender").
+	<div class="row vacancy-item">
+		<div class="col-xs-2"><img src="/openapi/0.1/images/get?id={{>image}}&amp;size=320" class="img-responsive"/></div>
+		<div id="profiles" class="col-xs-7">
+			<div class="clearfix">
+				<h4 class="pull-left">
+					<a>
+						{{>name}}
+					</a>
+				</h4>
+				<span class="pull-right">{{>years}}</span>
+			</div>
+			<hr/>
+			<p>
+				<b>{{>post}}</b>, {{>locating}}
+			</p>
+		</div>
+		<div class="col-xs-3 text-right">
+			<div class="btn-group-vertical">
+				<button type="button" onclick="admin.openProfile('{{>id}}');" class="btn btn-default">
+					<i style="margin-right: 5px" class="fa fa-edit"></i>Редактировать
+				</button>
+				<button type="button" onclick="admin.blockAccount({id:'{{>id}}'})" class="btn btn-default">
+					<i style="margin-right: 5px" class="fa fa-warning"></i>Заблокировать
+				</button>
+				<button type="button" onclick="admin.unblockAccount({id:'{{>id}}'})" class="btn btn-default">
+					<i style="margin-right: 5px" class="fa fa-sign-out"></i>Разблокировать
+				</button>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+script#vacansy-tmpl(type="text/x-jsrender").
+	<div class="row vacancy-item">
+		<div class="col-xs-2"><img src="/openapi/0.1/images/get?id={{>image}}&amp;size=320" class="img-responsive"/></div>
+		<div class="col-xs-7">
+			<div class="clearfix">
+				<h4 class="pull-left"><a>{{>name}}</a></h4>
+				<p class="pull-right"><a>{{>company}}</a></p>
+			</div>
+			<hr/>
+			<p><b>{{>post}}</b>, {{>locating}}</p>
+		</div>
+		<div class="col-xs-3 text-right">
+			<div class="btn-group-vertical">
+				<button type="button" onclick="admin.openVacansy('{{>id}}', '{{>emp}}');" class="btn btn-default">
+					<i style="margin-right: 5px" class="fa fa-edit"></i>Редактировать
+				</button>
+				<button type="button" onclick="asout()" class="btn btn-default">
+					<i style="margin-right: 5px" class="fa fa-sign-out"></i>Удалить
+				</button>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+!= partial("./profile.jade")
+
+!= partial("./vacansy.jade")
+
+
+
+

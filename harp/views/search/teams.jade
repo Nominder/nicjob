@@ -1,0 +1,5 @@
+.col-xs-12.search(ng-controller="searchTeamsCtrl")
+	.col-xs-3.left
+		ng-include(src="'/views/search/teams/menu.html'")
+	.col-xs-9.right
+		!= partial("./teams/results.jade")

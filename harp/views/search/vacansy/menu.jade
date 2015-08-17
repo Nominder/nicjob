@@ -1,0 +1,115 @@
+.col-xs-10.menu
+	.col-xs-12.menu-inner
+		.menu-container
+			.col-xs-12.item.text-center
+				| Поиск вакансий
+			.col-xs-12.item.text-search
+				i.fa.fa-search
+				input(type="text", placeholder="Поиск по словам", ng-model="_data.search.vacansy.fields.text")
+			.col-xs-12.item
+				select(chosen, multiple="true", data-placeholder="Индустрия", ng-options="item.title as item.title for item in getList('industry')", ng-model="_data.search.vacansy.fields.industry")
+			.col-xs-12.item
+				select(chosen, multiple="true", data-placeholder="Образование", ng-options="item.title as item.title for item in getList('level')", ng-model="_data.search.vacansy.fields.education")
+			.col-xs-12.item
+				select(chosen, multiple="true", data-placeholder="Занятость", ng-options="item.title as item.title for item in getList('part')", ng-model="_data.search.vacansy.fields.part")
+			.col-xs-12.item
+				select(chosen, multiple="true", data-placeholder="Дата публикации")
+			.col-xs-12.item
+				select(chosen, multiple="true", data-placeholder="Язык", ng-options="item.title as item.title for item in getList('tag')", ng-model="_data.search.vacansy.fields.language")
+			.col-xs-12.item
+				select(chosen, multiple="true", data-placeholder="Страна", ng-options="item.title as item.title for item in getList('country')", ng-model="e")
+			accordion.col-xs-12.item(close-others="false")
+					accordion-group
+						accordion-heading
+							.arr(onclick="$(this).toggleClass('up')")
+								| Сортировать
+								i.pull-right.fa.fa-angle-right
+						p
+							span.text-left.radio-btn(style="width:100%; display:inline-block;")
+								input(type="radio", id="sortby0", name="sortby", value="", ng-model="_data.search.vacansy.fields.sortby")
+								label(for="sortby0") Дате
+							span.text-left.radio-btn(style="width:100%; display:inline-block;")
+								input(type="radio", id="sortby1", name="sortby", value="vacansy.salary.summa", ng-model="_data.search.vacansy.fields.sortby")
+								label(for="sortby1") Размеру зарплаты
+			
+			.col-xs-12.slider
+				.col-xs-12.text-center Сумма
+				.col-xs-12
+					.js_rangeslider(data-min='10', data-max='100000', data-start='10000', data-end='50000', data-inputstart='.js_start2', data-inputend='.js_end2', data-model-min='summMin', data-model-max='summMax')
+				.col-xs-6.text-center
+					.filter_rangeslider_val_row
+						span от 
+						span.js_start2
+						input.js_start2(type='hidden', name='start1', value='16')
+				.col-xs-6.text-center
+					.filter_rangeslider_val_row
+						span до 
+						span.js_end2
+						input.js_end2(type='hidden', name='end1', value='45')
+			span.text-left.radio-btn(style="width:100%; display:inline-block;")
+				input(type="radio", id="individual0", name="individual", value="false", ng-model="_data.search.vacansy.fields.individual")
+				label(for="individual0") Только физические лица
+			span.text-left.radio-btn(style="width:100%; display:inline-block;")
+				input(type="radio", id="individual1", name="individual", value="true", ng-model="_data.search.vacansy.fields.individual")
+				label(for="individual1") Только юридические лица
+			.col-xs-12.item
+				.text-center(style="line-height: 20px;") Период
+				//select(chosen, multiple="true", data-placeholder="", ng-options="item.title as item.title for item in getList('period')", ng-model="_data.search.vacansy.fields.period")
+				span.text-left.radio-btn(ng-repeat="i in getList('period')", style="width:50%; display:inline-block;")
+					input(type="radio", name="period_{{i.id}}", id="period_{{i.id}}", value="{{i.id}}", ng-model="_data.search.vacansy.fields.period")
+					label(for="period_{{i.id}}") {{i.title}}
+			.col-xs-12.refresh
+				button.btn.btn-success(ng-click="clear()") Сбросить параметры
+		!= partial("./../_menuFooter.jade")
+
+
+
+
+
+
+			- if(false) {
+			accordion.col-xs-12(close-others="false")
+				- for(var i=0;i<3;i++) {
+					accordion-group
+						accordion-heading
+							.arr(onclick="$(this).toggleClass('up')")
+								| header
+								i.pull-right.fa.fa-angle-right
+						p lol
+				- }
+			- }
+
+
+script.
+	$('.js_rangeslider').each(function(indx){
+		var rangeslider = $(this);
+		var min = rangeslider.data('min');
+		var max = rangeslider.data('max');
+		var start = rangeslider.data('start');
+		var inputstart = $(rangeslider.data('inputstart'));
+		var end = rangeslider.data('end');
+		var inputend = $(rangeslider.data('inputend'));
+
+		rangeslider.noUiSlider({
+			start: [
+				start, end
+			],
+			connect: true,
+			range: { 'min': min, 'max': max },
+			serialization: {
+				lower: [
+					$.Link({ target: inputstart,method: 'text' }),
+				],
+				upper: [
+					$.Link({ target: inputend, method: 'text' })
+				],
+				format: { decimals:0 }
+			}
+		}).change(function(element, data) {
+			var $rootScope = angular.element('[ng-app]').scope();
+			$rootScope._data.search.vacansy.fields[$(element.target).data('model-min')] = +data[0];
+			$rootScope._data.search.vacansy.fields[$(element.target).data('model-max')] = +data[1];
+			$rootScope.$apply();
+		});
+	});
+

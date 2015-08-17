@@ -1,0 +1,137 @@
+
+
+
+
+
+
+.competitorOfficeInterviews {
+  	.row{
+	  margin-left: -10px;
+	  margin-right: -10px;
+
+	  &>[class*=col]{
+		padding-left: 10px;
+		padding-right: 10px;
+	  }
+	}
+  	.summ{
+	  border: 1px solid #eeeeee;
+	  border-bottom: 0px;
+	  border-radius: 3px 3px 0 0;
+	  padding: 10px;
+	}
+
+		button {
+			font-weight: bold;
+			text-transform: uppercase;
+			font-size: 10px;
+		}
+		.invite, .interview {
+			margin-bottom: 25px;
+			.summ {
+				line-height: @lineHeight/3*2;
+				font-size: 20px;
+				text-align: center;
+				b {
+					display: inline-block;
+					font-weight: normal;
+				}
+			}
+			.body {
+				background-color: #e9eef3;
+				.avatar {
+					text-align: center;
+				  	max-height: 150px;
+				  	overflow: hidden;
+					img {
+						width: 100%;
+					  	height: auto;
+					}
+				}
+				.data {
+				  	padding: 10px 15px;
+
+				  	.user-info, .vacancy, .times{
+					  margin-bottom: 10px;
+					}
+				  	.red{
+					  color: #d80000;
+					}
+				  	.lime{
+					  color: #63aa5b;
+					}
+				  	span.label{
+					  font-size: 13px;
+					  color: #777777;
+					  font-weight: 400;
+					}
+				  	b{
+					  font-size: 15px;
+					  font-weight: 600;
+					}
+					>div {
+					  line-height: 20px;
+					}
+					.btn{
+					  width: 100%;
+					  color: #fff;
+					  font-size: 14px;
+					  border-radius: 3px;
+					  padding: 3px 0;
+					}
+					.times {
+						text-align: center;
+					}
+				  	.bottom{
+					  	.tip{
+						  font-weight: 600;
+						  color: #000;
+						}
+					  	.btn{
+
+						  font-weight: 600;
+						}
+					}
+				}
+			}
+		}
+
+
+		.interview {
+
+
+			.body {
+
+				.avatar {
+				  max-height: 120px;
+				}
+			}
+			.now {
+				height: 500px;
+				color: #fff;
+				text-align: center;
+				font-size: 18px;
+				background-color: #4f4f4f;
+			  	.timer{
+					padding-top: 140px;
+					font-weight: 600;
+					p{
+					  margin: 0px 0px 20px;
+					  color: #dddddd;
+					}
+					.time{
+					  font-size: 90px;
+					  line-height: 90px;
+					  color: #fff;
+					}
+				}
+
+
+			}
+		}
+
+}
+
+
+
+

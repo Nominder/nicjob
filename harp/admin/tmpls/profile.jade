@@ -1,0 +1,371 @@
+
+script#profile-tmpl(type="text/x-jsrender").
+	<form action="">
+		<div class="row">
+			<div class="col-xs-3"><img src="/openapi/0.1/images/get?id={{>image}}&amp;size=320" class="img-responsive"/></div>
+			<div class="col-xs-9">
+				<h3>Имя</h3>
+				<div class="row fio">
+					<div class="col-xs-4 name">
+						<input class="form-control" value="{{>firstname}}"/>
+					</div>
+					<div class="col-xs-4 lastname">
+						<input class="form-control" value="{{>lastname}}"/>
+					</div>
+					<div class="col-xs-4 patronymic">
+						<input class="form-control" value="{{>middlename}}"/>
+					</div>
+				</div>
+				<hr/>
+				<h3>Дата рождения</h3>
+				<div class="row birthday">
+					<input class="form-control" type="date" value="{{>date}}"/>
+				</div>
+				<hr/>
+				<h3>Фото</h3>
+				<div class="row">
+					{{for images}}
+					<div style="margin-bottom: 20px" class="col-xs-3"><img src="/openapi/0.1/images/get?id={{>image}}&amp;size=320" class="img-responsive"/></div>
+					{{/for}}
+				</div>
+				<hr/>
+				<!--
+				<h3>Отрасаль и должность</h3>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>Укажите вашу отрасль</label>
+					</div>
+					<div class="col-xs-9">
+						<input class="form-control"/>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>Укажите вашу отрасль</label>
+					</div>
+					<div class="col-xs-9">
+						<input class="form-control"/>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>Занятость</label>
+					</div>
+					<div class="col-xs-9">
+						<label class="radio-inline">
+							<input type="radio"/>Полная
+						</label>
+						<label class="radio-inline">
+							<input type="radio"/>Частичная
+						</label>
+					</div>
+				</div>
+				<hr/>
+				<h3>Образование</h3>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>Уровень образования</label>
+					</div>
+					<div class="col-xs-9">
+						<select class="form-control"></select>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>Учебное заведение</label>
+					</div>
+					<div class="col-xs-9">
+						<input class="form-control"/>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>Специальность/год</label>
+					</div>
+					<div class="col-xs-9">
+						<div class="row">
+							<div class="col-xs-6">
+								<input class="form-control"/>
+							</div>
+							<div class="col-xs-6">
+								<sselect class="form-control"></sselect>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr/>
+				<h3>Дипломы</h3>
+				<div class="row">
+					<div style="margin-bottom: 20px" class="col-xs-3"><img src="http://robohash.org/7.png?set=set3" class="img-responsive"/>
+						<div style="margin-top: 10px">
+							<div class="btn-group">
+								<button class="btn btn-default">Удалить</button>
+								<button class="btn btn-default">Заблокировать</button>
+							</div>
+						</div>
+					</div>
+					<div style="margin-bottom: 20px" class="col-xs-3"><img src="http://robohash.org/7.png?set=set3" class="img-responsive"/></div>
+					<div style="margin-bottom: 20px" class="col-xs-3"><img src="http://robohash.org/7.png?set=set3" class="img-responsive"/></div>
+					<div style="margin-bottom: 20px" class="col-xs-3"><img src="http://robohash.org/7.png?set=set3" class="img-responsive"/></div>
+				</div>
+				<hr/>
+				<h3>Портфолио
+					<div class="row">
+						<div style="margin-bottom: 20px" class="col-xs-3"><img src="http://robohash.org/7.png?set=set3" class="img-responsive"/></div>
+						<div style="margin-bottom: 20px" class="col-xs-3"><img src="http://robohash.org/7.png?set=set3" class="img-responsive"/></div>
+						<div style="margin-bottom: 20px" class="col-xs-3"><img src="http://robohash.org/7.png?set=set3" class="img-responsive"/></div>
+						<div style="margin-bottom: 20px" class="col-xs-3"><img src="http://robohash.org/7.png?set=set3" class="img-responsive"/></div>
+					</div>
+				</h3>
+				<hr/>
+				<h3>Каръера</h3>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>Учебное заведение</label>
+					</div>
+					<div class="col-xs-9">
+						<input class="form-control"/>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>Название организации</label>
+					</div>
+					<div class="col-xs-9">
+						<input class="form-control"/>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>Cфера деятельности</label>
+					</div>
+					<div class="col-xs-9">
+						<select class="form-control"></select>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>Должность/период</label>
+					</div>
+					<div class="col-xs-3">
+						<select class="form-control"></select>
+					</div>
+					<div class="col-xs-2">
+						<input class="form-control"/>
+					</div>
+					<div class="col-xs-2">
+						<input class="form-control"/>
+					</div>
+					<div class="col-xs-2">
+						<label class="radio-inline">
+							<input type="radio"/>Частичная
+						</label>
+					</div>
+				</div>
+				<hr/>
+				<h3>Языки</h3>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>Русский</label>
+					</div>
+					<div class="col-xs-9">
+						<select class="form-control"></select>
+					</div>
+				</div>
+				<hr/>
+				<h3>Навыки</h3>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>Ура!</label>
+					</div>
+					<div class="col-xs-9">
+						<select class="form-control"></select>
+					</div>
+				</div>
+				<hr/>
+				<h3>Дополнительно</h3>
+				<div class="row form-group">
+					<div class="col-xs-2">
+						<label>Национальность</label>
+					</div>
+					<div class="col-xs-5">
+						<input class="form-control"/>
+					</div>
+					<div class="col-xs-5">
+						<input class="form-control"/>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-2">
+						<label>Вероисповедание</label>
+					</div>
+					<div class="col-xs-5">
+						<input class="form-control"/>
+					</div>
+					<div class="col-xs-5">
+						<select class="form-control"></select>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-2">
+						<label>О себе</label>
+					</div>
+					<div class="col-xs-10">
+						<textarea class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-2">
+						<label>Сеймейное положение</label>
+					</div>
+					<div class="col-xs-6"><span class="radio-inline">
+							<label>
+								<input type="radio"/>женат
+							</label></span><span class="radio-inline">
+							<label>
+								<input type="radio"/>холост
+							</label></span><span class="radio-inline">
+							<label>
+								<input type="radio"/>замужем
+							</label></span><span class="radio-inline">
+							<label>
+								<input type="radio"/>не замужем
+							</label></span></div>
+					<div class="col-xs-1">
+						<label>Детеи</label>
+					</div>
+					<div class="col-xs-3">
+						<input class="form-control"/>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-2">
+						<label>Хобби</label>
+					</div>
+					<div class="col-xs-10">
+						<textarea class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-2">
+						<label>Загран паспорт</label>
+					</div>
+					<div class="col-xs-5"><span class="radio-inline">
+							<label>
+								<input type="radio"/>есть
+							</label></span><span class="radio-inline">
+							<label>
+								<inputinput type="radio"></inputinput>нет
+							</label></span></div>
+					<div class="col-xs-2">
+						<label>Курение</label>
+					</div>
+					<div class="col-xs-3"><span class="radio-inline">
+							<label>
+								<input type="radio"/>курю
+							</label></span><span class="radio-inline">
+							<label>
+								<input type="radio"/>не курю
+							</label></span></div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-2 label">Командировки</div>
+					<div class="col-xs-5"><span class="radio-inline">
+							<label>
+								<input type="radio"/>возможны
+							</label></span><span class="radio-inline">
+							<label>
+								<input type="radio"/>невозможны
+							</label></span></div>
+					<div class="col-xs-2 label">Переезд</div>
+					<div class="col-xs-3"><span class="radio-inline">
+							<label>
+								<input type="radio"/>Да
+							</label></span><span class="radio-inline">
+							<label>
+								<input type="radio"/>Нет
+							</label></span></div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-2 label">Водительские права</div>
+					<div class="col-xs-5"><span class="radio-inline">
+							<label>
+								<input type="radio"/>A
+							</label></span></div>
+					<div class="col-xs-2 label">Автомобиль</div>
+					<div class="col-xs-3"><span class="radio-inline">
+							<label>
+								<input type="radio"/>есть
+							</label></span><span class="radio-inline">
+							<label>
+								<input type="radio"/>нет
+							</label></span></div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-2">
+						<label>Личные качества</label>
+					</div>
+					<div class="col-xs-5">
+						<textarea class="form-control"></textarea>
+					</div>
+					<div class="col-xs-5">
+						<textarea class="form-control"></textarea>
+					</div>
+				</div>
+				<hr/>
+				<h3>Контакты</h3>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>email</label>
+					</div>
+					<div class="col-xs-9">
+						<input class="form-control"/>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>skype</label>
+					</div>
+					<div class="col-xs-9">
+						<input class="form-control"/>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>телефон</label>
+					</div>
+					<div class="col-xs-9">
+						<input class="form-control"/>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>адресс</label>
+					</div>
+					<div class="col-xs-9">
+						<input class="form-control"/>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>ссылка на социальную сеть</label>
+					</div>
+					<div class="col-xs-9">
+						<input class="form-control"/>
+					</div>
+				</div>
+				<div class="row form-group">
+					<div class="col-xs-3">
+						<label>дополнитнльно</label>
+					</div>
+					<div class="col-xs-9">
+						<textarea class="form-control"></textarea>
+					</div>
+				</div>
+				-->
+				<div style="padding-bottom: 50px;" class="row">
+					<button class="btn btn-success">Сохранить</button>
+				</div>
+			</div>
+		</div>
+	</form>

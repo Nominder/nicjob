@@ -1,0 +1,16 @@
+br
+br
+.col-xs-12(ng-controller="map.competitorsCtrl")
+	h2 Карта соискателей
+	ui-gmap-google-map(center="map.center", zoom="map.zoom", draggable="true", options="options", bounds="map.bounds")
+		ui-gmap-markers(models="randomMarkers", coords="'self'", icon="'icon'")
+	style.
+		.angular-google-map-container { height: 600px; }
+
+
+
+
+
+
+
+

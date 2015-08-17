@@ -1,0 +1,66 @@
+.col-xs-12.competitorPage.vacansyPage(ng-controller="pages.vacansyCtrl")
+	.col-xs-4.left
+		.user-avatar-wrap
+			.col-xs-12.images
+				.bigImage
+					img(ng-src="{{profile.company.logo ? get_avatar_uri(profile.company.logo) : '/img/avatar.png'}}")
+			.col-xs-12.button
+				button.btn.btn-warning
+					span  Откликнуться
+			.col-xs-12.button
+				button.btn.btn-success
+					span {{vacansy.salary.summa}} руб./{{getFromList('period', vacansy.salary.period)}}
+			.col-xs-12.text-center.sumary
+	.col-xs-8.right
+		.col-xs-12.name
+			b {{vacansy.name}}
+		.col-xs-12.address
+			b {{vacansy.locating.country}}
+		.col-xs-12.industryPost
+			b 
+				span {{getFromList('industry', vacansy.vac_industryPost.industry)}}
+				span(ng-if="vacansy.vac_industryPost.post") ,
+				span  {{vacansy.vac_industryPost.post}}
+		.col-xs-12.vacansy-info
+			.col-xs-6
+				b Занятость: 
+				span {{getFromList('part', vacansy.part)}}
+			.col-xs-6
+				b Опыт работы:
+				span {{vacansy.experience}}
+			.col-xs-6
+				b Уровень образования:
+				span {{getFromList('level', vacansy.level)}}
+			.col-xs-12.languages
+				b Языки
+				.col-xs-12.language(ng-repeat="(j, i) in profile.languages")
+					.col-xs-3
+						b {{getFromList('tag', i.tag)}}
+					.col-xs-9
+						div.lang-lvl-icon(ng-repeat="j in [1,2,3,4,5,6,7,8,9,10,11,12]", ng-class="{'active':i.proficiency >= j}")
+		.col-xs-12.info-1
+			.col-xs-12
+				b Требования: 
+				span {{vacansy.requirements}}
+		.col-xs-12.info-1
+			.col-xs-12
+				b О вакансии: 
+				span {{vacansy.about}}
+		.col-xs-12.info-1
+			.col-xs-12
+				b Обязанности: 
+				span {{vacansy.acting}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

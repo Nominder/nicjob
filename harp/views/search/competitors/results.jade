@@ -1,0 +1,115 @@
+.row.text-center.subnav
+	.col-xs-3
+		i.fa.fa-plus
+		|  
+		a(ng-if="_data.session.auth", ng-href="/#/office") Добавить резюме
+		a(ng-if="!_data.session.auth", ng-click="_data.header.forms.signin.type = 'competitor'; _data.header.forms.tabs.reg = true; modal('login')") Добавить резюме
+	.col-xs-3
+		i.fa.fa-plus
+		|  
+		a(ng-if="_data.session.auth", ng-href="/#/office") Добавить вакансию
+		a(ng-if="!_data.session.auth", ng-click="_data.header.forms.signin.type = 'employer'; _data.header.forms.tabs.reg = true; modal('login')") Добавить вакансию
+	.col-xs-3
+		i.fa.fa-plus
+		|  
+		a(ng-if="_data.session.auth", ng-href="/#/office") Добавить команду
+		a(ng-if="!_data.session.auth", ng-click="_data.header.forms.signin.type = 'team'; _data.header.forms.tabs.reg = true; modal('login')") Добавить команду
+	.col-xs-3(ng-init="viewTypeMap = false;")
+		i.fa.fa-map-marker
+		|  
+		a(ng-click="viewTypeMap = !viewTypeMap;") 
+			span(ng-if="viewTypeMap") Люди списком
+			span(ng-if="!viewTypeMap") Люди на карте
+.col-xs-12
+		.col-xs-12.map(ng-if="viewTypeMap")
+			ui-gmap-google-map(center="map.center", zoom="map.zoom", draggable="true", options="options", bounds="map.bounds")
+				ui-gmap-markers(models="randomMarkers", coords="'self'", icon="'icon'")
+			style.
+				.angular-google-map-container { position:relative; height: 85vh; width:100%; }
+		.col-xs-12.results(ng-if="!viewTypeMap")
+			.col-xs-12.competitor(ng-repeat="i in _data.search.competitors.results")
+				.col-xs-4.text-center.avatar
+					a(ng-href="#/competitor/{{i.id}}")
+						img(ng-src="{{get_avatar_uri(i.profile.images)}}")
+				.col-xs-8.info
+					.col-xs-12.person
+						.col-xs-8
+							a.name(ng-href="#/competitor/{{i.id}}")
+								| {{i.profile.info.lastname}} {{i.profile.info.firstname}} {{i.profile.info.name}}
+							span.age , {{get_current_age(i.profile.info.birthday)}} {{age_text(get_current_age(i.profile.info.birthday))}}
+							span(ng-show="i.online").online    &bull;
+						.col-xs-4.salary
+							i.fa.fa-map-marker
+							span {{i.profile.salary.summa}}
+							span  Руб/{{getFromList('period', i.profile.salary.period)||'мес'}}
+					.col-xs-12.specialty
+						span IT коммуникации и связь, Web Дизайн, верстка.
+						span(ng-if="i.profile.industryPost.length == 0", style="opacity:0;") &empty;
+						span(ng-repeat="v1 in i.profile.industryPost") {{getFromList('industry', v1.industry)}} {{getFromList('post', v1.post)}}{{$last ? '' : ', '}}
+					.col-xs-12.experience
+						div
+							span.lbl Последнее место работы:
+							span {{i.profile.career[i.profile.career.length-1].organization}}
+						div
+							span.lbl Должность:
+							span {{i.profile.career[i.profile.career.length-1].vac_industryPost.post}}
+					.col-xs-12.about
+						b О себе: 
+						span {{i.profile.about}}
+
+
+				.col-xs-12
+					.col-xs-4
+						.btn.btn-success.videocall(ng-click="setInterview(i)")
+							i.fa.fa-video-camera
+							|  Видеоинтервью
+					.col-xs-8
+						.col-xs-12.additional
+							div
+								span(ng-if="i.profile.experience")
+									i.icon-kariera
+									p Опыт {{i.profile.experience}} лет
+								span(ng-if="i.profile.education && i.profile.education.length > 0")
+									i.icon-obrazovanie
+									p Образование:
+										w(ng-repeat="v3 in i.profile.education") {{v3.hs}}
+								span(ng-if="i.profile.languages && i.profile.languages.length > 0")
+									i.icon-yaziki
+									p Языки:
+										w(ng-repeat="v3 in i.profile.languages") {{getFromList('tag', v3.tag)}}
+								span(ng-if="TYPE(i.profile.maritalStatus) != 'undefined'")
+									i.icon-semya
+									p Семейное положение {{i.profile.maritalStatus ? 'женат' : 'холот'}}
+								span(ng-if="i.profile.citizenship && i.profile.citizenship.length > 0")
+									i.icon-graghdanstvo
+									p Гражданство {{i.profile.citizenship}}
+								span(ng-if="TYPE(i.profile.maritalStatus) != 'undefined'")
+									i.icon-zodiak
+									p Знак зодиака {{i.profile.horoscope}}
+								span(ng-click="addCompetitorToBlacklist(i.id)")
+									i.fa.fa-close
+									p В чёрный список
+								span(ng-click="addCompetitorToFavorites(i.id)")
+									i.icon-izbrannoe
+									p В избранное
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

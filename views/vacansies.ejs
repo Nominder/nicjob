@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vacancies</title>
+</head>
+<body>
+	<% items.forEach(function(item) { %>
+		<% if (item.vacansy) { %>
+			<% item.vacansy.forEach(function(vacansy) { %>
+				<% if (vacansy.name) { %>
+					<h2><%= vacansy.name%></h2>
+				<% } %>
+				<% if (vacansy.locating) { %>
+					<p><%= vacansy.locating.country%> <%= vacansy.locating.city %>
+				<% } %>
+				<ul><% if (vacansy.vac_industryPost) { %>
+					<li>Сфера деятельности: <%= vacansy.vac_industryPost.industry %> Занимаемая должность: <%= vacansy.vac_industryPost.post %></li>
+				<% } %>
+				<li>Заработная плата: <% if (vacansy.salary) { %>
+					<%= vacansy.salary.summa %> руб./<%= vacansy.salary.period %></li>
+				<% } %>
+				<li>Занятость: <%= vacansy.part %></li>
+				<% if (vacansy.level) {  %>
+					<li>Уровень образования: <%= vacansy.level %> </li>
+				<% } %>
+				<li>Опыт работы: <%= vacansy.experience %> </li>
+				<% if (vacansy.languages) { vacansy.languages.forEach(function(e) { %>
+					<li>Язык: <%= e.tag %> Уровень владения: <%= e.proficiency %></li>
+				<% }); } %>
+				<% if (vacansy.citizenship) { vacansy.citizenship.forEach(function(e) { %>
+					<li>Гражданство: <%= e %></li>
+				<% }); } %>
+				<li>Требования: <%= vacansy.requirements %></li>
+				<li>О себе: <%= item.profile.about %></li>
+				<li>Обязанности: <%= vacansy.acting %></li>
+				<li><a href="/nojs/employer?id=<%= item._id.toString() %>">Наниматель</a></li>
+				</ul>
+			<% }); %>
+		<% } %>
+	<% }); %>
+</body>
+</html>

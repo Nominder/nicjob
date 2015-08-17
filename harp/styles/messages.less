@@ -1,0 +1,38 @@
+.custom-messages {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	z-index: 10;
+	.message {
+		min-height: 100px;
+		width: 300px;
+		padding: 5px 10px;
+		background-color: rgba(0, 0, 0, 0.5);
+		color: #fff;
+		border-radius: 10px;
+		h5 {
+			margin: 10px 0px 5px 0px;
+			font-size: 14px;
+		}
+		p {
+			margin: 0px;
+			padding: 0px;
+			font-size: 12px;
+		}
+		.close {
+			position: absolute;
+			right: 10px;
+			top: 10px;
+			cursor: pointer;
+		}
+		.buttons {
+			margin: 5px;
+			text-align: center;
+			button {
+				border-radius: 5px;
+				min-width: 50px;
+				max-width: 100px;
+			}
+		}
+	}
+}

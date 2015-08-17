@@ -1,0 +1,94 @@
+.row.text-right(style="margin-bottom: 20px")
+   label Сортировать:
+   .btn-group(style="margin-left: 10px")
+      button.btn.btn-default Количество
+      button.btn.btn-default Причина
+.row
+   .col-xs-3
+      .list-group
+         a.list-group-item Черные списки работодателей
+         a.list-group-item Жалобы на резюме
+         a.list-group-item Проверенный работодатель
+
+   .col-xs-9
+      //Черный список
+      .row.vacancy-item
+         .col-xs-2
+            img.img-responsive(src="http://robohash.org/7.png?set=set3")
+         .col-xs-7
+            div.clearfix
+               h4.pull-left
+                  a Тотраев Давид
+               span.pull-right 24 года
+            hr
+            p
+               b Верстальщик
+               | , Ташкент
+            hr
+            .row
+               .col-xs-6
+                  p Добавлен:
+                     b 23 раза
+               .cil-xs-6
+                  p Причина:
+                     b очень хороший
+         .col-xs-3.text-right
+            .btn-group-vertical
+               button.btn.btn-default(type='button', onclick='edit()', data-toggle='modal', data-target='#modal2')
+                  i.fa.fa-warning(style="margin-right: 5px")
+                  | Заблокировать
+               button.btn.btn-default(type='button', onclick='asout()')
+                  i.fa.fa-user(style="margin-right: 5px")
+                  | Разблокировать
+      //жалобы
+      .row.vacancy-item
+         .col-xs-2
+            img.img-responsive(src="http://robohash.org/7.png?set=set3")
+         .col-xs-7
+            div.clearfix
+               h4.pull-left
+                  a Тотраев Давид
+               span.pull-right 24 года
+            hr
+            p
+               b Верстальщик
+               | , Ташкент
+            hr
+            .row
+               .col-xs-6
+                  p Добавлен:
+                     b 23 раза
+               .cil-xs-6
+                  p Причина:
+                     b очень хороший
+         .col-xs-3.text-right
+            .btn-group-vertical
+               button.btn.btn-default(type='button', onclick='edit()', data-toggle='modal', data-target='#modal2')
+                  i.fa.fa-warning(style="margin-right: 5px")
+                  | Заблокировать
+               button.btn.btn-default(type='button', onclick='asout()')
+                  i.fa.fa-user(style="margin-right: 5px")
+                  | Разблокировать
+      //Проверенный работодатель
+      .row.vacancy-item
+         .col-xs-2
+            img.img-responsive(src="http://robohash.org/7.png?set=set3")
+         .col-xs-7
+            div.clearfix
+               h4.pull-left
+                  a Тотраев Давид
+               span.pull-right 24 года
+            hr
+            p
+               b Верстальщик
+               | , Ташкент
+            hr
+
+         .col-xs-3.text-right
+            .btn-group-vertical
+               button.btn.btn-default(type='button', onclick='edit()', data-toggle='modal', data-target='#modal2')
+                  i.fa.fa-check(style="margin-right: 5px")
+                  | Подтвердить
+               button.btn.btn-default(type='button', onclick='asout()')
+                  i.fa.fa-close(style="margin-right: 5px")
+                  | Отказать

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>teams</title>
+</head>
+<body>
+    <% items.forEach(function(item) { %>
+        <% if (item.profile) { %>
+            <h2><%= item.profile.name %></h2>
+            Количество участников: <%= item.profile.count %>
+            <% if (item.profile.contacts) { %>
+                <p><%= item.profile.contacts.country%> <%= item.profile.contacts.city %>
+            <% } %>
+            <ul><% if (item.profile.industryPost) { item.profile.industryPost.forEach(function(e) { %>
+                <li>Сфера деятельности: <%= e.industry %> Занимаемая должность: <%= e.post %></li>
+            <% }); }%>
+            <li>Желаемая зарплата: <% if (item.profile.salary) { %>
+                <%= item.profile.salary.summa %> руб./<%= item.profile.salary.period %></li>
+            <% } %>
+            <li>О себе: <%= item.profile.about %></li>
+            <li>Навыки: <%= item.profile.skills %></li>
+            <li>Мы ищем: <%= item.profile.looking %></li>
+            </ul>
+        <% } %>
+    <% }); %>
+</body>
+</html>

@@ -1,0 +1,205 @@
+@import "./menu.less";
+
+.application {
+	.search {
+		margin-top: @lineHeight;
+		.right {
+			margin-left: -20px;
+			.subnav {
+				margin-left: -20px;
+				width: ~"calc(100% + 40px)";
+				>div {
+					padding-top: 15px;
+
+					>i {
+						color: @green;
+						font-size: 10px;
+						line-height: @lineHeight / 2;
+					}
+					>a {
+						color: @gray;
+						text-decoration: none;
+						line-height: @lineHeight / 2;
+					  cursor: pointer;
+						&:hover {
+							border-bottom: 1px dotted @gray;
+						}
+					}
+				}
+				>div:last-child {
+					>i {
+						line-height: @lineHeight / 2;
+						font-size: 18px;
+					}
+				}
+			}
+			>div>h3 {
+			  font-size: 24px;
+			  margin: 15px 10px 10px;
+			  line-height: 24px;
+			  font-weight: 700;
+			}
+			.results {
+				margin-left: 10px;
+				.competitor {
+					@borderRadius: 3px;
+					margin: 10px 0px;
+					border-radius: @borderRadius;
+					background-color: @bg4;
+					.avatar {
+						height: 230px;
+					  	overflow: hidden;
+						img {
+							border-top-left-radius: @borderRadius;
+							max-width: 100%;
+							max-height: none !important;
+						}
+					}
+					.info {
+						padding: 0px 10px;
+						>div {
+						   line-height: @lineHeight / 2;
+						   border-top: 1px solid lighten(@gray, 30%);
+						   padding: 5px 0;
+						 }
+
+					  	.person{
+						  line-height: 36px;
+						  font-size: 14px;
+						  height: 36px;
+						  font-weight: 600;
+						  border-top: none;
+						  padding: 0px;
+
+						  a.name{
+							color: #000;
+							font-size: 18px;
+							text-decoration: none;
+
+						  }
+						  .age {
+							font-size: 12px;
+							color: @gray;
+						  }
+						  .online, i {
+							color: @green;
+						  }
+
+						  i.fa-map-marker{
+							font-size: 22px;
+							position: absolute;
+							top: 8px;
+							left: 0px;
+							color: #00ad5b;
+						  }
+
+						  .salary {
+							position: relative;
+							text-align: right;
+							:nth-child(2) {
+							  font-size: 16px;
+							}
+							:nth-child(3) {
+							  color: @gray;
+							  font-size: 12px;
+							}
+						  }
+						}
+
+					  	.specialty{
+						  font-size: 14px;
+						  font-weight: bold;
+						}
+
+					  	.experience{
+						  line-height: @lineHeight / 2;
+						  font-size: 14px;
+						  font-weight: bold;
+						  >div>.lbl {
+							color: @gray;
+							font-size: 13px;
+							font-weight: normal;
+						  }
+						}
+
+					  	.about {
+						  b{
+							font-size: 14px;
+						  }
+						  line-height: @lineHeight / 2;
+						  font-size: 13px;
+						  overflow: hidden;
+						  min-height: 75px;
+						  max-height: 75px;
+						}
+
+					}
+					.videocall {
+					  bottom: 0px;
+					  right: 0px;
+					  width: 100%;
+					  font-weight: bold;
+					  border-radius: 0px;
+					  border-bottom-left-radius: @borderRadius;
+					  background-color: @orange;
+					  border-color: @orange;
+					}
+					.additional {
+					  >div{
+						border-top: 1px solid lighten(@gray, 30%);
+					  }
+					  line-height: @lineHeight / 2;
+					  font-size: @lineHeight / 2;
+					  color: @gray;
+					  margin: 0px;
+					  padding: 0px 10px;
+					  border-bottom: none;
+					  text-align: right;
+					  span {
+						display: inline-block;
+						position: relative;
+						width: 33px;
+						height: 32px;
+						padding: 5px 0px 0px 0px;
+						text-align: center;
+						vertical-align: bottom;
+						p {
+						  position: absolute;
+						  display: none;
+						  text-align: center;
+						  font-size: 11px;
+						  color: #000;
+						  z-index: 2;
+						  line-height: 8px;
+						  width: 400px;
+						  margin-left: -180px;
+						  margin-top: 13px;
+						}
+						&:hover {
+						  background-color: lighten(@gray, 10%);
+						  color: #fff;
+						  p {
+							display: block;
+						  }
+						  &:after {
+							content: "";
+							display: block;
+							width: 0px;
+							height: 0px;
+							border-style: solid;
+							border-width: 5px 5px 0 5px;
+							border-color: lighten(@gray, 10%) transparent transparent transparent;
+							position: absolute;
+							top: 100%;
+							left: 50%;
+							margin: 0 0 0 -5px;
+						  }
+						}
+					  }
+					}
+				}
+			}
+		}
+	}
+}
+

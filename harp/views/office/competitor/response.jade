@@ -1,0 +1,43 @@
+.col-xs-12.competitorOfficeResponse
+	.col-xs-12
+		h4 Вы откликнулись на следующие вакансии
+	.col-xs-9.company(ng-repeat="i in responds")
+		.col-xs-12
+			.col-xs-3.text-center.avatar
+				img(ng-src="{{get_avatar_uri(i.employer.company.logo)}}")
+			.col-xs-9.info
+				.col-xs-12.title
+					div
+						a {{i.vacansy.name}}
+				.col-xs-12.company
+					.col-xs-8
+						span.company-adress {{i.emloyer.contacts.address}}
+						i.fa.fa-map-marker
+					.col-xs-4.text-right.company-name
+						span {{i.emloyer.company.name}}
+				.col-xs-12.about
+					b Требования к кандадату:
+					span {{i.vacansy.about}}
+
+		.col-xs-12
+			.col-xs-3
+				div(ng-switch="i.status")
+					.btn.btn-success(ng-switch-when="1")
+						i.fa.fa-eye
+						span  просмотрено
+					.btn(ng-switch-default)
+						i.fa.fa-eye
+						span  Не просмотрено
+			.col-xs-9.info
+				.col-xs-12.bottom
+					.col-xs-4.salary
+						b {{i.vacansy.salary.summa}}
+						span  руб/{{getFormList('period', i.vacansy.salary.period)}}
+					.col-xs-8.text-right
+						a(href="#/employer/{{i.emp_id}}") Все вакансии {{i.emloyer.company.name}}
+
+
+
+
+
+

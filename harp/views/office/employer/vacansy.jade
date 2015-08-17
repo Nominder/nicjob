@@ -1,0 +1,154 @@
+.officeEmployerVacansy.competitorOfficeProfile
+	.list
+		accordion.accordion
+			accordion-group.vacancy-list(ng-repeat='(_i, i) in vacansy', heading="{{i.name}}")
+				.row(ng-if="i.responds.length > 0")
+					.col-xs-12
+						b Откликнувшиеся:
+						span(ng-repeat="j in i.responds")
+							a(ng-href="#/competitor/{{i.competitor._id}}") {{j.competitor.info.firstname}} {{j.competitor.info.lastname}} {{j.competitor.info.middlename}}
+							| {{$last ? '' : ', '}}
+				hr
+				.row.margin
+					.col-md-3.label Название
+					.col-md-6
+						b {{i.name}}
+				hr
+				.row.margin
+					.col-md-3.label Отрасль
+					.col-md-6
+						b {{i.vac_industryPost.industry}}
+				hr
+				.row.margin
+					.col-md-3.label Должность
+					.col-md-6
+						b {{i.vac_industryPost.post}}
+				hr
+				.row.margin
+					.col-md-3.label Зарплата
+					.col-md-6
+						b {{i.salary.summa}} руб/{{getFromList('period', i.salary.period)}}
+				hr
+				.row.margin
+					.col-md-3.label Занятость
+					.col-md-6
+						b {{getFromList('part', i.part)}}
+				hr
+				.row.margin
+					.col-md-3.label Описание
+					.col-md-6
+						b {{i.about}}
+				hr
+				.row.margin
+					.col-md-3.label Требования
+					.col-md-6
+						b {{i.requirements}}
+				hr
+				.row.margin
+					.col-md-3.label Должностные обязанности
+					.col-md-6
+						b {{i.acting}}
+				hr
+				.row.margin
+					.col-md-3.label Уровень образования
+					.col-md-6
+						b {{getFromList('level', i.level)}}
+				hr
+				.row.margin
+					.col-md-3.label Языки
+					.col-md-6
+						//pre {{i}}
+						div(ng-repeat='j in i.languages')
+							b владение {{getFromList('tag', j.tag)}} языком на {{j.proficiency}} уровне
+				hr
+				.row.margin
+					.col-md-3.label
+						| Отрасль
+					.col-md-6
+						b {{getFromList('industry', i.vac_industryPost.industry)}}
+				hr
+				.row.margin
+					.col-md-3.label
+						| Должность
+					.col-md-6
+						b {{i.vac_industryPost.post}}
+
+				.row.margin.rm-btn
+					.col-md-offset-3.col-md-6
+						button.btn.btn-success(ng-click='removeVacansy(i._id)') Удалить вакансию
+			hr
+
+			accordion-group(heading="Добавить новую")
+				.new
+					.row.margin
+						.col-xs-3.label Название вакансии
+						.col-xs-6
+							input(type="text", ng-model="_add.vacansy.name")
+					.row.margin
+						.col-xs-3.label Отрасль
+						.col-xs-6
+							input(type="text", placeholder="Отрасль", ng-model="_add.vac_industryPost.industry", typeahead="item for item in getListTitles('industry') | filter:$viewValue | limitTo:10")
+							//select(ng-model="_add.vacansy.vac_industryPost.industry")
+								option(ng-repeat="i in getList('industry')", value="{{i.id}}") {{i.title}}
+					.row.margin
+						.col-xs-3.label Должность
+						.col-xs-6
+							input(type="text", placeholder="Должность", ng-model="_add.vacansy.vac_industryPost.post", typeahead="item for item in getListTitles('post') | filter:$viewValue | limitTo:10")
+							//input(type="text", ng-model="_add.vacansy.vac_industryPost.post")
+					.row.margin
+						.col-xs-3.label Оплата
+						.col-xs-3
+							input(type="text", ng-model="_add.vacansy.salary.summa")
+						.col-xs-3
+							select(ng-model="_add.vacansy.salary.period")
+								option(ng-repeat="i in getList('period')", value="{{i.id}}") {{i.title}}
+
+					//.row.margin
+						.col-xs-3 Количество лет опыта
+						.col-xs-9
+							input(type="text", ng-model="_add.vacansy.experience")
+					.row.margin
+						.col-xs-3.label Занятость
+						.col-xs-6
+							select(ng-model="_add.vacansy.part")
+								option(ng-repeat="i in getList('part')", value="{{i.id}}") {{i.title}}
+					.row.margin
+						.col-xs-3.label Уровень образования
+						.col-xs-6
+							select(ng-model="_add.vacansy.level")
+								option(ng-repeat="i in getList('level')", value="{{i.id}}") {{i.title}}
+					.row.margin
+						.col-xs-3.label Знание языка
+						.col-xs-6
+							select(ng-model="_add.vacansy.tag")
+								option(ng-repeat="i in getList('tag')", value="{{i.id}}") {{i.title}}
+					.row.margin
+						.col-xs-3.label Гражданство
+						.col-xs-6
+							select(ng-model="_add.vacansy.citizenship")
+								option(ng-repeat="i in getList('citizenship')", value="{{i.id}}") {{i.title}}
+					.row.margin
+						.col-xs-3.label Требования к кандидату
+						.col-xs-6
+							textarea(ng-model="_add.vacansy.requirements")
+					.row.margin
+						.col-xs-3.label Должностные обязанности
+						.col-xs-6
+							textarea(ng-model="_add.vacansy.acting")
+					.row.margin
+						.col-xs-3.label О вакансии
+						.col-xs-6
+							textarea(ng-model="_add.vacansy.about")
+					.row.margin
+						.col-xs-3.label Адрес
+						.col-xs-6
+							input(type="text", ng-model="_add.address", typeahead-input-formatter="formatLabel($model)", typeahead-on-select="setGeo($item, _add.vacansy)", placeholder="Страна / город", typeahead="address for address in getLocation($viewValue)", typeahead-template-url="customGeoTemplate.html", typeahead-loading="loadingLocations")
+							//input(type="text", ng-model="_add.vacansy.address.country")
+					.row.margin
+						.col-xs-offset-3.col-xs-6
+							button.btn.btn-success(ng-click="addVacansy()") добавить
+
+
+
+
+

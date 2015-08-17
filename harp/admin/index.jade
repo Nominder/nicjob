@@ -1,0 +1,103 @@
+doctype html
+html
+	head
+		title Admin
+		link(rel='stylesheet', type='text/css', href='/admin/css/bootstrap.min.css')
+		link(rel='stylesheet', type='text/css', href='/admin/css/admin.css')
+		link(rel='stylesheet', type='text/css', href='/admin/css/font-awesome.min.css')
+		script(type='text/javascript', src='/admin/js/jquery-2.1.1.min.js')
+		script(type='text/javascript', src='http://www.jsviews.com/download/jsrender.min.js')
+		script(type='text/javascript', src='/admin/js/common.js')
+
+	body(onload='showProfile()')
+		!= partial("./tmpls/all.jade")
+		nav.navbar.navbar-default
+			.container
+				.navbar-header
+					button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1")
+						span.sr-only Toggle navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a.navbar-brand(href="#") Admin panel
+				.collapse.navbar-collapse(id="bs-example-navbar-collapse-1")
+					ul.nav.navbar-nav
+						li.active(role='presentation')
+							a(href='#profile', aria-controls='profile', role='tab', data-toggle='tab') Профиль
+						li(role='presentation')
+							a(href='#accounts', aria-controls='accounts', role='tab', data-toggle='tab') Аккаунты
+						li(role='presentation')
+							a(href='#requests', aria-controls='requests', role='tab', data-toggle='tab') Запросы
+						li(role='presentation')
+							a(href='#lists', aria-controls='lists', role='tab', data-toggle='tab') Списки
+
+		.container
+			.tab-content
+				#profile.tab-pane.active(role='tabpanel')
+					!= partial("./profile.jade")
+				#accounts.tab-pane(role='tabpanel')
+					!= partial("./accounts.jade")
+				#requests.tab-pane(role='tabpanel')
+					!= partial("./requests.jade")
+				#lists.tab-pane(role='tabpanel')
+					!= partial("./lists.jade")
+
+
+		#myModal.modal.fade
+			.modal-dialog
+				.modal-content
+					.modal-header
+						button.close(type='button', data-dismiss='modal', aria-label='Close')
+							span(aria-hidden='true') ×
+						h4.modal-title Modal title
+					#modal-body.modal-body
+						
+					.modal-footer
+						button.btn.btn-default(type='button', data-dismiss='modal') Close
+						button.btn.btn-primary(type='button') Save changes
+				// /.modal-content
+			// /.modal-dialog
+		// /.modal
+
+
+		script(type='text/javascript', src='/admin/js/bootstrap.min.js')
+		script(type='text/javascript', src='/admin/js/profile.js')
+		script(type='text/javascript', src='/admin/js/request.js')
+		script(type='text/javascript', src='/admin/js/lists.js')
+		script(type='text/javascript').
+			$('.navbar-nav a:first').on('show.bs.tab', function(e) {
+			showProfile();
+			});
+			$('.navbar-nav a:last').on('show.bs.tab', function(e) {
+			showLists();
+			});
+
+		script(type='text/javascript').
+			$('#email2').on("keydown keypress", function(e){
+			var e = e || event, k = e.which || e.button;
+			if(e.ctrlKey && k == 86) return false;
+			if(k == 2)return false;
+			}).bind("paste contextmenu", function() {
+			return false;
+			});
+			$('#pass2').on("keydown keypress", function(e){
+			var e = e || event, k = e.which || e.button;
+			if(e.ctrlKey && k == 86) return false;
+			if(k == 2)return false;
+			}).bind("paste contextmenu", function() {
+			return false;
+			});
+
+
+
+
+
+
+style.
+	html{
+		height: 100%;
+	}
+	body {
+		min-height: 100%;
+	}
+

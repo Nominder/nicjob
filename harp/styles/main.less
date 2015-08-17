@@ -1,0 +1,83 @@
+
+@lineHeight: 40px;
+
+
+@green: #00ad5b;
+@gray: #787878;
+@orange: #ff4e00;
+@lightBlue: #e4e4e4;
+
+body {
+	font-family: 'Open Sans', 'sans-serif';
+  	overflow-x: hidden;
+}
+.map{
+  width: 2000px;
+  margin-bottom: -50px;
+  margin-left: -15px;
+}
+#header-bg{
+  position: fixed;
+  top:0px;
+  left:0px;
+  right: 0px;
+  height: 40px;
+  z-index: 999998;
+  background-color: #1d1d1d;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.debug {
+	position: fixed;
+	display: block;
+	float: left;
+	width: 300px;
+	padding: 10px;
+	right: 10px;
+	bottom: 10px;
+	background-color: rgba(255, 0, 0, .3);
+	z-index: 100000;
+}
+
+
+
+.container {
+	max-width: none !important;
+}
+
+
+@import "./customize.less";
+
+@import "./formElements.less";
+
+@import "./modal.less";
+
+@import "./messages.less";
+
+@import "./header.less";
+
+@import "./footer.less";
+
+@import "./search/competitors.less";
+
+@import "./search/vacansy.less";
+
+@import "./office/main.less";
+
+@import "./pages/competitor.less";
+
+@import "./pages/vacansy.less";
+
+@import "./debugger.less";
+

@@ -1,0 +1,52 @@
+script(type="text/ng-template", id="customGeoTemplate.html").
+	<a>
+		{{match.label.address}}
+	</a>
+script(type="text/ng-template", id="inputListTmpl.html").
+	<a>
+		<pre>{{match.label}}</pre>
+	</a>
+div(ng-controller="headerCtrl")
+	!= partial("./modals.jade")
+	.custom-messages
+		.message(ng-repeat="i in _data.messages")
+			.close(ng-click="removeMessage(i.id)")
+				i.fa.fa-close
+			h5 {{i.title}}
+			p {{i.description}}
+			.buttons
+				button(ng-repeat="j in i.buttons", style="background-color: {{j.color||'#888'}}; border-color: {{j.color||'#888'}}; ", ng-click="j.callback(i.id)") {{j.text}}
+	//.debug
+		h4 Modals
+		button(ng-click="modal('confirmPhone')") confirmPhone
+		button(ng-click="modal('login')") login
+		button(ng-click="modal('makePhoto')") makePhoto
+		button(ng-click="modal('makeVideo')") makeVideo
+		button(ng-click="modal('createInterview')") createInterview
+		button(ng-click="modal('videocall')") videocall
+	.header
+		.logo
+			a(href="#/search/competitors")
+				img(src="/img/logo.png")
+		.navigate
+			div(ng-class="{'active':(_data.header.active == 'competitors')}")
+				a(ng-href="#/search/competitors") Люди
+			div(ng-class="{'active':(_data.header.active == 'vacansy')}")
+				a(ng-href="#/search/vacansy") Работа
+			div(ng-class="{'active':(_data.header.active == 'teams')}")
+				a(ng-href="#/search/teams") Команды
+		.enter
+			button.btn.btn-success(ng-click="modal('login');", ng-class="{'hide':_data.session.auth==true}") Вход
+			div.headerMenu(ng-class="{'hide':_data.session.auth==false}")
+				div
+					.email {{_data.session.email}}
+				div
+					i.fa.fa-user
+					a(href="#/office") Кабинет
+				div
+					i.fa.fa-sign-out
+					a(href="", ng-click="logout()") Выход
+	script $(document).on('scroll', function() {var s = '.application .header .navigate .active a'; if($(this).scrollTop() > 0) {$(s).addClass('scrolled');} else {$(s).removeClass('scrolled');}});
+
+
+

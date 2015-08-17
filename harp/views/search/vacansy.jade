@@ -1,0 +1,5 @@
+.row.search(ng-controller="searchVacansyCtrl")
+	.col-xs-3.left
+		ng-include(src="'/views/search/vacansy/menu.html'")
+	.col-xs-9.right
+		!= partial("./vacansy/results.jade")

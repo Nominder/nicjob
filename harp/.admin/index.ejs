@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>Admin</title>
+		<link rel="stylesheet" type="text/css" href="/admin/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/admin/css/font-awesome.min.css">
+	</head>
+
+	<body onload="showProfile()">
+
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Профиль</a>
+			</li>
+			<li role="presentation"><a href="#accounts" aria-controls="accounts" role="tab" data-toggle="tab">Аккаунты</a>
+			</li>
+			<li role="presentation"><a href="#lists" aria-controls="lists" role="tab" data-toggle="tab">Списки</a>
+			</li>
+		</ul>
+
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="profile"><%- partial("./profile.ejs") %></div>
+			<div role="tabpanel" class="tab-pane" id="accounts"><%- partial("./accounts.ejs") %></div>
+			<div role="tabpanel" class="tab-pane" id="lists"><%- partial("./lists.ejs") %></div>
+		</div>
+
+		<script type="text/javascript" src="/admin/js/profile.js"></script>
+		<script type="text/javascript" src="/admin/js/request.js"></script>
+		<script type="text/javascript" src="/admin/js/lists.js"></script>
+		<script type="text/javascript" src="/admin/js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="/admin/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			$('a:first').on('show.bs.tab', function(e) {
+				showProfile();
+			});
+			$('a:last').on('show.bs.tab', function(e) {
+				showLists();
+			});
+		</script>
+		<script type="text/javascript">
+			$('#email2').on("keydown keypress", function(e){
+				var e = e || event, k = e.which || e.button;
+				if(e.ctrlKey && k == 86) return false;
+				if(k == 2)return false;
+			}).bind("paste contextmenu", function() {
+				return false;
+			});
+			$('#pass2').on("keydown keypress", function(e){
+				var e = e || event, k = e.which || e.button;
+				if(e.ctrlKey && k == 86) return false;
+				if(k == 2)return false;
+			}).bind("paste contextmenu", function() {
+				return false;
+			});
+		</script>
+	</body>
+
+</html>

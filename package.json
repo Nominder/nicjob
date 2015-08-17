@@ -1,0 +1,37 @@
+{
+  "name": "project01",
+  "version": "0.0.0",
+  "description": "project01 =========",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TuxUbuntu/project01"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TuxUbuntu/project01/issues"
+  },
+  "homepage": "https://github.com/TuxUbuntu/project01",
+  "dependencies": {
+    "body-parser": "~1.9.0",
+    "cookie-parser": "~1.3.3",
+    "cookie-session": "~1.0.2",
+    "debug": "~2.0.0",
+    "ejs": "^1.0.0",
+    "express": "~4.9.8",
+    "fluent-ffmpeg": "^2.0.0-rc3",
+    "gm": "~1.16.0",
+    "harp": "^0.14.0",
+    "mongodb": "~2.0",
+    "morgan": "~1.3.2",
+    "multer": "~0.1.4",
+    "nodemailer": "^1.3.0",
+    "peer": "^0.2.8",
+    "request": "^2.45.0",
+    "serve-favicon": "~2.1.5"
+  }
+}

@@ -1,0 +1,39 @@
+
+.employer-office {
+	@import "./employer/profile.less";
+	@import "./employer/vacansy.less";
+	@import "./employer/blacklist.less";
+	@import "./employer/watchlist.less";
+
+  	position: relative;
+  	.count{
+	  position: absolute;
+	  top: 5px;
+	  display: block;
+	  height: 25px;
+	  width: 25px;
+	  line-height: 25px;
+	  text-align: center;
+	  font-size: 16px;
+	  font-weight: 600;
+	  background-color: #ddd;
+	  border-radius: 50%;
+	  &.vac-count{
+		left: 180px;
+	  }
+	  &.res-count{
+		left: 310px;
+	  }
+	}
+  	.day-count{
+	  position: absolute;
+	  top: 15px;
+	  right: 0px;
+	  color: #adadad;
+	  b{
+		margin: 0 5px;
+		font-size: 16px;
+		color: #333;
+	  }
+	}
+}

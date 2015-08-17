@@ -1,0 +1,174 @@
+
+.menu {
+
+}
+
+.menu>.item {
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	color: #aaa;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	font-weight: bolder;
+	background-color: #000;
+	cursor: pointer;
+}
+
+.menu>.item.active {
+	background-color: #353535;
+}
+
+.menu>.item:hover {
+	text-decoration: underline;
+}
+
+
+.menu>.item:last-child {
+	text-align: right;
+}
+
+.menu .btn {
+	padding: 1px;
+	width: 80%;
+	color: #fff;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	font-weight: bolder;
+	background-color: #293;
+}
+
+
+.logo img {
+	display: inline-block;
+	max-width: 100%;
+}
+
+
+
+.ng-modal {
+	position: fixed;
+	left:50%;
+	top:55%;
+	width: 400px;
+	max-height: 300px;
+	min-height: 200px;
+	padding-bottom: 15px;
+	margin-left: -200px;
+	margin-top: -150px;
+	background-color: #fff;
+	border: 1px solid #111;
+	z-index: 10;
+}
+
+
+.tabs {
+	
+}
+
+.tabs .nav.nav-tabs {
+	width: 100%;
+}
+
+.ng-modal .nav-tabs {
+	height: 50px;
+	border: 1px solid #fff;
+	text-transform: uppercase;
+	color: #aaa;
+	background-color: #111;
+}
+
+
+.ng-modal .nav-tabs li a {
+	line-height: 1;
+	text-transform: uppercase;
+	color: #aaa;
+	background-color: #111;
+
+	border-bottom-color: transparent;
+
+	height: 48px;
+	padding: 15px 0px 0px 0px;
+	border-radius: 0px;
+	cursor: pointer;
+}
+
+.ng-modal .tabs .head .item.action {
+	background-color: #333;
+}
+
+
+
+
+.ng-modal .tabs .head .item.action:after {
+	content: "";
+display: block;
+width: 0px;
+height: 0px;
+border-style: solid;
+border-width: 11px 12px 0 12px;
+border-color: #353535 transparent transparent transparent;
+position: absolute;
+top: 100%;
+left: 50%;
+margin: 0 0 0 -12px;
+}
+
+.ng-modal .tabs .body .item {
+	padding-top: 20px;
+}
+
+.ng-modal .tabs .body .item input[type=text],
+.ng-modal .tabs .body .item input[type=password],
+.ng-modal .tabs .body .item select,
+.ng-modal .tabs .body .item input[type=email] {
+	display: block;
+	width: 80%;
+	margin: 10px 10%;
+	padding: 5px;
+	border: none;
+	background-color: #eee;
+}
+
+
+input.ng-valid, select.ng-valid, textarea.ng-valid {
+	border: 1px solid green !important;
+}
+
+input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
+	border: 1px solid red !important;
+}
+
+
+.ng-modal .btna {
+	padding: 1px 5px;
+	margin-left: 30%;
+	color: #fff;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	font-weight: bolder;
+	background-color: #293;
+}
+
+.errors {
+	display: block;
+	width: 0px;
+	height: 0px;
+}
+
+.errors > .error {
+	position: fixed;
+	width: 300px;
+	height: 100px;
+	right: 20px;
+	bottom: 20px;
+	background-color: rgba(255, 0, 0, .2);
+	z-index: 8;
+}
+
+.errors > .error i {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+

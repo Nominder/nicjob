@@ -1,0 +1,5 @@
+.row.search(ng-controller="searchCompetitorsCtrl")
+	.col-xs-3.left
+		ng-include(src="'/views/search/competitors/menu.html'")
+	.col-xs-9.right
+		!= partial("./competitors/results.jade")

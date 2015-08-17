@@ -1,0 +1,15 @@
+.row
+	.col-xs-3
+		ul.list-group
+			li.active(role='presentation')
+				a.list-group-item(href='#resume-acc', id="resume-acc-btn", aria-controls='resume-acc', role='tab', data-toggle='tab') Резюме
+			li(role='presentation')
+				a.list-group-item(href='#vacancy-acc', id="vacansy-acc-btn", aria-controls='vacancy-acc', role='tab', data-toggle='tab') Вакансии
+
+	.col-xs-9
+		.tab-content
+			#resume-acc.tab-pane.active(role='tabpanel')
+				!= partial("./accounts/resume.jade")
+			#vacancy-acc.tab-pane(role='tabpanel')
+				!= partial("./accounts/vacancy.jade")
+

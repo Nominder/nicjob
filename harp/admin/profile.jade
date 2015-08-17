@@ -1,0 +1,66 @@
+
+div.row
+  .col-xs-3
+    img.avatar.img-responsive
+  .col-xs-5
+    h2.fio
+    h3.type
+    h5.about
+  .col-xs-4
+    .btn-group
+      button.btn.btn-default(type='button', onclick='edit()', data-toggle='modal', data-target='#modal2')
+        i.fa.fa-edit
+        | Редактировать профиль
+      button.btn.btn-default(type='button', onclick='asout()')
+        i.fa.fa-sign-out
+        | Выход
+
+#modal2.modal.fade(tabindex='-1')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          i.fa.fa-close
+        h4#myModalLabel.modal-title Редактирование профиля
+
+      .modal-body
+        .form-group
+          input#exampleInputEmail2.form-control.firstname(type='text', placeholder='Имя')
+
+        .form-group
+          input#exampleInputEmail2.form-control.middlename(type='text', placeholder='Отчество')
+
+        .form-group
+          input#exampleInputEmail2.form-control.lastname(type='text', placeholder='Фамилия')
+
+        hr
+
+        h5.minfo
+
+        .form-group
+          input#email1.form-control.email1(type='email', placeholder='Введите новый email')
+
+        .form-group
+          input#email2.form-control.email2(type='email', placeholder='Подтвердите новый email')
+
+        hr
+
+        hr
+
+        h5 Изменить пароль
+
+        .form-group
+          input#pass1.form-control.pass1(type='password', placeholder='Введите новый пароль')
+
+        .form-group
+          input#pass2.form-control.pass2(type='password', placeholder='Подтвердите новый пароль')
+
+        hr
+
+        .form-group
+          textarea#exampleInputEmail2.form-control.eabout(placeholder='Дополнительная информация')
+      |
+      .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') Закрыть
+
+        button.btn.btn-primary.updateValue(type='button', data-dismiss='modal', onclick='update()')  Сохранить

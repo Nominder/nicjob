@@ -1,0 +1,37 @@
+#!/usr/bin/env node
+"use strict";
+var debug = require('debug')('project01');
+var app = require('../app');
+var ExpressPeerServer = require('peer').ExpressPeerServer;
+var account = new(require('../models/account.js'))();
+
+setTimeout(function() {
+	account.init({app: app});
+}, 20000)
+
+app.set('port', process.env.PORT || 80);
+
+var server = app.listen(app.get('port'), function() {
+	console.log('Express server listening on port ' + server.address().port);
+  	debug('Express server listening on port ' + server.address().port);
+});
+
+var options = {
+    debug: true
+}
+
+var s1 = ExpressPeerServer(server, options);
+app.use('/WebRTC', s1);
+
+/*s1.on('connection', function(id) {
+	account.update({id: id, changes: {online: true}}, function(err, res) {
+		if (err) console.log(err);
+	});
+});
+
+s1.on('disconnect', function(id) {
+	account.update({id: id, changes: {online: false}}, function(err, res) {
+		if (err) console.log(err);
+	});
+})
+*/

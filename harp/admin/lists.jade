@@ -1,0 +1,40 @@
+
+.row(style="margin-top:20px")
+  .col-xs-3
+    .list-group.lists
+  .col-xs-9
+    ul.list-group.list
+      li.list-group-item(style='font-weight: bold')
+        | Элементы списка
+        i.fa.fa-plus(style='float: right; cursor: pointer')
+
+
+#modal.modal.fade(tabindex='-1')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          i.fa.fa-close
+        h4#myModalLabel.modal-title Добавление элемента
+      .modal-body
+        .form-group
+          input#exampleInputEmail2.form-control.value(autofocus='', type='email', placeholder='Введите значение')
+      .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') Закрыть
+        button.btn.btn-primary.addValue(type='button', data-dismiss='modal') Добавить
+    // /.modal-content
+
+
+#modal1.modal.fade(tabindex='-1')
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal', aria-label='Close')
+          i.fa.fa-close
+        h4#myModalLabel.modal-title Редактирование элемента
+      .modal-body
+        .form-group
+          input#exampleInputEmail2.form-control.value1(type='email', placeholder='Введите значение')
+      .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') Закрыть
+        button.btn.btn-primary.updateValue123(type='button', data-dismiss='modal') Сохранить

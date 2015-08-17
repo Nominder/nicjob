@@ -1,0 +1,75 @@
+.row.text-center.subnav
+	.col-md-3
+		i.fa.fa-plus
+		|  
+		a(ng-click="_data.header.forms.signin.type = 'competitor'; _data.header.forms.tabs.reg = true; modal('login')") Добавить резюме
+	.col-md-3
+		i.fa.fa-plus
+		|  
+		a(ng-click="_data.header.forms.signin.type = 'employer'; _data.header.forms.tabs.reg = true; modal('login')") Добавить вакансию
+	.col-md-3
+		i.fa.fa-plus
+		|  
+		a(ng-click="_data.header.forms.signin.type = 'team'; _data.header.forms.tabs.reg = true; modal('login')") Добавить команду
+	.col-md-3
+		i.fa.fa-map-marker
+		|  
+		a(href="#") Соискатели на карте
+
+.col-xs-12
+	h3 Вакансии
+.col-xs-12.results(ng-repeat="i in _data.search.vacansy.results")
+	.col-xs-12.vacansy
+		.col-xs-4.text-center.avatar
+			a(ng-href="#/vacansy/{{i.emp_id}}/{{i._id}}")
+				img(ng-src="{{get_avatar_uri(i.emp_profile.company.logo)}}")
+
+		.col-xs-8.info
+			.col-xs-12.vacancy-name
+				a.name(ng-href="#/vacansy/{{i.emp_id}}/{{i._id}}") {{i.name}}
+			.col-xs-12.specialty
+				span {{getFromList('industry', i.vac_industryPost.industry)}} {{i.vac_industryPost.post}}
+			.col-xs-12.adress
+				.col-xs-8
+					span {{i.locating.country}}, {{i.locating.city}} {{i.locating.address}}
+				.col-xs-4.text-right
+					span {{i.emp_profile.company.name}}
+			.col-xs-12.about
+				b О вакансии: 
+				span {{i.about}}
+		//div.row
+			pre.col-xs-12 {{i | json}}
+		.col-xs-12
+			.col-xs-4
+				.btn.btn-success.videocall(ng-click="sendRespond(i.emp_id, i._id)")
+					i.fa.fa-list-alt
+					|  Откликнуться
+			.col-xs-8
+				.col-xs-12.additional(ng-mouseover="help#{i}=true;", ng-mouseleave="help#{i}=false;")
+					.col-xs-4.salary.text-left
+						span {{i.salary.summa}}
+						span  Руб/{{getFromList('period', i.salary.period)||'мес'}}
+					.col-xs-8.icons
+						span
+							i.fa.fa-list
+							p все вакансии этого работодателя
+						span
+							i.fa.fa-close
+							p В чёрный список
+						span
+							i.icon-izbrannoe
+							p В избранное
+
+
+
+
+
+
+
+
+
+
+
+
+
+

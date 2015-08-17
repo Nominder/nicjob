@@ -1,0 +1,170 @@
+
+.custom-modal(ng-show="modalType != false")
+	.vual(ng-click="modal(false)")
+	.window(ng-show="modalType == 'login'").login
+		tabset
+			tab(heading="Вход")
+				.form.col-xs-12
+					.row.col-xs-12
+						input(type="text", placeholder="e-mail", ng-model="_data.header.forms.signup.email")
+					.row.col-xs-12
+						.col-xs-8
+							input(type="password", placeholder="Пароль", ng-model="_data.header.forms.signup.passwd")
+						.col-xs-4.text-right
+							button.btn.btn-success(ng-click="login(_data.header.forms.signup)") Войти
+			tab(heading="Регистрация", active="_data.header.forms.tabs.reg")
+				.form.col-xs-12
+					.row.col-xs-12
+						input(type="text", placeholder="e-mail", ng-model="_data.header.forms.signin.email")
+					.row.col-xs-12
+						input(type="password", placeholder="Пароль", ng-model="_data.header.forms.signin.passwd")
+					.row.col-xs-12
+						input(type="password", placeholder="Подтверждение пароля", ng-model="_data.header.forms.signin.passwd1")
+					.row.col-xs-12
+						select(ng-model="_data.header.forms.signin.type")
+							option(value="competitor") Соискатель
+							option(value="employer") Работодатель
+							option(value="team") Команда
+					.row.col-xs-12
+						.col-xs-offset-6.col-xs-6.text-right
+							button.btn.btn-success(ng-click="signup(_data.header.forms.signin)") Зарегистрироваться
+			tab(heading="Восстановление пароля")
+				.form.col-xs-12
+					.row.col-xs-12
+						input(type="text", placeholder="e-mail", ng-model="_data.header.forms.remember.email")
+					.row.col-xs-12
+						.col-xs-offset-8.col-xs-4.text-right
+							button.btn.btn-success(ng-click="remind(_data.header.forms.remember)") Восстановить
+	.window(ng-show="modalType == 'confirmPhone'", ng-controller="confirmPhone").confirmPhone
+		tabset
+			tab(heading="Confirm phone")
+				.form.col-xs-12
+					.row.col-xs-12
+						p 
+							span На Ваш телефон (
+							span {{phone}}
+							span ) отправлен код подтверждения.
+					.row.col-xs-12
+						.col-xs-2 Код:
+						.col-xs-10
+							input(type="text", ng-model="code")
+					.row.col-xs-12.text-center
+						.col-xs-6.text-left
+							button.btn.btn-success(ng-click="sendCode()") Послать заново
+						.col-xs-6.text-right
+							button.btn.btn-success(ng-click="confirm(code)") Готово
+	.window(ng-show="modalType == 'makeVideo'", ng-controller="makeVideo").makeVideo
+		tabset
+			tab(heading="Записать")
+				.col-xs-12.text-center.video-wrap(ng-show="!processing")
+					.col-xs-12
+						video.videoPreview(poster="/img/nocam.png")
+					.col-xs-12
+						.col-xs-6.text-left
+							span {{timimg}}
+						.col-xs-6.text-right(ng-show="processing")
+							p.processing {{processing}}
+					.col-xs-12(style="margin-top: 10px;")
+						.col-xs-6.text-left
+							button.startbutton.btn.btn-success(ng-click="startBackTimerRecording()")
+								span(ng-show="isv") Начать запись
+								span(ng-show="!isv") Переснять
+						.col-xs-6.text-right
+							button.endbutton.btn.btn-success(ng-click="endRecording()") Готово
+
+
+			tab(heading="Загрузить")
+				.videoUpload.upload-wrap.text-center
+					.videoIframe(ng-show="videoUploadFormView")
+					.videoProgress(ng-show="!videoUploadFormView")
+						h2 Загрузить видео
+						progress(max="100" value="0")
+						|Загружено на 
+						span#value 0
+						| %
+	.window(ng-show="modalType == 'makePhoto'", ng-controller="makePhoto").makePhoto
+		tabset
+			tab(heading="Сфотографировать")
+				.col-xs-12.makefoto-wrap.text-center
+					.col-xs-12.img-wrap
+						video(poster="/img/nocam.png")
+						img(src="http://placekitten.com/g/200/150", alt="photo", style="display:none;")
+						canvas(style="display:none;")
+					.col-xs-12(ng-show="isv")
+						button.startbutton.btn.btn-success(ng-click="getPhoto()") Сфотографировать на Вебкамеру
+					.row(ng-show="!isv")
+						.col-xs-6(style="padding-right: 5px")
+							button.startbutton.btn.btn-success(ng-click="refresh()") Переснять
+						.col-xs-6(style="padding-left: 5px")
+							button.endbutton.btn.btn-success(ng-click="uploadFile()") Готово
+			tab(heading="Загрузить")
+				.col-xs-12.text-center.upload-wrap
+					.col-xs-12(ng-show="!selectImage")
+						input(type="file", accept="image/*", onchange="angular.element(this).scope().imageChange(event)")
+					.col-xs-12
+						.preview
+							img(src="")
+						button.btn.btn-success(ng-click="uploadFile()", ng-show="selectImage", style="margin-top: 20px") Сохранить
+	.window(ng-show="modalType == 'createInterview'", ng-controller="createInterview").createInterview
+		tabset
+			tab(heading="Приглашение на видеособеседование")
+				.col-xs-12.title.text-center
+					p Для большей вероятности укажите три варианта времени собеседования (МСК)
+				.row.text-center.create-interview-wrap(style="padding-bottom: 5px;")
+					.col-xs-5.user-info-wrap
+						.col-xs-12.avatar
+							img(src="http://robohash.org/#{Math.random()}.png?set=set3")
+						.col-xs-12.name
+							h4 {{user.profile.info.firstname}} {{user.profile.info.middlename}}
+							p {{get_current_age(user.profile.info.birthday)}} лет
+							p {{user.profile.salary.summa}} руб/{{getFromList('period', user.profile.salary.period)}}
+
+					.col-xs-7.date-wrap
+						.col-xs-12.dropdown-wrap
+							.dropdown
+								.dropdown-toggle(id="time1" role="button" data-toggle="dropdown")
+									div.text-left.label Первый вариант собеседования
+									div.btn.btn-success {{coolDateTime(date.a) | date: 'dd.MM.yyyy hh:mm'}}
+								ul.dropdown-menu(role="menu")
+									datetimepicker(data-ng-model="date.a" data-datetimepicker-config="{ dropdownSelector: '#time1' }")
+							.dropdown
+								.dropdown-toggle(id="time2" role="button" data-toggle="dropdown")
+									div.text-left.label Первый вариант собеседования
+									div.btn.btn-success {{coolDateTime(date.b) | date: 'dd.MM.yyyy hh:mm'}}
+								ul.dropdown-menu(role="menu")
+									datetimepicker(data-ng-model="date.b" data-datetimepicker-config="{ dropdownSelector: '#time2' }")
+							.dropdown
+								.dropdown-toggle(id="time3" role="button" data-toggle="dropdown")
+									div.text-left.label Первый вариант собеседования
+									div.btn.btn-success {{coolDateTime(date.c) | date: 'dd.MM.yyyy hh:mm'}}
+								ul.dropdown-menu(role="menu")
+									datetimepicker(data-ng-model="date.c" data-datetimepicker-config="{ dropdownSelector: '#time3' }")
+
+
+				.row.create-interview-wrap
+					.col-xs-5
+						button.btn.btn-success(ng-click="save()") Пригласить
+					.col-xs-7
+						select(ng-model="_add.sVacansy")
+							option(ng-repeat="i in vacansy", value="{{i._id}}") {{i.name}}
+
+	.window(ng-show="modalType == 'videocall'").videocall
+		tabset
+			tab(heading="Собеседование")
+				.col-md-12.videocallmodal
+					.col-md-12
+						.col-md-6
+							video.their-video#their-video(autoplay="", poster="/img/nocam.png")
+						.col-md-6
+							video.my-video#my-video(muted="true", autoplay="", poster="/img/nocam.png")
+					.col-md-12
+						button.col-md-12.btn.btn-danger(ng-click="endCall()") end call
+
+
+
+
+
+
+
+
+

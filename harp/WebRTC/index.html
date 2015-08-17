@@ -1,0 +1,55 @@
+<html>
+
+	<head>
+		<title>WebRTC</title>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+		<script type="text/javascript" src="http://cdn.peerjs.com/0.3/peer.js"></script>
+		<script type="text/javascript" src="./customWRTC.js"></script>
+		<script type="text/javascript">
+			var WebRTC = new customWRTC();
+			var discon = function() {console.log('ololo')};
+		</script>
+	</head>
+
+	<body onload="">
+
+		<input class="myid">
+		<button onclick="WebRTC.init({mySelector: '.my-video', selector: '.their-video', discon: discon, id: document.querySelector('.myid').value}); document.querySelector('.my-id').value=WebRTC.getId()">ok</button>
+		<div class="pure-g">
+
+			<!-- Video area -->
+			<div class="pure-u-2-3" id="video-container">
+				<video class="their-video" id="their-video" autoplay=""></video>
+				<video class="my-video" id="my-video" muted="true" autoplay=""></video>
+			</div>
+
+			<!-- Steps -->
+			<div class="pure-u-1-3">
+				<!-- Make calls to others -->
+				<div id="step2">
+					<p>Your id:
+						<input class="my-id"></input>
+					</p>
+					<div class="pure-form">
+						<input class="callto" type="text" placeholder="Call user id..." id="callto-id">
+						<a href="#" class="pure-button pure-button-success" id="make-call" onclick="WebRTC.startCall({mySelector: '.my-video', id: document.querySelector('.callto').value, selector: '.their-video'})">Call</a>
+					</div>
+				</div>
+
+				<!-- Call in progress -->
+				<div id="step3">
+					<p>Currently in call with
+						<span id="their-id">...</span>
+					</p>
+					<p><a href="#" class="pure-button pure-button-error" id="end-call" onclick="WebRTC.endCall()">End call</a>
+					</p>
+				</div>
+			</div>
+		</div>
+
+
+
+
+	</body>
+
+</html>

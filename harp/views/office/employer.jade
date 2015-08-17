@@ -1,0 +1,20 @@
+.col-xs-12.office(ng-controller="office.employerCtrl").employer-office
+	tabset.tabs
+		tab(heading="Профиль")
+			!= partial("./employer/profile.jade")
+		tab(heading="Вакансии")
+			!= partial("./employer/vacansy.jade")
+		tab(heading="Собеседования")
+			!= partial("./employer/interviews.jade")
+		tab(heading="Избранное")
+			!= partial("./employer/watchlist.jade")
+		tab(heading="Чёрный список")
+			!= partial("./employer/blacklist.jade")
+		tab(heading="Настройки")
+			!= partial("./employer/settings.jade")
+	span.vac-count.count +4
+	span.res-count.count +5
+	p.day-count
+		| Свободный доступ
+		b 215
+		| дней

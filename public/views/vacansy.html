@@ -1,0 +1,370 @@
+<link rel="stylesheet" href="/css/search.css">
+
+<style type="text/css">
+	
+.filter_slider { height:2px;background:#bcbcbc;padding:0 11px; }
+.filter_rangeslider_val { padding:14px 14px 0;overflow:hidden; }
+.filter_rangeslider_val_row { width:50%;float:left;text-align:center; }
+.filter_rangeslider_val span { color:#e3e3e3;font:normal 14px/20px 'Open Sans', 'sans-serif'; }
+/* /.filter */
+
+/* .noUi */
+.noUi-target { height:2px; }
+.noUi-target { -webkit-touch-callout: none;-webkit-user-select: none;-ms-touch-action: none;-ms-user-select: none;-moz-user-select: none;-moz-box-sizing: border-box;box-sizing: border-box; }
+.noUi-target * { -webkit-touch-callout: none;-webkit-user-select: none;-ms-touch-action: none;-ms-user-select: none;-moz-user-select: none;-moz-box-sizing: border-box;box-sizing: border-box; }
+.noUi-base { width: 100%;height: 100%;position: relative; }
+.noUi-origin { position: absolute;right: 0;top: 0;left: 0;bottom: 0; }
+.noUi-state-drag * { cursor: inherit !important; }
+.noUi-dragable { cursor: w-resize; }
+.noUi-handle {
+	width:22px;height:22px;background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAAGzs1ytAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkUxMzY5QjU1RUUxRDExRTM4OEZGQjVFNzYwQzU0OEEyIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkUxMzY5QjU2RUUxRDExRTM4OEZGQjVFNzYwQzU0OEEyIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RTEzNjlCNTNFRTFEMTFFMzg4RkZCNUU3NjBDNTQ4QTIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RTEzNjlCNTRFRTFEMTFFMzg4RkZCNUU3NjBDNTQ4QTIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5kE7xMAAADtUlEQVR42mL+//8/w7eff5dZ29itZQYyVp99tDqcw5GrgREkk7I65j8DEAAEEENpRQ0IXwcJsrwzug8WzZqd/p+JAQp47onVAAQQqh4omBO6hBFk8s3vkh+EX2w4zMCjIc8gwCnIsOb0KrgtDGwfuP//4frJIHBFtrirvbkPIIAYQTYCARsQfwbiGKDgapDgNKDtmTCzOV7yMzAmr4qGW/jv918GJlZmBoizbn4GU0/XHwHTLDz3xRi+qENUyobZg2mmL4qvGIXOKzAw/Gdk4HkgCnYvQADBnSV0TnHaR+0nmX/ZfyP7CeRbkJMVga56AHIV2wfdxz//sf5hwAdAtoAc9gmm8P6GMwwPlu2HK3i4/ADYByDwzuAhWHEyTFIxwIRB2cwUrtg4JRTsVbBzHoowgN1cVlmr+E327b0fop9wOEGRoautmREggGDBCwNhQNwJxCJAvBmIE4Ae+wWTBIUwKCQUfgl8u/9F6SWKicw/WRn4r8pMB2rIAocniPgm/Q5DIQiAghEUf0BnTgObXFpZ/f+d4QO8wcb0m5lB4LIcOzCmXjMgRzQM3NtwGiHOChZfxvSL/xtc4a1FiDD++eYjw4vd55Et8GVi/sUCCR4+EQYuHha4DCMQK6irIyt+zsT5XADM+vD9PYNRUihcRt3GjOGHHBey4homtnc81TDem68I9zNq8CESEzBZAoNvCRMwaNpAMYQLcLzmY2B7z60ETszgRGJ4nxEYMUW/hL70fpN6D/Y920cuoImiwGhuYYRpBAgweHpGSQtAjcBU0wuMVQYQ/sP9A2wAIzAjMP1iZmD+zg5M41xgDMwc4GyJ7iLkjKIADK7736TeMfwQ/8hACgDlYq5nQkBLGMAZCp6MgIZW/RL4eh/oTZINBQGQHpBekBnAJAeOCFBRFA0Mr6nIqQkZgBIMIzMTQTEQ+CX4FZQBnPZtOXoXJNsKigRsBoJyOnIqhIEb8/cxPNl+FiU5wwDUrBaQwUL/mf+hSH64/ozh5kKggd8+M/AJsmFmGiZGhv+fvzC82HyU4cu9F6gOguQRSVAS2sn6mTMEGD5wSQFNKQYVE32GdxfvMTy+cA5rECmZGjPw6yiiJGhwYf0RnPo3g0tEYNr4+UHnCQO2UlGEWxRDMzYxePa/IgtKghwo5TKwkMkkJ1XAk9xTIdRSC5yjjO5nASW0gRZMBxXyoOKNEACpAakF6QHq1YEZCs8gwLSHTR8o1kDFRyCoNAdiaaj4UyA+C8TrgXg1KJUBDcTQDABdpq3/hT6eAQAAAABJRU5ErkJggg==) no-repeat 0 0;
+	position: relative;z-index: 1;left: -11px;top: -11px;cursor: pointer;
+}
+.noUi-connect { background: #63aa5b; }
+.noUi-background { background:#bcbcbc; }
+/* /.noUi */
+</style>
+
+<div class="left  col-md-3">
+	<div class="item open" ng-class="{open:view.menu.search}">
+		<div class="title" ng-click="view.menuUp('search')">
+			Поиск вакансий
+			<i class="fa fa-arrow-up"></i>
+		</div>
+		<div class="block">
+			<div class="item">
+				<i class="fa fa-search"></i>
+				<input type="text" placeholder="Поиск по словам">
+			</div>
+		</div>
+	</div>
+	<div class="item" ng-class="{open:view.menu.industry}">
+		<div class="title" ng-click="view.menuUp('industry')">
+			Сфера деятельности
+			<i class="fa fa-arrow-up"></i>
+		</div>
+		<div class="block">
+			<div class="item">
+				<select ng-model="findObject.industry">
+					<option ng-repeat="i in lists.industry" value="{{+i.id}}">{{i.title}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="item" ng-class="{open:view.menu.part}">
+		<div class="title" ng-click="view.menuUp('part')">
+			Занятость
+			<i class="fa fa-arrow-up"></i>
+		</div>
+		<div class="block">
+			<div class="item">
+				<select ng-model="findObject.part">
+					<option ng-repeat="i in lists.part" value="{{+i.id}}">{{i.title}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="item" ng-class="{open:view.menu.education}">
+		<div class="title" ng-click="view.menuUp('education')">
+			Образование
+			<i class="fa fa-arrow-up"></i>
+		</div>
+		<div class="block">
+			<div class="item">
+				<select ng-model="findObject.level">
+					<option ng-repeat="i in lists.level" value="{{+i.id}}">{{i.title}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="item" ng-class="{open:view.menu.language}">
+		<div class="title" ng-click="view.menuUp('language')">
+			Знание языков
+			<i class="fa fa-arrow-up"></i>
+		</div>
+		<div class="block">
+			<div class="item">
+				<select ng-model="findObject.language">
+					<option ng-repeat="i in lists.tag" value="{{+i.id}}">{{i.title}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<label>
+			<input type="checkbox" ng-model="findObject.images">
+			<span>Фото</span>
+		</label>
+		<label>
+			<input type="checkbox" ng-model="findObject.videos">
+			<span>Видео</span>
+		</label>
+	</div>
+
+	<div>
+		<div class="filter_vars_title">Возраст</div>
+		<div class="filter_slider">
+			<div class="js_rangeslider" data-min="0" data-max="100" data-start="18" data-end="45" data-inputstart=".js_start1" data-inputend=".js_end1"></div>
+		</div>
+		<div class="filter_rangeslider_val">
+			<div class="filter_rangeslider_val_row">
+				<span>От</span>&nbsp;<span class="js_start1"></span>
+				<input class="js_start1" type="hidden" name="start1" value="16">
+			</div>
+			<div class="filter_rangeslider_val_row">
+				<span>До</span>&nbsp;<span class="js_end1"></span>
+				<input class="js_end1" type="hidden" name="end1"  value="45">
+			</div>
+		</div>
+	
+		<div class="filter_vars_title">Зарплата</div>
+			<div class="filter_slider">
+			<div class="js_rangeslider" data-min="1000" data-max="50000" data-start="2000" data-end="20000" data-inputstart=".js_start2" data-inputend=".js_end2"></div>
+		</div>
+		<div class="filter_rangeslider_val">
+			<div class="filter_rangeslider_val_row">
+				<span>От</span>&nbsp;<span class="js_start2"></span>
+				<input class="js_start2" type="hidden" name="start2" value="">
+			</div>
+			<div class="filter_rangeslider_val_row">
+				<span>До</span>&nbsp;<span class="js_end2"></span>
+				<input class="js_end2" type="hidden" name="end2" value="">
+			</div>
+		</div>
+	
+
+
+
+	</div>
+
+	<div>
+		<div class="text-center">Зарплата</div>
+		<div range-slider min="1000" max="300000" model-min="pay.min" model-max="pay.max" step="500"></div>
+		<div class="text-center">
+			<div ng-repeat="i in lists.period">
+				<label>
+					<input type="radio" value="{{+i.id}}" ng-model="findObject.period">
+					<span>Руб/{{i.title}}</span>
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="item" ng-class="{open:view.menu.more}">
+		<div class="title" ng-click="view.menuUp('more')">
+			Расширенный поиск
+			<i class="fa fa-arrow-up"></i>
+		</div>
+		<div class="block">
+			<div class="item">
+				
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<button class="btn  btn-clear" ng-click="refind()">Сбросить параметры</button>
+	</div>
+
+	<div class="social">
+		<div>
+			<i class="fa fa-facebook"></i>
+			<i class="fa fa-rss"></i>
+		</div>
+		<div>
+			<div></div>
+		</div>
+	</div>
+
+</div>
+
+<div class="right  col-md-9">
+
+	<div class="submenu  col-md-12">
+		<div class="item  col-md-3" ng-click="signup('competitor')">
+			+ Разместить резюме
+		</div>
+		<div class="item  col-md-3" ng-click="signup('employer')">
+			+ Добавить вакансию
+		</div>
+		<div class="item  col-md-3" ng-click="signup('team')">
+			+ Создать команду
+		</div>
+		<div class="item  col-md-3">
+			<i class="fa fa-map-marker"></i>
+			Соискатели на карте
+		</div>
+	</div>
+	<hr>
+	<style>
+		.results .avatar {
+			margin: 0px;
+			padding: 0px;
+		}
+		.results .avatar img {
+			max-width:200px;
+			max-height:300px;
+		}
+		.results .avatar .videocall {
+			color: #fff;
+			font-weight: bold;
+			margin: 0px;
+			padding: 10px;
+			background-color: #ff4b00;
+			cursor: pointer;
+		}
+		.results .res {
+			margin-bottom: 20px !important;
+		}
+		.results .res .info [class*=col-] {
+			margin: 0px !important;
+			padding: 0px !important;
+			
+		}
+		.results .res .info .bold {
+			font-weight: bold;
+		}
+		.results .res .green {
+			color: #1eb570;
+		}
+	</style>
+	<div class="results">
+		<div class="col-md-12" ng-repeat="(_i, i) in results">
+			<hr>
+			<div class="res  col-md-12">
+				<div class="avatar  col-md-4">
+					<img ng-src="{{get_avatar_uri(i.emp_profile.company.logo)}}">
+				</div>
+				<div class="col-md-8">
+					<div class="col-md-12">
+						<b>
+							{{i.name}}
+						</b>
+					</div>
+					<div class="col-md-12">
+						{{getFromList('industry', i.vac_industryPost.industry)}} / {{i.vac_industryPost.post}}
+					</div>
+				</div>
+			</div>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Название
+					</div>
+					<div class="col-md-6">
+						<b>
+							{{i.name}}
+						</b>
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Зарплата
+					</div>
+					<div class="col-md-6">
+						{{i.salary.summa}} руб/{{getFromList('period', i.salary.period)||'месяц'}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Занятость
+					</div>
+					<div class="col-md-6">
+						{{getFromList('part', i.part)}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Описание
+					</div>
+					<div class="col-md-6">
+						{{i.about}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Требования
+					</div>
+					<div class="col-md-6">
+						{{i.requirements}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Должностные обязанности
+					</div>
+					<div class="col-md-6">
+						{{i.acting}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Уровень образования
+					</div>
+					<div class="col-md-6">
+						{{getFromList('level', i.level)}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Языки
+					</div>
+					<div class="col-md-6">
+						<!-- <pre>{{i}}</pre> -->
+						<div ng-repeat="j in i.languages">
+							владение {{getFromList('tag', j.tag)}} языком на {{getFromList('proficiency', j.proficiency)}} уровне
+						</div>
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Отрасль
+					</div>
+					<div class="col-md-6">
+						{{getFromList('industry', i.vac_industryPost.industry)}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Должность
+					</div>
+					<div class="col-md-6">
+						{{i.vac_industryPost.post}}
+					</div>
+				</label>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	
+	jQuery(function() {
+		$('.js_rangeslider').each(function(indx){
+			var rangeslider = $(this);
+			var min = rangeslider.data('min');
+			var max = rangeslider.data('max');
+			var start = rangeslider.data('start');
+			var inputstart = $(rangeslider.data('inputstart'));
+			var end = rangeslider.data('end');
+			var inputend = $(rangeslider.data('inputend'));
+			rangeslider.noUiSlider({
+				start: [
+					start, end
+				],
+				connect: true,
+				range: { 'min': min, 'max': max },
+				serialization: {
+					lower: [
+						$.Link({ target: inputstart,method: 'text' }),
+					],
+					upper: [
+						$.Link({ target: inputend, method: 'text' })
+					],
+					format: { decimals:0 }
+				}
+			});
+		});
+	});
+
+</script>

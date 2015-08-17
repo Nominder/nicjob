@@ -1,0 +1,25 @@
+doctype html
+html
+  head
+    title Auth
+    link(rel='stylesheet', type='text/css', href='/admin/css/bootstrap.min.css')
+    link(rel='stylesheet', type='text/css', href='/admin/css/font-awesome.min.css')
+  body(onload='check()')
+    .form-horizontal(style='margin-top: 100px; margin-left: 200px')
+      .form-group
+        label.col-sm-2.control-label(for='inputEmail3') Email
+        .col-sm-5
+          input#inputEmail3.form-control.mail(type='email', placeholder='Email')
+      .form-group
+        label.col-sm-2.control-label(for='inputPassword3') Password
+        .col-sm-5
+          input#inputPassword3.form-control.pass(type='password', placeholder='Password')
+      .form-group
+        .col-sm-offset-2.col-sm-5
+          button.btn.btn-default(type='submit', onclick='asin()')
+            i.fa.fa-sign-in
+            | Вход
+
+    script(type='text/javascript', src='/admin/js/request.js')
+    script(type='text/javascript', src='/admin/js/jquery-2.1.1.min.js')
+    script(type='text/javascript', src='/admin/js/auth.js')

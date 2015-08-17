@@ -1,0 +1,154 @@
+.competitorOfficeProfile(ng-controller="office.teamCtrl")
+	.row.margin
+		.col-xs-4
+			input(type="text", placeholder="Название команды", ng-model="profile.name")
+		.col-xs-4
+		.col-xs-4
+			input(type="text", placeholder="Количество участников", ng-model="profile.count")
+	.row.margin
+		.col-xs-4.images(ng-controller="office.common.imgsCtrl as img")
+			.image(ng-repeat="i in profile.images", ng-init="img.addImg()", ng-dblclick="img.removeImg(j)", ng-class="{big: $first, small: !$first}")
+				img(ng-src="{{get_avatar_uri(i.image)}}")
+				i.fa.fa-close(ng-click="img.removeImg(j)")
+			.image(ng-repeat="i in q track by $index", ng-click="modal('makePhoto', {to:profile.images})", ng-class="{big: $first && !profile.images[0], small: !$first || profile.images[0]}")
+				span(ng-if="$first && !profile.images[0]") + Загрузите фото
+				span(ng-if="!$first || profile.images[0]") Еще фото
+		.col-xs-8.videos
+			.video(ng-if="profile.videos.length > 0")
+				iframe.xvideoiframe(width="600", height="200", x-code="http://boomstream.com/player.html?code={{profile.videos[0].video}}", frameborder="0", scrolling="no", allowfullscreen)
+			.video(ng-if="profile.videos.length == 0")
+				.video-item(ng-click="modal('makeVideo', {to:profile.videos})") + ЗАГРУЗИТЕ ВИДЕОРЕЗЮМЕ
+	.text-center.row.margin
+		.col-xs-6
+			button.btn.btn-success(ng-click="modal('makePhoto', {to:profile.images})") Снять фото на вебкамеру
+		.col-xs-6
+			button.btn.btn-success Снять видео на вебкамеру
+
+	accordion.accordion
+		hr
+		accordion-group(heading="Отрасль и должность")
+			//Industry and post
+			.industryPost
+				.industry(ng-repeat="j in profile.industryPost")
+					.row.margin
+						.col-xs-3.label Укажите вашу отрасль
+						.col-xs-9.input
+							input(type="text", placeholder="Отрасль", ng-model="j.industry", typeahead="item for item in getListTitles('industry') | filter:$viewValue | limitTo:10")
+							span.clean(ng-click="j.industry=''")
+					.row.margin
+						.col-xs-3.label Выберите должность
+						.col-xs-9.input
+							input(type="text", placeholder="Должность", ng-model="j.post", typeahead="item for item in getListTitles('post') | filter:$viewValue | limitTo:10")
+							span.clean(ng-click="j.post=''")
+					a.close-btn(href="", ng-click="profile.industryPost.splice(j, 1)")
+						i.fa.fa-close
+				.row.margin
+					.col-xs-9.col-xs-offset-3
+						a.add-link(href="", ng-click="profile.industryPost.push({})")
+							span.plus +
+							|	Добавить ещё одну отрасль
+
+
+				.row.margin
+					.col-xs-3 Занятость
+					.col-xs-7
+						span(ng-repeat="i in getList('part')")
+							input(type="radio", name="part", id="part_{{i}}", value="{{i.id}}", ng-model="profile.part")
+							label(for="part_{{i}}") {{i.title}}
+				.row.margin
+					.col-xs-3 Желаемая зарплата
+					.col-xs-4
+						input(type="text", ng-model="profile.salary.summa")
+					.col-xs-5
+						select(ng-model="_add.salary.period")
+							option(ng-repeat="i in getList('period')", value="{{i.id}}") Рублей в {{i.title}}
+		hr
+		accordion-group(heading="Портфолио")
+			.row.margin.portfolio.text-center(ng-controller="office.common.portfolioCtrl as portfolio")
+				.col-xs-3(ng-repeat="(j, i) in profile.portfolio.images", ng-init="portfolio.addImg()")
+					.media(ng-dblclick="portfolio.removeImg(j)")
+						img.img-responsive(ng-src="{{get_avatar_uri(i.image)}}")
+						a.close-btn
+							i.fa.fa-close(ng-click="!confirm('Удалить?') ? 0 : portfolio.removeImg(j);")
+				.col-xs-3(ng-repeat="i in portfolioEmpty track by $index")
+					.empty(ng-click="modal('makePhoto', {to:profile.portfolio.images})")
+						span + ФОТО/ВИДЕО РАБОТ
+			.row
+				.col-xs-12
+					button.btn.btn-success(ng-click="modal('makePhoto', {to:profile.portfolio.images})") Снять на вебкамеру
+		hr
+		accordion-group(heading="Дополнительно")
+			.row.other.margin
+				.col-xs-2 О себе
+				.col-xs-10
+					textarea(placeholder="Расскажите главные моменты о себе. Данная информация будет главной в минирезюме", ng-model="profile.about", style="width:99%;")
+			.row.other.margin
+				.col-xs-2 Навыки
+				.col-xs-10
+					//textarea(placeholder="Расскажите о Ваших навыках", ng-model="profile.skills", style="width:99%;")
+
+
+
+
+
+
+					.row.skills(ng-repeat="j in profile.skills")
+						.col-xs-3
+							input(type="text", placeholder="Навык или инструмент", ng-model="j.skill", typeahead="item for item in getListTitles('skill') | filter:$viewValue | limitTo:10")
+							input(type="hidden", ng-model="j.proficiency", ng-init="j.proficiency = 3")
+						.col-xs-9.skill
+							div(ng-click="j.proficiency = 1", ng-class="{'active':j.proficiency >= 1}")
+							div(ng-click="j.proficiency = 2", ng-class="{'active':j.proficiency >= 2}")
+							div(ng-click="j.proficiency = 3", ng-class="{'active':j.proficiency >= 3}")
+							div(ng-click="j.proficiency = 4", ng-class="{'active':j.proficiency >= 4}")
+							div(ng-click="j.proficiency = 5", ng-class="{'active':j.proficiency >= 5}")
+							div(ng-click="j.proficiency = 6", ng-class="{'active':j.proficiency >= 6}")
+							div(ng-click="j.proficiency = 7", ng-class="{'active':j.proficiency >= 7}")
+							div(ng-click="j.proficiency = 8", ng-class="{'active':j.proficiency >= 8}")
+							div(ng-click="j.proficiency = 9", ng-class="{'active':j.proficiency >= 9}")
+							div(ng-click="j.proficiency = 10", ng-class="{'active':j.proficiency >= 10}")
+							div(ng-click="j.proficiency = 11", ng-class="{'active':j.proficiency >= 11}")
+							div(ng-click="j.proficiency = 12", ng-class="{'active':j.proficiency >= 12}")
+					.row
+						.col-xs-9.col-xs-offset-3
+							a.add-link(href="", ng-click="profile.skills.push({});")
+								span.plus +
+								| Добавить навык
+
+
+
+
+
+
+
+			.row.other.margin
+				.col-xs-2 Кого мы ищем
+				.col-xs-10
+					textarea(placeholder="Расскажите кого Вы ищете", ng-model="profile.looking", style="width:99%;")
+		hr
+		accordion-group(heading="Контакты")
+			.row.contacts.margin
+				.col-xs-12.stack
+				.col-xs-12.new
+		hr
+	.row.margin
+		.col-xs-12
+			p Размещая своё резюме на сайте я соглашаюсь со всеми правилами и законами
+		.col-xs-12
+			button.btn.btn-success(ng-click="save()") сохранить и разместить резюме
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

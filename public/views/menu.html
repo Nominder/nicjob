@@ -1,0 +1,251 @@
+
+	<header class="header">
+		<div class="header_inner">
+			<!-- .logo -->
+			<div class="header_logo">
+				<a href="#/"><img src="http://peoplejobs.ru/img/logo.png" alt="logo"></a>
+			</div>
+			<!-- /.logo -->
+			<!-- .main_nav -->
+			<nav class="header_nav">
+				<ul>
+					<li><a class="header_nav_link __nav_select" href="#/search">СОИСКАТЕЛИ</a></li>
+					<li><a class="header_nav_link " href="#">ВАКАНСИИ</a></li>
+					<li><a class="header_nav_link" href="#">КОМАНДЫ</a></li>
+				</ul>
+			</nav>
+			<!-- /.main_nav -->
+			<div class="header_login">
+	<div class="item" ng-switch="account.auth">
+				<div ng-switch-when="false">
+					<div>
+						<a class="header_login_btn" ng-click="modalOpen(1)">ВОЙТИ</a>
+					</div>
+				</div>
+				<div ng-switch-when="true">
+					<div ng-mouseover="isCollapsed=false" ng-mouseleave="isCollapsed=true">
+						<div>
+							<span>{{account.email}}</span>
+								<ul class="1user_nav_list" style="position:absolute; z-index:1;" collapse="isCollapsed">
+									<li>
+										<a ng-href="#/office">Профиль</a>
+									</li>
+									<li>
+										<a ng-click="logout()">Выйти</a>
+									</li>
+								</ul>
+						</div>
+					</div>
+				</div>
+	</div>
+                			</div>
+		</div>
+	</header>
+
+<script type="text/ng-template" id="myModalContent.html">
+	<div class="popup_login" style="min-height:300px;">
+
+		<div class="popup_login_nav">
+			<ul>
+				<li><a class="popup_login_link jlogin_link" ng-class="{__nav_select:mt==1}" ng-click="mt=1">ВХОД</a></li>
+				<li><a class="popup_login_link jlogin_link" ng-class="{__nav_select:mt==2}" ng-click="mt=2">РЕГИСТРАЦИЯ</a></li>
+				<li><a class="popup_login_link jlogin_link" ng-class="{__nav_select:mt==3}" ng-click="mt=3">ВОССТАНОВЛЕНИЕ ПАРОЛЯ</a></li>
+			</ul>
+		</div>
+
+		<div class="popup_login_tab jlogin_tab" ng-class="{__tab_show:mt==1}">
+			<form class="js_form_login">
+				<div class="form" ng-form="loginForm">
+					<div class="form_row">
+						<div class="js_err js_email_err"></div>
+						<input class="type_text" type="text" name="email" id="" placeholder="Электронная почта" value="" ng-model="data.email">
+					</div>
+					<div class="popup_cols">
+						<div class="popup_col1">
+							<div class="form_row">
+								<div class="js_err js_password_err"></div>
+								<input class="type_text" type="password" name="password" id="" placeholder="Пароль" value="" ng-model="data.passwd">
+							</div>
+						</div>
+						<div class="popup_col2">
+							<div class="form_rowbtn">
+								<a class="type_btn js_login" ng-click="login(data, loginForm)">ВОЙТИ</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<div class="popup_login_tab jlogin_tab" ng-class="{__tab_show:mt==2}">
+			<form class="js_form_registration">
+				<div class="form"  ng-form="regForm">
+					<div class="form_row">
+						<div class="js_err js_email_err"></div>
+						<input class="type_text" type="text" name="register[email]" id="" placeholder="Электронная почта" value="" ng-model="reg.email">
+					</div>
+					<div class="form_row">
+						<div class="js_err js_password_err"></div>
+						<input class="type_text" type="password" name="register[password]" id="" placeholder="Пароль" value="" ng-model="reg.passwd">
+					</div>
+					<div class="form_row">
+						<div class="js_err js_confirmPassword_err"></div>
+						<input class="type_text" type="password" name="register[confirmPassword]" id="" placeholder="Подтверждение пароля" value="" ng-model="reg.passwd2" ng-class="{'ng-invalid':(reg.passwd !== reg.passwd2)}">
+					</div>
+					<div class="form_row">
+						<div class="js_err js_confirmPassword_err"></div>
+						<select ng-model="reg.type">
+							<option value="competitor">Соискатель</option>
+							<option value="employer">Работодатель</option>
+							<option value="team" disabled="true">Команда</option>
+						</select>
+					</div>
+					<div class="form_rowbtn">
+						<button class="type_btn js_registration" ng-click="signup(reg, regForm)">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="popup_login_tab jlogin_tab" ng-class="{__tab_show:mt==3}">
+			<form action="">
+				<div class="form">
+					<div class="form_row">
+						<div class="js_err"></div>
+						<input class="type_text" type="text" name="" id="" placeholder="Электронная почта" value="">
+					</div>
+					<div class="form_rowbtn">
+						<a class="type_btn" href="#">ВОССТАНОВИТЬ</a>
+					</div>
+				</div>
+			</form>
+		</div>
+
+	</div>
+</script>
+<!--
+
+<link rel="stylesheet" href="/css/menu.css">
+<div class="menu  col-md-12">
+	<div class="logo item  col-md-3">
+		<a ng-href="#/">
+			<img src="/img/logo.png" alt="logo">
+		</a>
+	</div>
+	<div class="logo item  col-md-2">
+		<a ng-href="#/search">
+			Соискатели
+		</a>
+	</div>
+	<div class="logo item  col-md-2">
+		<a ng-href="#/vacansy">
+			Вакансии
+		</a>
+	</div>
+	<div class="logo item  col-md-2">
+		Команды
+	</div>
+	<div class="item" ng-switch="account.auth">
+				<div ng-switch-when="false">
+					<div class="col-md-3">
+						<button class="btn btn-signin" ng-click="_showLoginForm()">Войти</button>
+					</div>
+				</div>
+				<div ng-switch-when="true">
+					<div class="col-md-3" ng-mouseover="isCollapsed=false" ng-mouseleave="isCollapsed=true">
+						<div>
+							<span>{{account.email}}</span>
+								<ul class="user_nav_list" style="position:absolute; z-index:1;" collapse="isCollapsed">
+									<li>
+										<a ng-href="#/office">Профиль</a>
+									</li>
+									<li>
+										<a ng-click="logout()">Выйти</a>
+									</li>
+								</ul>
+						</div>
+					</div>
+				</div>
+	</div>
+</div>
+<style type="text/css">
+	
+
+
+
+
+.user_nav_list {
+display: block;
+list-style: none;
+margin: 0;
+padding: 0;
+border: 1px solid #353535;
+background: #353535;
+background: rgba(53, 53, 53, 0.9);
+position: absolute;
+right: 0;
+top: 100%;
+z-index: 99;
+}
+
+.user_nav_list li { list-style:none;margin:0;padding:0;width:190px; }
+
+.user_nav_list a {
+display: block;
+height: 39px;
+padding: 0 0 0 45px;
+text-align: left;
+color: #fff;
+font: bold 16px/39px 'Open Sans', 'sans-serif';
+text-decoration: none;
+}
+
+.user_nav_list a:hover { background:#000;cursor:pointer;color:#fff; }
+
+.ng-vual {
+	display: block;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	background: rgba(255,255,255,.5);
+	z-index: 4;
+}
+
+</style>
+<div ng-show="showLoginForm">
+	<div class="ng-vual" ng-click="_hideLoginForm()"></div>
+	<div class="ng-modal">
+		<tabset>
+			<tab heading="Вход">
+				<div ng-form="loginForm">
+					<input type="email" ng-model="data.email" required placeholder="Эллектронная почта">
+					<input type="password" ng-model="data.passwd" required placeholder="Пароль">
+					<button class="btn btn-success" ng-click="login(data, loginForm)">Войти</button>
+				</div>
+			</tab>
+			<tab heading="Регистрация">
+				<div ng-form="regForm">
+					<input type="email" ng-model="reg.email" placeholder="Эллектронная почта">
+					<input type="password" ng-model="reg.passwd" placeholder="Пароль">
+					<input type="password" ng-model="reg.passwd2" ng-class="{'ng-invalid':(reg.passwd !== reg.passwd2)}" placeholder="Подтверждение пароля">
+					<select ng-model="reg.type">
+						<option value="competitor">Соискатель</option>
+						<option value="employer">Работодатель</option>
+						<option value="team">Команда</option>
+					</select>
+					<button class="btn btn-success" ng-click="signup(reg, regForm)">Зарегистрироваться</button>
+				</div>
+			</tab>
+			<tab heading="Востановление пароля">
+				<input type="email" ng-model="confirmEmail.email" placeholder="Эллектронная почта">
+				<button class="btn btn-success" ng-click="confirm()">Получить пароль</button>
+			</tab>
+		</tabset>
+		<div>
+			<button class="btn btn-danger" ng-click="_hideLoginForm()">Cansel</button>
+		</div>
+	</div>
+</div>
+-->

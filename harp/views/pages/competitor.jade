@@ -1,0 +1,188 @@
+.col-xs-12.competitorPage(ng-controller="pages.competitorCtrl")
+	.col-xs-4.left
+		.user-avatar-wrap
+			.col-xs-12.images(ng-init="imgSelect = 0")
+				.bigImage
+					img(ng-src="{{get_avatar_uri(profile.images[imgSelect].image)}}")
+				.smallImages
+					.image(ng-repeat="(j,i) in profile.images")
+						img(ng-src="{{get_avatar_uri(i.image)}}", ng-click="imgSelect = j;")
+					.image
+						img(ng-src="{{get_avatar_uri(i.image)}}", ng-click="imgSelect = j;")
+					.image
+						img(ng-src="{{get_avatar_uri(i.image)}}", ng-click="imgSelect = j;")
+					.image
+						img(ng-src="{{get_avatar_uri(i.image)}}", ng-click="imgSelect = j;")
+			.col-xs-12.button
+				button.btn.btn-warning(ng-click="setInterview(id)")
+					i.fa.fa-video-camera
+					span  Видеособеседование
+			.col-xs-12.button
+				button.btn.btn-success(ng-click="addCompetitorToFavorites(id)")
+					i.fa.fa-star
+					span  В избранное
+			.col-xs-12.text-center.sumary
+				span.sum {{profile.salary.summa}}
+				span руб/{{getFromList('period', profile.salary.period)}}
+	.col-xs-8.right
+		.col-xs-12.name
+			b {{profile.info.firstname}} {{profile.info.lastname}} {{profile.info.middlename}}, 
+			span {{get_current_age(profile.info.birthday)}} лет 
+				i.icon-man(ng-if="profile.info.sex")
+				i.icon-woman(ng-if="!profile.info.sex")
+				span.green(ng-if="profile.online") &bull;
+		.col-xs-12.industryPost
+			b(ng-repeat="v1 in profile.industryPost") {{getFromList('industry', v1.industry)}} {{v1.post}}{{$last ? '' : ', '}}
+		.col-xs-12.lastCarrer
+			.col-xs-12
+				span Последние место работы:  
+				b {{profile.career[profile.career.length-1].organization}}
+			.col-xs-12
+				span Должность:  
+				b {{profile.career[profile.career.length-1].vac_industryPost.post}}
+		.col-xs-12.about
+			b О себе: 
+			span {{profile.about}}
+			.col-xs-12
+		.col-xs-12.video
+			.col-xs-12
+				h2
+					i.fa.fa-play-circle-o
+					span  Видеорезюме
+			.col-xs-12
+				iframe.player.xvideoiframe(width="600", height="200", x-code="http://boomstream.com/player.html?code={{profile.videos[0].video}}", frameborder="0", scrolling="no", allowfullscreen)
+		.col-xs-12.carrer
+			h2
+				i.icon-kariera
+				span  Карьера
+			.col-xs-12.block(ng-repeat="(j, i) in profile.career")
+				.col-xs-6
+					b {{i.organization}}
+					p {{getFromList('industry', i.vac_industryPost.industry)}}
+					p {{getFromList('post', i.vac_industryPost.post)}}
+				.col-xs-6
+					p {{i.address}}
+					p с  
+						| {{formatDate(i.begin)}}
+					p по  
+						| {{formatDate(i.end)}}
+		.col-xs-12.portfolio
+			h2
+				i.fa.fa-briefcase
+				span  Протфолио
+			.image(ng-repeat="i in profile.portfolio.images")
+				img(ng-src="{{get_avatar_uri(i.image)}}")
+		.col-xs-12.education
+			h2
+				i.icon-obrazovanie
+				span  Образование
+			.col-xs-12.block(ng-repeat="(j, i) in profile.education")
+				.col-xs-6
+					b 
+					p 
+					p 
+				.col-xs-6
+					b {{i.hs}}
+					p {{getFromList('level', i.level)}}
+					p {{i.year}}
+		.col-xs-12.diplomas
+			h2
+				i.icon-diplom
+				span  Дипломы и сертификаты
+			.media(ng-repeat="(j, i) in profile.diplomas")
+				img(ng-src="{{get_avatar_uri(i.image)}}")
+		.col-xs-12.languages
+			h2
+				i.icon-yaziki
+				span  Языки
+			.col-xs-12.language(ng-repeat="(j, i) in profile.languages")
+				.col-xs-3
+					b {{getFromList('tag', i.tag)}}
+				.col-xs-9
+					div.lang-lvl-icon(ng-repeat="j in [1,2,3,4,5,6,7,8,9,10,11,12]", ng-class="{'active':i.proficiency >= {{j}}}")
+		.col-xs-12.skills
+			h2
+				i.icon-naviki
+				span  Навыки
+			.col-xs-12.skill(ng-repeat="(j, i) in profile.skills")
+				.col-xs-3
+					b {{getFromList('skill', i.skill)||i.skill}}
+				.col-xs-9
+					div(ng-repeat="j in [1,2,3,4,5,6,7,8,9,10,11,12]", ng-class="{'active':i.proficiency >= {{j}}}")
+		.col-xs-12.additional
+			h2
+				i.icon-dopinfo
+				span  Дополнительная информация
+			.col-xs-6(ng-show="!isNull(profile.nacionality)")
+				i.icon-nacionalnost
+				b Национальность: 
+				span {{profile.nacionality}}
+			.col-xs-6(ng-show="!isNull(profile.citizenship)")
+				i.icon-graghdanstvo
+				b Гражданство: 
+				span {{profile.citizenship}}
+			.col-xs-6(ng-show="!isNull(profile.car)")
+				i.icon-avto
+				b Автомобиль: 
+				span {{profile.car?'есть':'нету'}}
+			.col-xs-6
+				i.icon-deti
+				b Дети: 
+				span {{profile.children||0}}
+			.col-xs-6(ng-show="!isNull(profile.driverLicense)")
+				i.icon-voditel
+				b Водительское удостоверение: 
+				span {{profile.driverLicense?'есть':'нету'}}
+			.col-xs-6(ng-show="!isNull(profile.maritalStatus)")
+				i.icon-semya
+				b Семейное положение: 
+				span {{profile.maritalStatus?'женат':'неженат'}}
+			.col-xs-12
+				i.icon-hobbi
+				b Хобби: 
+				span {{profile.hobby}}
+			.col-xs-6(ng-show="!isNull(profile.trip)")
+				i.icon-komandirovki
+				b Командировки: 
+				span {{profile.trip?'возможны':'невозможны'}}
+			.col-xs-6(ng-show="!isNull(profile.move)")
+				i.icon-pereezd
+				b Переезд: 
+				span {{profile.move?'возможен':'невозможен'}}
+			.col-xs-6(ng-show="!isNull(profile.passport)")
+				i.fa.fa-list
+				b Загран паспорт: 
+				span {{profile.passport?'есть':'нету'}}
+			.col-xs-6(ng-show="!isNull(profile.religion)")
+				i.icon-vera
+				b Религия: 
+				span {{profile.religion}}
+			.col-xs-6(ng-show="!isNull(profile.smoking)")
+				i.fa.fa-list
+				b Курение: 
+				span {{profile.smoking?'курю':'некурю'}}
+		.col-xs-12.contacts
+			h2
+				span  Контакты
+			.col-xs-6
+				i.icon-telefon
+				b Телефон: 
+				span {{profile.contacts.phone}}
+			.col-xs-6
+				i.icon-pochta
+				b email: 
+				span {{profile.contacts.email}}
+			.col-xs-12
+				i.icon-mesto
+				b Адрес: 
+				span {{profile.contacts.address}}
+			.col-xs-12.map 
+				iframe(ng-src="{{toURL((profile.contacts ? profile.contacts.address : null))}}", width="600", height="450", frameborder="0", style="border:0")
+
+
+
+
+
+
+
+

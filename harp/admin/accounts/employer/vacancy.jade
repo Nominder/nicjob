@@ -1,0 +1,89 @@
+.row
+	.col-xs-9
+		.row.form-group
+			.col-xs-3
+				label Название вакансии
+			.col-xs-6
+				input.form-control(type="text", ng-model="_add.vacansy.name")
+		.row.form-group
+			.col-xs-3
+				label Отрасль
+			.col-xs-6
+				input.form-control(type="text", placeholder="Отрасль", ng-model="_add.vac_industryPost.industry", typeahead="item for item in getListTitles('industry') | filter:$viewValue | limitTo:10")
+				//select(ng-model="_add.vacansy.vac_industryPost.industry")
+					 option(ng-repeat="i in getList('industry')", value="{{i.id}}") {{i.title}}
+		.row.form-group
+			.col-xs-3
+				label Должность
+			.col-xs-6
+				input.form-control(type="text", placeholder="Должность", ng-model="_add.vacansy.vac_industryPost.post", typeahead="item for item in getListTitles('post') | filter:$viewValue | limitTo:10")
+				//input(type="text", ng-model="_add.vacansy.vac_industryPost.post")
+		.row.form-group
+			.col-xs-3
+				label Оплата
+			.col-xs-3
+				input.form-control(type="text", ng-model="_add.vacansy.salary.summa")
+			.col-xs-3
+				select.form-control(ng-model="_add.vacansy.salary.period")
+					option(ng-repeat="i in getList('period')", value="{{i.id}}") {{i.title}}
+
+		//.row.margin
+			 .col-xs-3 Количество лет опыта
+			 .col-xs-9
+				  input(type="text", ng-model="_add.vacansy.experience")
+		.row.form-group
+			.col-xs-3
+				label Занятость
+			.col-xs-6
+				select.form-control(ng-model="_add.vacansy.part")
+					option(ng-repeat="i in getList('part')", value="{{i.id}}") {{i.title}}
+		.row.form-group
+			.col-xs-3
+				label Уровень образования
+			.col-xs-6
+				select.form-control(ng-model="_add.vacansy.level")
+					option(ng-repeat="i in getList('level')", value="{{i.id}}") {{i.title}}
+		.row.form-group
+			.col-xs-3
+				label Знание языка
+			.col-xs-6
+				select.form-control(ng-model="_add.vacansy.tag")
+					option(ng-repeat="i in getList('tag')", value="{{i.id}}") {{i.title}}
+		.row.form-group
+			.col-xs-3
+				label Гражданство
+			.col-xs-6
+				select.form-control(ng-model="_add.vacansy.citizenship")
+					option(ng-repeat="i in getList('citizenship')", value="{{i.id}}") {{i.title}}
+		.row.form-group
+			.col-xs-3
+				label Требования к кандидату
+			.col-xs-6
+				textarea.form-control(ng-model="_add.vacansy.requirements")
+		.row.form-group
+			.col-xs-3
+				label Должностные обязанности
+			.col-xs-6
+				textarea.form-control(ng-model="_add.vacansy.acting")
+		.row.form-group
+			.col-xs-3
+				label О вакансии
+			.col-xs-6
+				textarea.form-control(ng-model="_add.vacansy.about")
+		.row.form-group
+			.col-xs-3
+				label Адрес
+			.col-xs-6
+				input.form-control(type="text", ng-model="_add.address", typeahead-input-formatter="formatLabel($model)", typeahead-on-select="setGeo($item, _add.vacansy)", placeholder="Страна / город", typeahead="address for address in getLocation($viewValue)", typeahead-template-url="customGeoTemplate.html", typeahead-loading="loadingLocations")
+				//input(type="text", ng-model="_add.vacansy.address.country")
+		.row.form-group
+			.col-xs-offset-3.col-xs-6
+				button.btn.btn-success(ng-click="addVacansy()") добавить
+
+
+
+
+
+		//
+			Created by David on 24.04.2015.
+

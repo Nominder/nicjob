@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title></title>                        	<link rel="shortcut icon" href="/favicon.ico">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+	<link href="/pj_old/css/normalize.css" rel="stylesheet" type="text/css">
+	<link href="/pj_old/css/main.css" rel="stylesheet" type='text/css'>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/font-awesome/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap-theme.min.css">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<style type="text/css">
+		body {
+			opacity: 0 !important;
+		}
+	</style>
+</head>
+<body ng-app="application">
+<div class="body">
+	<div class="body_sidebar"></div>
+	<!-- .header -->
+	<div ng-include src="'/views/menu.html'" ng-controller="menuCtrl"></div>
+	<!-- /.header -->
+	<!-- .page -->
+	<div class="page cf" ng-view>
+	</div>
+	<!-- /.page -->
+	<!-- .footer -->
+	<footer class="footer">
+    <div class="footer_wrap js_footer_wrap">
+        <div class="footer_inner">
+            <div class="footer_copy">© 2012—2013 «Весь персонал»</div>
+            <div class="footer_phone">Телефон поддержки: <strong>8 916 99999-80</strong></div>
+            <nav class="footer_nav">
+                <ul>
+                    <li><a href="/content/partners/">Инвесторам</a></li>
+                    <li><a href="/content/about/">О сайте</a></li>
+                    <li><a href="/content/vacancy/">Вакансии</a></li>
+                    <li><a href="/content/license/">Пользовательское соглашение</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</footer>	<!-- /.footer -->
+	<div>
+		<div ng-controller="notificationsCtrl">
+			<div class="notifications-stack" ng-repeat="(i, item) in notifications">
+				<div class="notification type-{{item.type}}">
+					<div class="title">
+						{{item.title}}
+						<i class="fa fa-close" ng-click="del(i)"></i>
+					</div>
+					<div class="description">
+						<i class="fa fa-{{item.icon}}"></i>
+						{{item.desc}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<style type="text/css">
+		.videocallmodal {
+			position: fixed;
+			left: 50%;
+			top: 50%;
+			width: 500px;
+			margin-top: -150px;
+			margin-left: -150px;
+			background-color: rgba(255, 0, 0, .5);
+		}
+		.videocallmodal video {
+			float: left;
+			margin: 0px;
+			padding: 0px;
+			max-width: 250px;
+			max-height: 200px;
+		}
+
+		.videocallmodal button {
+			margin-top: 20px;
+		}
+	</style>
+	<div ng-show="iscall" class="videocallmodal">
+		<video class="their-video" id="their-video" autoplay=""></video>
+		<video class="my-video" id="my-video" muted="true" autoplay=""></video>
+		<button class="col-md-12 btn btn-danger" ng-click="endCall()">end call</button>
+	</div>
+
+<script src="/pj_old/js/jquery-1.11.0.min.js"></script>
+<script src="/pj_old/js/zpopup.min.js"></script>
+<script src="/pj_old/js/zselect.js"></script>
+<script src="/pj_old/js/zcomplete.js"></script>
+<script src="/pj_old/js/jquery.nouislider.min.js"></script>
+<script src="/pj_old/js/perfect-scrollbar.min.js"></script>
+
+<!-- uploader -->
+<script src="/pj_old/js/uploader/jquery.ui.widget.js"></script>
+<script src="/pj_old/js/uploader/jquery.iframe-transport.js"></script>
+<script src="/pj_old/js/uploader/jquery.fileupload.js"></script>
+<script src="/pj_old/js/uploader/upload.js"></script>
+<!-- uploader -->
+
+<!-- zdate -->
+<script src="/pj_old/js/zdate/moment.min.js"></script>
+<script src="/pj_old/js/zdate/ru.js"></script>
+<script src="/pj_old/js/zdate/zdate.js"></script>
+<!-- /zdate -->
+
+<script src="/pj_old/js/main.js"></script>
+
+
+	<script type="text/javascript" src="/js/angular/angular.min.js"></script>
+	<script type="text/javascript" src="/js/angular/angular-resource.min.js"></script>
+	<script type="text/javascript" src="/js/angular/angular-route.min.js"></script>
+	
+	<!--
+	<script type="text/javascript" src="/js/out/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="/js/out/jquery.nouislider.min.js"></script>
+
+	-->
+	<script type="text/javascript" src="/js/init.jquery.js"></script>
+	<script type="text/javascript" src="/js/out/jquery.imgareaselect.pack.js"></script>
+	<script type="text/javascript" src="/js/out/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/ui-bootstrap/ui-bootstrap-0.11.2.min.js"></script>
+	<script type="text/javascript" src="/js/ui-bootstrap/ui-bootstrap-tpls-0.11.2.min.js"></script>
+
+
+
+
+	<script type="text/javascript" src="http://cdn.peerjs.com/0.3/peer.js"></script>
+
+	<script type="text/javascript" src="/js/modules/application.js"></script>
+
+	<script type="text/javascript" src="/js/services/dataSrv.js"></script>
+	<script type="text/javascript" src="/js/services/callSrv.js"></script>
+
+	<script type="text/javascript" src="/js/controllers/notificationsCtrl.js"></script>
+	<script type="text/javascript" src="/js/controllers/searchCtrl.js"></script>
+	<script type="text/javascript" src="/js/controllers/profileCtrl.js"></script>
+	<script type="text/javascript" src="/js/controllers/vacansyCtrl.js"></script>
+	<script type="text/javascript" src="/js/controllers/menuCtrl.js"></script>
+	<script type="text/javascript" src="/js/controllers/officeCtrl.js"></script>
+	<script type="text/javascript" src="/js/controllers/office/competitorCtrl.js"></script>
+	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript" src="/WebRTC/customWRTC.js"></script>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

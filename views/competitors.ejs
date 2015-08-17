@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>competitors</title>
+</head>
+<body>
+	<% items.forEach(function(item) { %>
+		<% if (item.profile) { %>
+			<% if (item.profile.info) { %>
+				<h2><%= item.profile.info.firstname%> <%= item.profile.info.lastname %> <%= item.profile.info.middlename %></h2>
+				Пол: <%= item.profile.info.sex ? "Мужской" : "Женский" %>
+			<% } %>
+			<% if (item.profile.contacts) { %>
+				<p><%= item.profile.contacts.country%> <%= item.profile.contacts.city %>
+			<% } %>
+			<ul><% if (item.profile.industryPost) { item.profile.industryPost.forEach(function(e) { %>
+				<li>Сфера деятельности: <%= e.industry %> Занимаемая должность: <%= e.post %></li>
+			<% }); }%>
+			<li>Желаемая зарплата: <% if (item.profile.salary) { %>
+				<%= item.profile.salary.summa %> руб./<%= item.profile.salary.period %></li>
+			<% } %>
+			<li>Занятость: <%= item.profile.part %></li>
+			<% if (item.profile.education) { item.profile.education.forEach(function(e) { %>
+				<li>Образование: <%= e.education %> Учебное заведение: <%= e.HS %> Специальность: <%= e.speciality %> Год окончания: <%= e.year %></li>
+			<% }); } %>
+			<% if (item.profile.diplomas) { item.profile.diplomas.forEach(function(e) { %>
+				<li>Диплом: <%= e.title %> Описание: <%= e.description %></li>
+			<% }); } %>
+			<% if (item.profile.career) { item.profile.career.forEach(function(e) { %>
+				<li>Страна: <%= e.country %> Город: <%= e.city %> Организация: <%= e.organization %> Дата начала работы: <%= e.begin %> Дата окончания работы: <%= e.end %> Сфера деятельности: <%= e.domain %> Должность: <%= e.post %></li>
+			<% }); } %>
+			<% if (item.profile.languages) { item.profile.languages.forEach(function(e) { %>
+				<li>Язык: <%= e.tag %> Уровень владения: <%= e.proficiency %></li>
+			<% }); } %>
+			<li>Национальность: <%= item.profile.nationality %></li>
+			<% if (item.profile.citizenship) { item.profile.citizenship.forEach(function(e) { %>
+				<li>Гражданство: <%= e %></li>
+			<% }); } %>
+			<li>Вероисповедание: <%= item.profile.religion %></li>
+			<li>Семейное положение: <%= item.profile.maritalStatus ? "Женат/Замужем" : "Холост/Не замужем" %></li>
+			<li>Дети: <%= item.profile.children %></li>
+			<li>Хобби: <%= item.profile.hobby %></li>
+			<li><%= item.profile.smoking ? "Курит" : "Не курит" %></li>
+			<li><%= item.profile.passport ? "Есть загранпаспорт" : "Нет загранпаспорта" %></li>
+			<li>Водительские права: <%= item.profile.driverLicense %></li>
+			<li><%= item.profile.car ? "Есть машина" : "Нет машины" %></li>
+			<li>О себе: <%= item.profile.about %></li>
+			<li>Навыки: <%= item.profile.skills %></li>
+			<li>Позитивные качества: <%= item.profile.positiveQualities %></li>
+			<li>Негативные качества: <%= item.profile.negativeQualities %></li>
+			<li><%= item.profile.move ? "Готов к переезду" : "Не готов к переезду" %></li>
+			<li><%= item.profile.trip ? "Готов к командировкам" : "Не готов к командировкам" %></li>
+			</ul>
+		<% } %>
+	<% }); %>
+</body>
+</html>

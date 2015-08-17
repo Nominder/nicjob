@@ -1,0 +1,99 @@
+.col-xs-12.text-center.subnav
+	div.col-xs-3
+		i.fa.fa-plus
+		|  
+		a(href="#") Добавить резюме
+	div.col-xs-3
+		i.fa.fa-plus
+		|  
+		a(href="#") Добавить вакансию
+	div.col-xs-3
+		i.fa.fa-plus
+		|  
+		a(href="#") Добавить команду
+	div.col-xs-3
+		i.fa.fa-map-marker
+		|  
+		a(href="#") Соискатели на карте
+
+.col-xs-12
+	h3 Команды
+
+.col-xs-12.results(ng-repeat="i in _data.search.teams.results")
+		a(ng-href="#/team/{{i.id}}")
+			.col-xs-12.competitor
+				.col-xs-4.text-center.avatar
+					//img(src="http://robohash.org/#{Math.random()}.png?set=set3")
+					a(ng-href="#/team/{{i.id}}")
+						img(ng-src="{{get_avatar_uri(i.profile.images)}}")
+				.col-xs-8.info
+					.col-xs-12.person
+						.col-xs-8
+							a.name(ng-href="#/team/{{i.id}}")
+								| {{i.profile.name}}
+							span(ng-show="i.online").online    &bull;
+						.col-xs-4.salary
+							i.fa.fa-map-marker
+							span {{i.profile.salary.summa}}
+							span  Руб/{{getFromList('period', i.profile.salary.period)||'мес'}}
+					.col-xs-12.specialty
+						span(ng-if="i.profile.industryPost.length == 0", style="opacity:0;") &empty;
+						span(ng-repeat="v1 in i.profile.industryPost") {{getFromList('industry', v1.industry)}} {{v1.post}}{{$last ? '' : ', '}}
+					.col-xs-12.experience
+						b Навыки: 
+						.row(ng-repeat="s in i.profile.skills")
+							.col-xs-4.label {{s.skill}}
+							.col-xs-8 {{s.proficiency}}
+					.col-xs-12.about
+						b О себе: 
+						span {{i.profile.about}}
+
+				//div {{i.profile}}
+
+				.col-xs-12
+					.col-xs-4
+						.btn.btn-success.videocall(ng-click="setInterview(i)")
+							i.fa.fa-video-camera
+							|  ВИДЕОСОБЕСЕДОВАНИЕ
+					.col-xs-8
+						.col-xs-12.additional
+							div
+								span
+									i.fa.fa-car
+									p {{(i.profile.count ? 'есть' : 'нет')}}
+								span
+									i.fa.fa-close
+									p lol2
+								span
+									i.fa.fa-close
+									p lol3
+								span
+									i.fa.fa-close
+									p lol4
+								span
+									i.fa.fa-close
+									p lol5
+								span
+									i.fa.fa-close
+									p lol6
+								span
+									i.fa.fa-close
+									p lol7
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

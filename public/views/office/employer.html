@@ -1,0 +1,274 @@
+
+<script type="text/ng-template" id="geoTemplate.html">
+	<a ng-click="selectGeo(match.model)">
+		<span>{{match.model.formatted_address}}</span>
+	</a>
+</script>
+
+<accordion class="col-md-12" close-others="true">
+	<accordion-group heading="Контакты">
+		<label class="col-md-6">
+			<span>Страна/Город</span>
+			<input type="text" placeholder="Страна/Город" title="Страна/Город" typeahead="address as address.formatted_address for address in getLocation($viewValue)| filter:{formatted_address:$viewValue}" typeahead-loading="loadingLocations" ng-model="geo" typeahead-template-url="geoTemplate.html">
+		</label>
+		<label class="col-md-6">
+			<span>Телефон</span>
+			<input type="text" placeholder="Телефон" title="Телефон" ng-model="profile.contacts.phone">
+		</label>
+		<label class="col-md-6">
+			<span>Email</span>
+			<input type="text" placeholder="Email" title="Email" ng-model="profile.contacts.email">
+		</label>
+		<label class="col-md-6">
+			<span>Ссылка на социальную сеть</span>
+			<input type="text" placeholder="http://fb.com/cat" title="Ссылка на социальную сеть" ng-model="profile.contacts.socialNetwork">
+		</label>
+		<label class="col-md-6">
+			<span>Skype</span>
+			<input type="text" placeholder="Skype" title="Skype" ng-model="profile.contacts.skype">
+		</label>
+		<label class="col-md-6">
+		<br>
+		<br>
+		</label>
+		<label class="col-md-6">
+			<span>Адрес</span>
+			<textarea placeholder="Адрес" title="Адрес" ng-model="profile.contacts.address"></textarea>
+		</label>
+		<label class="col-md-6">
+			<span>Дополнительно</span>
+			<textarea placeholder="Дополнительно" title="Дополнительно" ng-model="profile.contacts.other"></textarea>
+		</label>
+	</accordion-group>
+	<accordion-group heading="Информация" is-open="true">
+		<div class="col-md-6">
+			<label class="col-md-6">
+				<div ng-click="openUploadImage(profile.company.logo)">
+					<img ng-src="{{profile.company.logo ? '/openapi/0.1/images/get?id='+profile.company.logo+'&size=320' : '/img/avatar.png'}}">
+				</div>
+			</label>
+		</div>
+		<div class="col-md-6">
+			<label class="col-md-12">
+				<input type="text" placeholder="Фамилия" title="Фамилия" ng-model="profile.info.lastname">
+			</label>
+			<label class="col-md-12">
+				<input type="text" placeholder="Имя" title="Имя" ng-model="profile.info.firstname">
+			</label>
+			<label class="col-md-12">
+				<input type="text" placeholder="Отчество" title="Отчество" ng-model="profile.info.middlename">
+			</label>
+		</div>
+	</accordion-group>
+	<accordion-group heading="Вакансии">
+		<div ng-show="!newVacansyShow">
+			<div ng-repeat="(_i, i) in vacansy">
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Название
+					</div>
+					<div class="col-md-6">
+						<b>
+							{{i.name}}
+						</b>
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Зарплата
+					</div>
+					<div class="col-md-6">
+						{{i.salary.summa}} руб/{{getFromList('period', i.salary.period)}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Занятость
+					</div>
+					<div class="col-md-6">
+						{{getFromList('part', i.part)}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Описание
+					</div>
+					<div class="col-md-6">
+						{{i.about}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Требования
+					</div>
+					<div class="col-md-6">
+						{{i.requirements}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Должностные обязанности
+					</div>
+					<div class="col-md-6">
+						{{i.acting}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Уровень образования
+					</div>
+					<div class="col-md-6">
+						{{getFromList('level', i.level)}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Языки
+					</div>
+					<div class="col-md-6">
+						<!-- <pre>{{i}}</pre> -->
+						<div ng-repeat="j in i.languages">
+							владение {{getFromList('tag', j.tag)}} языком на {{getFromList('proficiency', j.proficiency)}} уровне
+						</div>
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Отрасль
+					</div>
+					<div class="col-md-6">
+						{{getFromList('industry', i.vac_industryPost.industry)}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-6">
+						Должность
+					</div>
+					<div class="col-md-6">
+						{{i.vac_industryPost.post}}
+					</div>
+				</label>
+				<label class="col-md-12">
+					<div class="col-md-offset-6 col-md-6">
+						<button ng-click="_remove(vacansy, _i)">delete</button>
+					</div>
+				</label>
+			</div>
+			<button ng-click="newVacansyShow=true;">Add</button>
+		</div>
+
+		<div ng-show="newVacansyShow">
+			<pre>{{_new.vacansy}}</pre>
+			<label class="col-md-12">
+				<div class="col-md-6">
+					Название
+				</div>
+				<div class="col-md-6">
+					<input type="text" placeholder="Название" title="Название" ng-model="_new.vacansy.name">
+				</div>
+			</label>
+			<label class="col-md-12">
+				<div class="col-md-6">
+					Зарплата
+				</div>
+				<div class="col-md-6">
+					<input type="number" placeholder="10000" title="Зарплата" ng-model="_new.vacansy.salary.summa">
+				</div>
+			</label>
+			<label class="col-md-12">
+				<div class="col-md-6">
+					Период оплаты
+				</div>
+				<div class="col-md-6">
+					<select title="Период оплаты" ng-model="_new.vacansy.salary.period">
+						<option ng-repeat="i in lists.period" value="{{+i.id}}">{{i.title}}</option>
+					</select>
+				</div>
+			</label>
+			<label class="col-md-12">
+				<div class="col-md-6">
+					Занятость
+				</div>
+				<div class="col-md-6">
+					<select title="Период оплаты" ng-model="_new.vacansy.part">
+						<option ng-repeat="i in lists.part" value="{{+i.id}}">{{i.title}}</option>
+					</select>
+				</div>
+			</label>
+			<label class="col-md-12">
+				<div class="col-md-6">
+					Описание
+				</div>
+				<div class="col-md-6">
+					<textarea placeholder="Описание" title="Описание" ng-model="_new.vacansy.about"></textarea>
+				</div>
+			</label>
+			<label class="col-md-12">
+				<div class="col-md-6">
+					Требования
+				</div>
+				<div class="col-md-6">
+					<textarea placeholder="Требования" title="Требования" ng-model="_new.vacansy.requirements"></textarea>
+				</div>
+			</label>
+			<label class="col-md-12">
+				<div class="col-md-6">
+					Должностные обязанности
+				</div>
+				<div class="col-md-6">
+					<textarea placeholder="должностные обязанности" title="должностные обязанности" ng-model="_new.vacansy.acting"></textarea>
+				</div>
+			</label>
+			<label class="col-md-12">
+				<div class="col-md-6">
+					Уровень образования
+				</div>
+				<div class="col-md-6">
+					<select title="Уровень образования" ng-model="_new.vacansy.level">
+						<option ng-repeat="i in lists.level" value="{{i.id}}">{{i.title}}</option>
+					</select>
+				</div>
+			</label>
+			<label class="col-md-12">
+				<div class="col-md-6">
+					Языки
+				</div>
+				<div class="col-md-6">
+					<div ng-repeat="i in _new.vacansy.languages">
+						владение {{getFromList('tag', i.tag)}} языком на {{getFromList('proficiency', i.proficiency)}} уровне
+					</div>
+					<select title="язык" ng-model="_new.language.tag">
+						<option ng-repeat="i in lists.tag" value="{{i.id}}">{{i.title}}</option>
+					</select>
+					<select title="уровень владения" ng-model="_new.language.proficiency">
+						<option ng-repeat="i in lists.proficiency" value="{{i.id}}">{{i.title}}</option>
+					</select>
+					<button ng-click="_add.vacansyLanguage()">add</button>
+				</div>
+			</label>
+			<label class="col-md-12">
+				<div class="col-md-6">
+					Отрасль
+				</div>
+				<div class="col-md-6">
+					<select title="Отрасль" ng-model="_new.vacansy.vac_industryPost.industry">
+						<option ng-repeat="i in lists.industry" value="{{i.id}}">{{i.title}}</option>
+					</select>
+				</div>
+			</label>
+			<label class="col-md-12">
+				<div class="col-md-6">
+					Должность
+				</div>
+				<div class="col-md-6">
+					<input type="text" placeholder="Должность" title="Должность" ng-model="_new.vacansy.vac_industryPost.post">
+				</div>
+			</label>
+			<button ng-click="_add.vacansy(); newVacansyShow=false;">Save</button>
+		</div>
+
+		
+	</accordion-group>
+</accordion>
+
+<button ng-click="updateProfile()">Save</button>

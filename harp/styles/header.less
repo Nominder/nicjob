@@ -1,0 +1,112 @@
+
+
+
+.application {
+	.textStyle() {
+		color: rgb(204, 204, 204);
+		font-weight: bold;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+	@backgroundColor: rgb(29, 29, 29);
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	&:before {
+		content: " ";
+		position: fixed;
+		left: 0px;
+		top: 0px;
+		width: 100%;
+		height: @lineHeight;
+		background-color: @backgroundColor;
+		z-index: -1;
+	}
+	.header {
+		position: fixed;
+		text-align: center;
+		width: 980px;
+		background-color: @backgroundColor;
+		z-index: 999999;
+		div {
+			height: @lineHeight;
+			line-height: @lineHeight;
+		}
+		.logo {
+			float: left;
+			width: 196px;
+		}
+		.navigate {
+			float: left;
+			a {
+				.textStyle();
+			}
+			>div {
+				.logo();
+				position: relative;
+				border-right: 1px solid rgb(53, 53, 53);
+				&:first-child {
+					border-left: 1px solid rgb(53, 53, 53);
+				}
+			}
+			.active {
+				background-color: rgb(53, 53, 53);
+				& a:after {
+					content: "";
+					display: block;
+					opacity: 1;
+					width: 0px;
+					height: 0px;
+					border-style: solid;
+					border-width: 11px 12px 0 12px;
+					border-color: #353535 transparent transparent transparent;
+					position: absolute;
+					top: 100%;
+					left: 50%;
+					margin: 0 0 0 -12px;
+					transition: opacity 0.2s ease-in-out;
+				}
+				& a.scrolled:after {
+					opacity: 0;
+				}
+			}
+		}
+		.enter {
+			float: left;
+			width: 160px;
+			line-height: @lineHeight;
+			text-align: left;
+			button {
+				width: 143px;
+				height: 26px;
+				line-height: 14px;
+				margin-left: 12px;
+				color: #fff !important;
+				background-color: rgb(99, 170, 91);
+				.textStyle();
+			}
+			.headerMenu {
+				overflow: hidden;
+				&:hover {
+					overflow: inherit;
+				}
+			  	.email{
+				  direction: rtl;
+				  overflow: hidden;
+				  background-color: @backgroundColor;
+
+				}
+				>div {
+					text-align: left;
+					padding-left: 20px;
+					color: #fff;
+					background-color: @backgroundColor;
+					>a {
+						color: #fff;
+					}
+				  	i{
+					  margin-right: 5px;
+					}
+				}
+			}
+		}
+	}
+}

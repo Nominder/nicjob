@@ -1,0 +1,84 @@
+.col-xs-12.competitorPage(ng-controller="pages.teamCtrl")
+	.col-xs-4.left
+		.user-avatar-wrap(ng-init="console.log(profile)")
+			.col-xs-12.images(ng-init="imgSelect = 0")
+				.bigImage
+					img(ng-src="{{get_avatar_uri(profile.images[imgSelect].image)}}")
+				.smallImages
+					.image(ng-repeat="(j,i) in profile.images")
+						img(ng-src="{{get_avatar_uri(i.image)}}", ng-click="imgSelect = j;")
+			.col-xs-12.button
+				button.btn.btn-warning
+					i.fa.fa-video-camera
+					span  Видеособеседование
+			.col-xs-12.button
+				button.btn.btn-success
+					i.fa.fa-star
+					span  В избранное
+			.col-xs-12.text-center.sumary
+				span.sum {{profile.salary.summa}}
+				span {{getFromList('period', profile.salary.period)}}/месяц
+	.col-xs-8.right
+		.col-xs-12.name
+			b {{profile.name}}
+				span.green &bull;
+		.col-xs-12.about
+			b Количество участников: 
+			span {{profile.count}}
+			.col-xs-12
+		.col-xs-12.industryPost
+			b(ng-repeat="v1 in profile.industryPost") {{getFromList('industry', v1.industry)}} {{v1.post}}{{$last ? '' : ', '}}
+		.col-xs-12.about
+			b О себе: 
+			span {{profile.about}}
+			.col-xs-12
+		.col-xs-12.video
+			.col-xs-12
+				h2
+					i.fa.fa-play-circle-o
+					span  Видеорезюме
+			.col-xs-12
+				iframe.player.xvideoiframe(width="600", height="200", x-code="http://boomstream.com/player.html?code={{profile.videos[0].video}}", frameborder="0", scrolling="no", allowfullscreen)
+		.col-xs-12.portfolio
+			h2
+				i.fa.fa-briefcase
+				span  Протфолио
+			.image(ng-repeat="i in profile.portfolio.images")
+				img(ng-src="{{get_avatar_uri(i.image)}}")
+		.col-xs-12.additional
+			h2
+				i.fa.fa-list
+				span  Дополнительная информация
+			.col-xs-12
+				i.fa.fa-list
+				b Навыки: 
+				span {{profile.skills}}
+			.col-xs-12
+				i.fa.fa-list
+				b Кого мы ищем: 
+				span {{profile.skills}}
+		.col-xs-12.contacts
+			h2
+				span  Контакты
+			.col-xs-6
+				i.fa.fa-phone
+				b nacionality: 
+				span {{profile.contacts.phone}}
+			.col-xs-6
+				i.fa.fa-envelope
+				b nacionality: 
+				span {{profile.contacts.email}}
+			.col-xs-12
+				i.fa.fa-map-marker
+				b nacionality: 
+				span {{profile.contacts.address}}
+			.col-xs-12.map 
+				iframe(ng-src="{{toURL((profile.contacts ? profile.contacts.address : null))}}", width="600", height="450", frameborder="0", style="border:0")
+
+
+
+
+
+
+
+

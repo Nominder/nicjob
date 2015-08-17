@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>save video</title>
+</head>
+<body>
+
+<script type="text/javascript" src="https://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+
+<div class="inner">
+	<h2 id="download-url"></h2><br />
+	<video id="video"></video><hr />
+	<button id="start-recording">Record</button>
+	<button id="stop-recording" disabled>Stop</button><br />
+</div>
+
+
+<script type="text/javascript">
+	var video = document.getElementById('video');
+	var downloadURL = document.getElementById('download-url');
+
+	var startRecording = document.getElementById('start-recording');
+	var stopRecording = document.getElementById('stop-recording');
+
+	startRecording.onclick = function() {
+		startRecording.disabled = true;
+		stopRecording.disabled = false;
+
+		captureUserMedia(function(stream) {
+			window.audioVideoRecorder = window.RecordRTC(stream, {
+				type: 'video'
+			});
+			window.audioVideoRecorder.startRecording();
+		});
+	};
+
+	stopRecording.onclick = function() {
+		stopRecording.disabled = true;
+		startRecording.disabled = false;
+
+		window.audioVideoRecorder.stopRecording(function(url) {
+			downloadURL.innerHTML = '<a href="' + url + '" download="video.webm" target="_blank">Save to computer</a>';
+			video.src = url;
+			video.muted = false;
+			video.play();
+			
+			video.onended = function() {
+				video.pause();
+				video.src = URL.createObjectURL(audioVideoRecorder.getBlob());
+			};
+		});
+	};
+
+	function captureUserMedia(callback) {
+		navigator.getUserMedia = navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
+		navigator.getUserMedia({ audio: true, video: true }, function(stream) {
+			video.src = URL.createObjectURL(stream);
+			video.muted = true;
+			video.controls = true;
+			video.play();
+			
+			callback(stream);
+		}, function(error) { console.error(error); });
+	}
+
+</script>
+
+
+</body>
+</html>

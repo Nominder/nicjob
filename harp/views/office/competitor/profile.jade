@@ -1,0 +1,430 @@
+.col-xs-12.competitorOfficeProfile
+	.row.margin
+		.col-xs-4
+			input(type="text", placeholder="Имя", ng-model="profile.info.firstname")
+		.col-xs-4
+			input(type="text", placeholder="Фамилия", ng-model="profile.info.lastname")
+		.col-xs-4
+			input(type="text", placeholder="Отчество", ng-model="profile.info.middlename")
+	.row.margin
+		.col-xs-8
+			.row
+				.col-xs-6.label Дата рождения
+				.col-xs-6
+					.row
+						.col-xs-3
+							select(ng-model="_add._dob.d")
+								- for(var i=1;i<31;i++) {
+									option(value="#{i}") #{i}
+								- }
+						.col-xs-5
+							select(ng-model="_add._dob.m")
+									option(value="1") Январь
+									option(value="2") Февраль
+									option(value="3") Март
+									option(value="4") Апрель
+									option(value="5") Май
+									option(value="6") Июнь
+									option(value="7") Июль
+									option(value="8") Август
+									option(value="9") Сентябрь
+									option(value="10") Октябрь
+									option(value="11") Ноябрь
+									option(value="12") Декабрь
+						.col-xs-4
+							select(ng-model="_add._dob.y")
+								- for(var i=(new Date).getFullYear();i>1900;i--) {
+									option(value="#{i}") #{i}
+								- }
+					//input(type="date", ng-model="profile.info.birthday")
+		.col-xs-4
+			.row
+				.col-xs-4.label 
+				.col-xs-8
+					input(type="radio", name="r1", id="r1", value="true", ng-model="profile.info.sex")
+					label(for="r1") мужчина
+					input(type="radio", name="r1", id="r2", value="false", ng-model="profile.info.sex")
+					label(for="r2") женщина
+	.row.margin
+		.col-xs-4.images(ng-controller="office.common.imgsCtrl as img")
+			.image(ng-repeat="i in profile.images", ng-dblclick="img.removeImg(j)", ng-init="img.addImg()", ng-class="{big: $first, small: !$first}")
+				img(ng-src="{{get_avatar_uri(i.image)}}")
+				i.fa.fa-close(ng-click="img.removeImg(j)")
+			.image(ng-repeat="i in q track by $index", ng-click="modal('makePhoto', {to:profile.images})", ng-class="{big: $first && !profile.images[0], small: !$first || profile.images[0]}")
+				span(ng-if="$first && !profile.images[0]") + Загрузите фото
+				span(ng-if="!$first || profile.images[0]") Еще фото
+		.col-xs-8.videos
+			.video(ng-if="profile.videos.length > 0")
+				iframe.xvideoiframe(width="600", height="200", x-code="http://boomstream.com/player.html?code={{profile.videos[0].video}}", frameborder="0", scrolling="no", allowfullscreen)
+			.video(ng-if="profile.videos.length == 0")
+				.video-item(ng-click="modal('makeVideo', {to:profile.videos})") + ЗАГРУЗИТЕ ВИДЕОРЕЗЮМЕ
+	.row.text-center.margin
+		.col-xs-6
+			button.btn.btn-success(ng-click="modal('makePhoto', {to:profile.images})", ng-disabled="profile.images.length >= 4") Снять фото на вебкамеру
+		.col-xs-6
+			button.btn.btn-success(ng-click="modal('makeVideo', {to:profile.videos})") Снять видео на вебкамеру
+
+	accordion.accordion
+		hr
+		accordion-group(heading="Отрасль и должность")
+			//Industry and post
+			.industryPost
+				.industry(ng-repeat="j in profile.industryPost")
+					.row.margin
+						.col-xs-3.label Укажите вашу отрасль
+						
+						.col-xs-9.input
+							select(ng-model="j.industry")
+								option(ng-repeat="i in getList('industry')", ng-selected="j.industry == i.id", value="{{i.id}}") {{i.title}}
+						//.col-xs-9.input
+							input(type="text", placeholder="Отрасль", ng-model="j.industry", typeahead="item for item in getListTitles('industry') | filter:$viewValue | limitTo:10")
+							span.clean(ng-click="j.industry=''")
+					.row.margin
+						.col-xs-3.label Выберите должность x{{((j.industry)-0+1).toString()}}y{{j.industry}}z{{j.post}}
+						.col-xs-9.input
+							select(ng-model="j.post")
+								option(ng-repeat="i in getList('post', ((j.industry)-0+1).toString())", value="{{i.id}}") {{i.title}}
+						//.col-xs-9.input
+							input(type="text", placeholder="Должность", ng-model="j.post", typeahead="item for item in getListTitles('post') | filter:$viewValue | limitTo:10")
+							span.clean(ng-click="j.post=''")
+				.row.margin(ng-if="profile.industryPost.length < 3")
+					.col-xs-9.col-xs-offset-3
+						span.plus +
+						a.add-link(href="", ng-click="profile.industryPost.push({})")
+							|	Добавить ещё одну отрасль
+
+				.row.margin
+					.col-xs-3.label Занятость
+					.col-xs-7
+						span(ng-repeat="i in getList('part')")
+							input(type="radio", name="part", id="part_{{i}}", value="{{i.id}}", ng-model="profile.part")
+							label(for="part_{{i}}") {{i.title}}
+
+				.row
+					.col-xs-3.label Желаемая зарплата
+					.col-xs-4
+						input(type="text", ng-model="profile.salary.summa")
+					.col-xs-5
+						select(ng-model="profile.salary.period")
+							option(ng-repeat="i in getList('period')", value="{{i.id}}") Рублей в {{i.title}}
+		hr
+		accordion-group(heading="Образование")
+			.col-xs-12(ng-repeat="j in profile.education")
+				.row.margin
+					i.pull-right.fa.fa-close(ng-click="profile.education.splice(profile.education.indexOf(j),1)")
+				.row.margin
+					.col-xs-3.label Уровень образования
+					.col-xs-7
+						span(ng-repeat="i in getList('level')")
+							input(type="radio", name="r3", id="level_{{i.id}}", value="{{i.id}}", ng-model="j.level")
+							label(for="level_{{i.id}}") {{i.title}}
+				.row.margin
+					.col-xs-3.label Учебное заведение
+					.col-xs-9
+						input(type="text", placeholder="Учебное заведение", ng-model="j.hs", typeahead="item for item in getListTitles('hs') | filter:$viewValue | limitTo:10")
+				.row.margin
+					.col-xs-3.label Специальность/год
+					.col-xs-4
+						input(type="text", placeholder="Специальность", ng-model="j.speciality", typeahead="item for item in getListTitles('speciality') | filter:$viewValue | limitTo:10")
+					.col-xs-4
+						select(ng-model="j.year")
+							- for(var i=(new Date).getFullYear();i>1900;i--) {
+								option(value="#{i}") #{i}
+							- }
+			.row
+				.col-xs-9.col-xs-offset-3
+					span.plus +
+					a.add-link(href="", ng-click="profile.education.push({});")
+						|	Добавить еще одно учебное заведение
+		hr
+		accordion-group(heading="Дипломы, награды и сертификаты")
+			.row.diplomas.margin.text-center(ng-controller="office.common.diplomasCtrl as diplomas")
+				.col-xs-3(ng-repeat="(j, i) in profile.diplomas", ng-init="diplomas.addImg()")
+					.media(ng-dblclick="diplomas.removeImg(j);")
+						img.img-responsive(ng-src="{{get_avatar_uri(i.image)}}")
+						a.close-btn
+							i.fa.fa-close(ng-click="!confirm('Удалить?') ? 0 : diplomas.removeImg(j);")
+				.col-xs-3(ng-repeat="i in diplomasEmpty track by $index")
+					.empty(ng-click="modal('makePhoto', {to:profile.diplomas})")
+						span + ФОТО/ВИДЕО РАБОТ
+
+
+			.row
+				.col-xs-12
+					button.btn.btn-success(ng-click="modal('makePhoto', {to:profile.diplomas})") Снять на вебкамеру
+		hr
+		accordion-group(heading="Карьера")
+			.career.row
+				.col-xs-12.block.new(ng-repeat="j in profile.career")
+					.row.margin
+						.col-xs-3.label Страна/город
+						.col-xs-9
+							input(type="text", ng-model="j.address", typeahead-input-formatter="formatLabel($model)", typeahead-on-select="setGeo($item, _add.career)", placeholder="Страна / город", typeahead="address for address in getLocation($viewValue)", typeahead-template-url="customGeoTemplate.html", typeahead-loading="loadingLocations")
+					.row.margin
+						.col-xs-3.label Название организации
+						.col-xs-9
+								input(type="text", ng-model="j.organization")
+					.row.margin
+						.col-xs-3.label Сфера деятельности
+						.col-xs-9
+							select(ng-model="j.vac_industryPost.industry")
+								option(ng-repeat="i in getList('industry')", value="{{i.id}}") {{i.title}}
+							//input(type="text", placeholder="Сфера деятельности", ng-model="j.vac_industryPost.industry", typeahead="item for item in getListTitles('industry') | filter:$viewValue | limitTo:10")
+					.row.margin
+						.col-xs-3.label Должность/период
+						.col-xs-9
+							.row
+								.col-xs-6
+									select(ng-model="j.vac_industryPost.post")
+										option(ng-repeat="i in getList('post', j.vac_industryPost.industry)", value="{{i.id}}") {{i.title}}
+									//input(type="text", placeholder="Сфера деятельности", ng-model="j.vac_industryPost.post", typeahead="item for item in getListTitles('post') | filter:$viewValue | limitTo:10")
+								.col-xs-6
+									.row
+										.col-xs-5
+											input(type="month", ng-model="j.begin")
+										.col-xs-5
+											input(type="month", ng-model="j.end", ng-disabled="_add.careerEndNull")
+										.col-xs-2
+											input(type="checkbox", ng-model="_add.careerEndNull", id="{{'checkbox_' + $index}}")
+											label(for="{{'checkbox_' + $index}}") н.в.
+
+				.col-xs-9.col-xs-offset-3
+					span.plus +
+					a.add-link(href="", ng-click="profile.career.push({});")
+						| Добавить ещё одно место работы
+		hr
+		accordion-group(heading="Портфолио")
+			.row.margin.portfolio.text-center(ng-controller="office.common.portfolioCtrl as portfolio")
+				.col-xs-3(ng-repeat="(j, i) in profile.portfolio.images", ng-init="portfolio.addImg()")
+					.media(ng-dblclick="portfolio.removeImg(j)")
+						img.img-responsive(ng-src="{{get_avatar_uri(i.image)}}")
+						a.close-btn
+							i.fa.fa-close(ng-click="!confirm('Удалить?') ? 0 : portfolio.removeImg(j);")
+				.col-xs-3(ng-repeat="i in portfolioEmpty track by $index")
+					.empty(ng-click="modal('makePhoto', {to:profile.portfolio.images})")
+						span + ФОТО/ВИДЕО РАБОТ
+			.row
+				.col-xs-12
+					button.btn.btn-success(ng-click="modal('makePhoto', {to:profile.portfolio.images})") Снять на вебкамеру
+		hr
+		accordion-group(heading="Знание языков")
+			.row.languages
+				.col-xs-12(ng-repeat="j in profile.languages")
+					.row.margin
+						.col-xs-3
+							select(ng-model="j.tag")
+								option(ng-repeat="i in getList('tag')", ng-selected="{{i.id == j.tag}}", value="{{i.id}}") {{i.title}}
+							input(type="hidden", ng-model="j.proficiency", ng-init="j.proficiency = j.proficiency || 3")
+						.col-xs-9.language
+							div(ng-click="j.proficiency = 1", ng-class="{'active':j.proficiency >= 1}")
+							div(ng-click="j.proficiency = 2", ng-class="{'active':j.proficiency >= 2}")
+							div(ng-click="j.proficiency = 3", ng-class="{'active':j.proficiency >= 3}")
+							div(ng-click="j.proficiency = 4", ng-class="{'active':j.proficiency >= 4}")
+							div(ng-click="j.proficiency = 5", ng-class="{'active':j.proficiency >= 5}")
+							div(ng-click="j.proficiency = 6", ng-class="{'active':j.proficiency >= 6}")
+							div(ng-click="j.proficiency = 7", ng-class="{'active':j.proficiency >= 7}")
+							div(ng-click="j.proficiency = 8", ng-class="{'active':j.proficiency >= 8}")
+							div(ng-click="j.proficiency = 9", ng-class="{'active':j.proficiency >= 9}")
+							div(ng-click="j.proficiency = 10", ng-class="{'active':j.proficiency >= 10}")
+							div(ng-click="j.proficiency = 11", ng-class="{'active':j.proficiency >= 11}")
+							div(ng-click="j.proficiency = 12", ng-class="{'active':j.proficiency >= 12}")
+				.row
+					.col-xs-9.col-xs-offset-3
+						span.plus +
+						a.add-link(href="", ng-click="profile.languages.push({});")
+							| Добавить язык
+		hr
+		accordion-group(heading="Навыки")
+
+			.row.skills(ng-repeat="j in profile.skills")
+				.col-xs-3
+					input(type="text", placeholder="Навык или инструмент", ng-model="j.skill", typeahead="item for item in getListTitles('skill') | filter:$viewValue | limitTo:10")
+					input(type="hidden", ng-model="j.proficiency", ng-init="j.proficiency = 3")
+				.col-xs-9.skill
+					div(ng-click="j.proficiency = 1", ng-class="{'active':j.proficiency >= 1}")
+					div(ng-click="j.proficiency = 2", ng-class="{'active':j.proficiency >= 2}")
+					div(ng-click="j.proficiency = 3", ng-class="{'active':j.proficiency >= 3}")
+					div(ng-click="j.proficiency = 4", ng-class="{'active':j.proficiency >= 4}")
+					div(ng-click="j.proficiency = 5", ng-class="{'active':j.proficiency >= 5}")
+					div(ng-click="j.proficiency = 6", ng-class="{'active':j.proficiency >= 6}")
+					div(ng-click="j.proficiency = 7", ng-class="{'active':j.proficiency >= 7}")
+					div(ng-click="j.proficiency = 8", ng-class="{'active':j.proficiency >= 8}")
+					div(ng-click="j.proficiency = 9", ng-class="{'active':j.proficiency >= 9}")
+					div(ng-click="j.proficiency = 10", ng-class="{'active':j.proficiency >= 10}")
+					div(ng-click="j.proficiency = 11", ng-class="{'active':j.proficiency >= 11}")
+					div(ng-click="j.proficiency = 12", ng-class="{'active':j.proficiency >= 12}")
+			.row
+				.col-xs-9.col-xs-offset-3
+					span.plus +
+					a.add-link(href="", ng-click="profile.skills.push({});")
+						| Добавить навык
+		hr
+		accordion-group(heading="Дополнительно")
+			.row.other.margin
+				.col-xs-2.label Национальность
+				.col-xs-5
+					input(type="text", placeholder="Укажите вашу национальность",  ng-model="_tmp.nationality", typeahead-on-select="profile.nationality = getListId('nationality', $item)", typeahead="item for item in getListTitles('nationality') | filter:$viewValue | limitTo:10")
+					//select(placeholder="Укажите вашу национальность", ng-model="profile.nationality")
+						option(ng-repeat="i in getList('nationality')", value="{{i.id}}") {{i.title}}
+				.col-xs-5
+					input(type="text", placeholder="Укажите своё гражданство", ng-model="_tmp.citizenship", typeahead-on-select="profile.citizenship = getListId('citizenship', $item)", typeahead="item for item in getListTitles('citizenship') | filter:$viewValue | limitTo:10")
+					//select(placeholder="Укажите своё гражданство", ng-model="profile.citizenship")
+						option(ng-repeat="i in getList('citizenship')", value="{{i.id}}") {{i.title}}
+			.row.other.margin
+				.col-xs-2.label Вероисповедание
+				.col-xs-5
+					input(type="text", placeholder="Укажите вашу религию", ng-model="profile.religion", typeahead-on-select="profile.religion = getListId('religion', $item)", typeahead="item for item in getListTitles('religion') | filter:$viewValue | limitTo:10")
+					//select(placeholder="Укажите вашу религию", ng-model="profile.religion")
+						option(ng-repeat="i in getList('religion')", value="{{i.id}}") {{i.title}}
+				.col-xs-5
+					select(placeholder="Знак зодиака", ng-model="profile.horoscope")
+						option(value="#{i}") Овен
+						option(value="#{i}") Телец
+						option(value="#{i}") Близнецы
+						option(value="#{i}") Рак
+						option(value="#{i}") Лев
+						option(value="#{i}") Дева
+						option(value="#{i}") Весы
+						option(value="#{i}") Скорпион
+						option(value="#{i}") Стрелец
+						option(value="#{i}") Козерог
+						option(value="#{i}") Водолей
+						option(value="#{i}") Рыбы
+			.row.other.margin
+				.col-xs-2.label О себе
+				.col-xs-10
+					textarea(placeholder="Расскажите главные моменты о себе. Данная информация будет главной в минирезюме", ng-model="profile.about", style="width:99%;")
+			.row.other.margin
+				.col-xs-2.label Сеймейное положение
+				.col-xs-4
+					span(ng-if="profile.info.sex == 'true'")
+						input(type="radio", name="r4", id="marry_1", value="true", ng-model="profile.maritalStatus")
+						label(for="marry_1") женат
+						input(type="radio", name="r4", id="marry_2", value="false", ng-model="profile.maritalStatus")
+						label(for="marry_2") холост
+					span(ng-if="profile.info.sex == 'false'")
+						input(type="radio", name="r4", id="marry_1", value="true", ng-model="profile.maritalStatus")
+						label(for="marry_1") замужем
+						input(type="radio", name="r4", id="marry_2", value="false", ng-model="profile.maritalStatus")
+						label(for="marry_2") не замужем
+				.col-xs-2.label
+					| Детеи
+				.col-xs-4
+					select(placeholder="Укажите количество детей", ng-model="profile.children")
+						option(value="0") Нету
+						option(value="1") Один
+						option(value="2") Двое
+						option(value="3") Трое
+						option(value="4") Четверо
+						option(value="5") Пятеро
+						option(value="6") Шестеро
+						option(value="7") Семеро
+						option(value="8") Восьмеро
+						option(value="9") Девятеро
+					//input(type="number", placeholder="Укажите количество детей", ng-model="profile.children")
+			.row.other.margin
+				.col-xs-2.label Хобби
+				.col-xs-10
+					textarea(placeholder="Расскажите о Ваших увлечениях и интересах", ng-model="profile.hobby", style="width:99%;")
+
+			.row.other.margin
+				.col-xs-2.label Загран паспорт
+				.col-xs-5
+					input(type="radio", name="r6", id="passport_1", value="true", ng-model="profile.passport")
+					label(for="passport_1") есть
+					input(type="radio", name="r6", id="passport_2", value="false", ng-model="profile.passport")
+					label(for="passport_2") нет
+				.col-xs-2.label Курение
+				.col-xs-3
+					input(type="radio", name="r5", id="smoking_1", value="true", ng-model="profile.smoking")
+					label(for="smoking_1") курю
+					input(type="radio", name="r5", id="smoking_2", value="false", ng-model="profile.smoking")
+					label(for="smoking_2") не курю
+			.row.other.margin
+				.col-xs-2.label Командировки
+				.col-xs-5
+					input(type="radio", name="r7", id="trip_1", value="true", ng-model="profile.trip")
+					label(for="trip_1") возможны
+					input(type="radio", name="r7", id="trip_2", value="false", ng-model="profile.trip")
+					label(for="trip_2") невозможны
+				.col-xs-2.label Переезд
+				.col-xs-3
+					input(type="radio", name="r8", id="move_1", value="true", ng-model="profile.move")
+					label(for="move_1") возможен
+					input(type="radio", name="r8", id="move_2", value="false", ng-model="profile.move")
+					label(for="move_2") невозможен
+			.row.other.margin
+				.col-xs-2.label Водительские права
+				.col-xs-5
+					span(ng-repeat="(i, j) in getList('driverLicense')")
+						input(type="radio", name="r9", id="driverLicense_{{i}}", value="{{j.id}}", ng-model="profile.driverLicense")
+						label(for="driverLicense_{{i}}") {{j.title}}
+				.col-xs-2.label Автомобиль
+				.col-xs-3
+					input(type="radio", name="r10", id="car_1", value="true", ng-model="profile.car")
+					label(for="car_1") есть
+					input(type="radio", name="r10", id="car_2", value="false", ng-model="profile.car")
+					label(for="car_2") нет
+			.row.other
+				.col-xs-2.label Личные качества
+				.col-xs-5
+					textarea(placeholder="Укажите ваши положительные качества", ng-model="profile.positiveQualities")
+				.col-xs-5
+					textarea(placeholder="Укажите ваши отрицательные качества", ng-model="profile.negativeQualities", style="width:99%;")
+		hr
+		accordion-group(heading="Контакты")
+			.row.margin
+				.col-xs-3.label email
+				.col-xs-6
+					input(type="text", ng-model="profile.contacts.email")
+			//.row.margin
+				.col-xs-3.label skype
+				.col-xs-6
+					input(type="text", ng-model="profile.contacts.skype")
+			.row.margin
+				.col-xs-3.label телефон
+				.col-xs-6
+					.row
+						.col-xs-6
+							input(type="text", ng-model="profile.contacts.phone", ui-br-phone-number)
+						.col-xs-6
+							button.btn.btn-success(ng-click="modal('confirmPhone', {phone:profile.contacts.phone, obj:profile})") Подтвердить телефон
+			.row.margin
+				.col-xs-3.label Адрес
+				.col-xs-6
+					input(type="text", ng-model="_add.address", typeahead-input-formatter="formatLabel($model)", typeahead-on-select="setGeo($item, profile.contacts)", placeholder="Страна / город", typeahead="address for address in getLocation($viewValue)", typeahead-template-url="customGeoTemplate.html", typeahead-loading="loadingLocations")
+				.col-xs-6.col-xs-offset-3.show-on-map(style="margin-top: 10px;")
+					span.plus +
+					a.add-link Добавить местоположение на карте
+					i.fa.fa-map-marker
+			.row.margin
+				.col-xs-3.label ссылка на социальную сеть
+				.col-xs-6
+					input(type="text", ng-model="profile.contacts.socialNetwork")
+			.row
+				.col-xs-3.label дополнитнльно
+				.col-xs-6
+					textarea(ng-model="profile.contacts.other")
+	hr
+	.row.margin
+		.col-xs-12(style="margin-bottom: 20px")
+			input(type="checkbox", ng-model="_isCheck_", id="ls")
+			label(for="ls") Размещая своё резюме на сайте я соглашаюсь со всеми правилами и законами
+		.col-xs-12
+			button.btn.btn-success(ng-click="save()", ng-disabled="!_isCheck_") сохранить и разместить резюме
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+
+
+
+
+script#vac-tmpl(type="text/x-jsrender").
+	<div class="row">
+		<div class="col-xs-9">
+			<div class="row form-group">
+				<div class="col-xs-3">
+					<label>Название вакансии</label>
+				</div>
+				<div class="col-xs-6">
+					<input type="text" value="{{>name}}" class="form-control"/>
+				</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-xs-3">
+					<label>Требования к кандидату</label>
+				</div>
+				<div class="col-xs-6">
+					<textarea class="form-control">{{>requirements}}</textarea>
+				</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-xs-3">
+					<label>Должностные обязанности</label>
+				</div>
+				<div class="col-xs-6">
+					<textarea class="form-control">{{>acting}}</textarea>
+				</div>
+			</div>
+			<div class="row form-group">
+				<div class="col-xs-3">
+					<label>О вакансии</label>
+				</div>
+				<div class="col-xs-6">
+					<textarea class="form-control">{{>about}}</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+

@@ -1,0 +1,475 @@
+
+<accordion class="col-md-12" close-others="true">
+	<accordion-group heading="Информация" is-open="true">
+		<div class="col-md-4">
+			<label class="col-md-12">
+				<input type="text" placeholder="Фамилия" title="Фамилия" ng-model="profile.info.lastname">
+			</label>
+		</div>
+		<div class="col-md-4">
+			<label class="col-md-12">
+				<input type="text" placeholder="Имя" title="Имя" ng-model="profile.info.firstname">
+			</label>
+		</div>
+		<div class="col-md-4">
+			<label class="col-md-12">
+				<input type="text" placeholder="Отчество" title="Отчество" ng-model="profile.info.middlename">
+			</label>
+		</div>
+		<div class="col-md-6">
+			<label class="col-md-12">
+				<span class="col-md-6">Дата рождения</span>
+				<div class="col-md-6">
+					<input type="date" placeholder="Дата рождения" title="Дата рождения" ng-model="profile.info.birthday">
+				</div>
+			</label>
+		</div>
+		<div class="col-md-6">
+			<label class="col-md-12">
+				<span class="col-md-6">Ваш пол</span>
+				<label class="col-md-3">
+					<input type="radio" ng-value="true" ng-model="profile.info.sex">
+					<span>Мужской</span>
+				</label>
+				<label class="col-md-3">
+					<input type="radio" ng-value="false" ng-model="profile.info.sex">
+					<span>Женский</span>
+				</label>
+			</label>
+		</div>
+	</accordion-group>
+	<accordion-group heading="Мультимедиа">
+		<style type="text/css">
+		.previmg img {
+			max-height: 300px;
+			max-width: 300px;
+		}
+		</style>
+		<div class="previmg  col-md-12">
+			<h3>Изображения</h3>
+			<div ng-repeat="(_i, i) in profile.images">
+				<div class="col-md-4">
+					<h4>
+						{{i.title}} 
+						<a href="" ng-click="removeImage(profile.images, _i);">
+							<i class="fa fa-close"></i>
+						</a>
+					</h4>
+					<img ng-src="/openapi/0.1/images/get?id={{i.image}}&amp;size=320">
+					<p>{{i.description}}</p>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<button ng-click="openUploadImage(profile.images)">add</button>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<h3>Видео</h3>
+			<div ng-repeat="(_i, i) in profile.videos">
+				<div class="col-md-4">
+					<h4>
+						{{i.title}} 
+						<a href="" ng-click="removeVideo(profile.videos, _i);">
+							<i class="fa fa-close"></i>
+						</a>
+					</h4>
+					<iframe class="xvideoiframe" width="320" height="240" x-code="http://boomstream.com/player.html?code={{i.video}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+					<p>{{i.description}}</p>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<button ng-click="openUploadVideo(profile.videos)">add</button>
+			</div>
+		</div>
+	</accordion-group>
+	<accordion-group heading="Отрасль и должность">
+		<div ng-repeat="(_i, i) in profile.industryPost">
+			<div class="col-md-11">
+				<div class="col-md-12">
+					<div class="col-md-4">
+						Отрасль
+					</div>
+					<div class="col-md-8">
+						{{getFromList('industry', i.industry)}}
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="col-md-4">
+						Должность
+					</div>
+					<div class="col-md-8">
+						{{i.post}}
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1">
+				<a href="" ng-click="_remove(profile.industryPost, _i)">
+					<i class="fa fa-close"></i>
+				</a>
+			</div>
+		</div>
+		<div>
+			<label>
+				<span>Отрасль</span>
+				<select ng-model="_new.industry">
+					<option ng-repeat="i in lists.industry" value="{{+i.id}}">{{i.title}}</option>
+				</select>
+			</label>
+			<label>
+				<span>Должность</span>
+				<input type="text" placeholder="Должность" title="Должность" ng-model="_new.post">
+			</label>
+			<button ng-click="_add.industryPost()">add</button>
+		</div>
+		<div>
+			<div>
+				<label>
+					<span>Занятость</span>
+					<select ng-model="profile.part">
+						<option ng-repeat="i in lists.part" value="{{+i.id}}">{{i.title}}</option>
+					</select>
+				</label>
+			</div>
+			<div>
+				<label>
+					<span>Желаемая зарптата</span>
+					<input type="number" placeholder="Желаемая зарптата" title="Желаемая зарптата" ng-model="profile.salary.summa">
+				</label>
+				<label>
+					<span>Период оплаты</span>
+					<select ng-model="profile.salary.period">
+						<option ng-repeat="i in lists.period" value="{{+i.id}}">{{i.title}}</option>
+					</select>
+				</label>
+			</div>
+		</div>
+	</accordion-group>
+	<accordion-group heading="Образование">
+			<div ng-repeat="i in profile.education">
+				<div class="col-md-11">
+					<div class="col-md-12">
+						<div class="col-md-4">Уровень образования</div>
+						<div class="col-md-8">
+							{{getFromList('level', i.level)}}
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-4">Учебное заведение</div>
+						<div class="col-md-8">{{i.hs}}</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-4">Специальность</div>
+						<div class="col-md-8">
+							{{i.speciality}}
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="col-md-4">Год окончания обучения</div>
+						<div class="col-md-8">{{i.year}}</div>
+					</div>
+				</div>
+				<div class="col-md-1">
+					<a href="" ng-click="_remove(profile.education, _i)">
+						<i class="fa fa-close"></i>
+					</a>
+				</div>
+			</div>
+
+			<div>
+				<label>
+					<span>Уровень образования</span>
+					<select ng-model="_new.level">
+						<option ng-repeat="i in lists.level" value="{{+i.id}}">{{i.title}}</option>
+					</select>
+				</label>
+				<label>
+					<span>Учебное заведение</span>
+					<input type="text" placeholder="Учебное заведение" title="Учебное заведение" ng-model="_new.hs">
+				</label>
+				<label>
+					<span>Специальность</span>
+					<select ng-model="_new.speciality">
+						<option ng-repeat="i in lists.speciality" value="{{+i.id}}">{{i.title}}</option>
+					</select>
+				</label>
+				<label>
+					<span>Год окончания обучения</span>
+					<input type="number" placeholder="Год окончания обучения" title="Год окончания обучения" ng-model="_new.year">
+				</label>
+				<button ng-click="_add.education()">add</button>
+			</div>
+	</accordion-group>
+	<accordion-group heading="Дипломы, награды и сертификаты">
+		<div class="col-md-12">
+			<h3>Изображения</h3>
+			<div ng-repeat="(_i, i) in profile.diplomas">
+				<div class="col-md-4">
+					<h4>
+						{{i.title}} 
+						<a href="" ng-click="removeImage(profile.diplomas, _i);">
+							<i class="fa fa-close"></i>
+						</a>
+					</h4>
+					<img ng-src="/openapi/0.1/images/get?id={{i.image}}&amp;size=320">
+					<p>{{i.description}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<button ng-click="openUploadImage(profile.diplomas)">add</button>
+		</div>
+	</accordion-group>
+	<accordion-group heading="Карьера">
+			<div class="col-md-12" ng-repeat="(_i, i) in profile.career">
+				<div class="col-md-1">
+					<a href="" ng-click="_remove(profile.career, _i)">
+						<i class="fa fa-close"></i>
+					</a>
+				</div>
+				<label>
+					<span>Название организации</span>
+					{{i.organization}}
+				</label>
+				<label>
+					<span>Сфера деятельности</span>
+					{{getFromList('industry', i.vac_industryPost.industry)}}
+				</label>
+				<label>
+					<span>Должность</span>
+					{{i.vac_industryPost.post}}
+				</label>
+				<label>
+					<span>с</span>
+					{{i.begin}}
+				</label>
+				<label>
+					<span>по</span>
+					{{i.end}}
+				</label>
+			</div>
+			<div class="col-md-12">
+				<label>
+					<span>Название организации</span>
+					<input type="text" placeholder="Название организации" title="Название организации" ng-model="_new.career.organization">
+				</label>
+				<label>
+					<span>Сфера деятельности</span>
+					<select ng-model="_new.career.vac_industryPost.industry">
+						<option ng-repeat="i in lists.industry" value="{{+i.id}}">{{i.title}}</option>
+					</select>
+				</label>
+				<label>
+					<span>Должность</span>
+					<input type="text" placeholder="Должность" title="Должность" ng-model="_new.career.vac_industryPost.post">
+				</label>
+				<label>
+					<span>с</span>
+					<input type="date" placeholder="с" title="с" ng-model="_new.career.begin">
+				</label>
+				<label>
+					<span>по</span>
+					<input type="date" placeholder="по" title="по" ng-model="_new.career.end">
+				</label>
+				<label>
+					<button ng-click="_add.career()">add</button>
+				</label>
+			</div>
+	</accordion-group>
+	<accordion-group heading="Портфолио">
+		<style type="text/css">
+		.previmg img {
+			max-height: 300px;
+			max-width: 300px;
+		}
+		</style>
+		<div class="previmg  col-md-12">
+			<h3>Изображения</h3>
+			<div ng-repeat="(_i, i) in profile.portfolio.images">
+				<div class="col-md-4">
+					<h4>
+						{{i.title}} 
+						<a href="" ng-click="removeImage(profile.portfolio.images, _i);">
+							<i class="fa fa-close"></i>
+						</a>
+					</h4>
+					<img ng-src="/openapi/0.1/images/get?id={{i.image}}&amp;size=320">
+					<p>{{i.description}}</p>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<button ng-click="openUploadImage(profile.portfolio.images)">add</button>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<h3>Видео</h3>
+			<div ng-repeat="(_i, i) in profile.portfolio.videos">
+				<div class="col-md-4">
+					<h4>
+						{{i.title}} 
+						<a href="" ng-click="removeVideo(profile.portfolio.videos, _i);">
+							<i class="fa fa-close"></i>
+						</a>
+					</h4>
+					<iframe class="xvideoiframe" width="320" height="240" x-code="http://boomstream.com/player.html?code={{i.video}}" frameborder="0" scrolling="no" allowfullscreen></iframe>
+					<p>{{i.description}}</p>
+				</div>
+			</div>
+			<div class="col-md-12">
+				<button ng-click="openUploadVideo(profile.portfolio.videos)">add</button>
+			</div>
+		</div>
+	</accordion-group>
+	<accordion-group heading="Знание языков">
+		<div ng-repeat="(_i, i) in profile.languages" class="col-md-12">
+			владение {{getFromList('tag', i.tag)}} языком на {{getFromList('proficiency', i.proficiency)}} уровне
+			<a href="" ng-click="_remove(profile.languages, _i)">
+				<i class="fa fa-close"></i>
+			</a>
+		</div>
+		<label class="col-md-12">
+			<div class="col-md-6">
+				Добавить язык
+			</div>
+			<div class="col-md-6">
+				<select title="язык" ng-model="_new.language.tag">
+					<option ng-repeat="i in lists.tag" value="{{+i.id}}">{{i.title}}</option>
+				</select>
+				<select title="уровень владения" ng-model="_new.language.proficiency">
+					<option ng-repeat="i in lists.proficiency" value="{{+i.id}}">{{i.title}}</option>
+				</select>
+				<button ng-click="_add.language()">add</button>
+			</div>
+		</label>
+	</accordion-group>
+	<!-- <accordion-group heading="Навыки владения технологиями и инструментами"></accordion-group> -->
+	<accordion-group heading="Дополнительно">
+			<label class="col-md-4">
+				<span>Национальность</span>
+				<select ng-model="profile.nationality">
+					<option ng-repeat="i in lists.nationality" value="{{+i.id}}">{{i.title}}</option>
+				</select>
+			</label>
+			<label class="col-md-4">
+				<span>Вероисповедание</span>
+				<select ng-model="profile.religion">
+					<option ng-repeat="i in lists.religion" value="{{+i.id}}">{{i.title}}</option>
+				</select>
+			</label>
+			<label class="col-md-4">
+				<span>О себе</span>
+				<textarea placeholder="О себе" title="О себе" ng-model="profile.about"></textarea>
+			</label>
+			<label class="col-md-4">
+				<span>Семейное положение</span>
+				<label>
+					<input type="radio" ng-value="true" ng-model="profile.maritalStatus">
+					<span>Женат</span>
+				</label>
+				<label>
+					<input type="radio" ng-value="false" ng-model="profile.maritalStatus">
+					<span>Не женат</span>
+				</label>
+			</label>
+			<label class="col-md-4">
+				<span>Курение</span>
+				<label>
+					<input type="radio" ng-value="true" ng-model="profile.smoking">
+					<span>Курю</span>
+				</label>
+				<label>
+					<input type="radio" ng-value="false" ng-model="profile.smoking">
+					<span>Не курю</span>
+				</label>
+			</label>
+			<label class="col-md-4">
+				<span>Загран паспорт</span>
+				<label>
+					<input type="radio" ng-value="true" ng-model="profile.passport">
+					<span>Есть</span>
+				</label>
+				<label>
+					<input type="radio" ng-value="false" ng-model="profile.passport">
+					<span>Нет</span>
+				</label>
+			</label>
+			<label class="col-md-4">
+				<span>Командировки</span>
+				<label>
+					<input type="radio" ng-value="true" ng-model="profile.trip">
+					<span>Возможны</span>
+				</label>
+				<label>
+					<input type="radio" ng-value="false" ng-model="profile.trip">
+					<span>Не возможны</span>
+				</label>
+			</label>
+			<label class="col-md-4">
+				<span>Переезд</span>
+				<label>
+					<input type="radio" ng-value="true" ng-model="profile.move">
+					<span>Возможен</span>
+				</label>
+				<label>
+					<input type="radio" ng-value="false" ng-model="profile.move">
+					<span>Не возможен</span>
+				</label>
+			</label>
+			<label class="col-md-4">
+				<span>Врдительские права</span>
+				<label>
+					<input type="radio" ng-value="true" ng-model="profile.driverLicense">
+					<span>Есть</span>
+				</label>
+				<label>
+					<input type="radio" ng-value="false" ng-model="profile.driverLicense">
+					<span>Нет</span>
+				</label>
+			</label>
+			<label class="col-md-4">
+				<span>Автомобиль</span>
+				<label>
+					<input type="radio" ng-value="true" ng-model="profile.car">
+					<span>Есть</span>
+				</label>
+				<label>
+					<input type="radio" ng-value="false" ng-model="profile.car">
+					<span>Нет</span>
+				</label>
+			</label>
+			<label class="col-md-4">
+				<span>Положительные качества</span>
+				<textarea placeholder="Положительные качества" title="Положительные качества" ng-model="profile.positiveQualities"></textarea>
+			</label>
+			<label class="col-md-4">
+				<span>Отрицательные качества</span>
+				<textarea placeholder="Отрицательные качества" title="Отрицательные качества" ng-model="profile.negativeQualities"></textarea>
+			</label>
+	</accordion-group>
+	<accordion-group heading="Контакты">
+		<label>
+			<span>Страна/Город</span>
+			<input type="text" placeholder="Страна/Город" title="Страна/Город" ng-model="profile.contacts.city">
+		</label>
+		<label>
+			<span>Телефон</span>
+			<input type="text" placeholder="Телефон" title="Телефон" ng-model="profile.contacts.phone">
+		</label>
+		<label>
+			<span>Email</span>
+			<input type="text" placeholder="Email" title="Email" ng-model="profile.contacts.email">
+		</label>
+	</accordion-group>
+</accordion>
+
+
+
+
+<button ng-click="updateProfile()">Save</button>
+
+
+
+
+
+
+
+

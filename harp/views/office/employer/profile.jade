@@ -1,0 +1,55 @@
+.competitorOfficeProfile.employer-profile
+
+	.row
+		.col-xs-8
+			.row.margin
+				.col-xs-4.label Название компании
+				.col-xs-8
+					input(type="text", ng-model="profile.company.name")
+			.row.margin
+				.col-xs-4.label Описание компании
+				.col-xs-8
+					textarea(ng-model="profile.company.description")
+			.row.margin
+				.col-xs-4.label Отрасль
+				.col-xs-8
+					input(type="text", placeholder="Отрасль", ng-model="profile.company.industry", typeahead="item for item in getListTitles('industry') | filter:$viewValue | limitTo:10")
+					//select(ng-model="profile.company.industry")
+						option(ng-repeat="i in getList('industry')", value="{{i.id}}") {{i.title}}
+		.col-xs-4.logo
+			.logo-img
+				img.img-responsive(ng-src="{{ _add.logo.length > 0 ? get_avatar_uri(_add.logo[_add.logo.length-1].image) : '/img/avatar.png'}}")
+			.logo-btn
+				button.btn.btn-success(ng-click="modal('makePhoto', {to:_add.logo})") Обновить
+	hr
+	h4 Контакты
+	.row
+		.col-xs-8
+			.row.margin
+				.col-xs-4.label email
+				.col-xs-8
+					input(type="text", ng-model="profile.contacts.email")
+			.row.margin
+				.col-xs-4.label skype
+				.col-xs-8
+					input(type="text", ng-model="profile.contacts.skype")
+			.row.margin
+				.col-xs-4.label телефон
+				.col-xs-8
+					input(type="text", ng-model="profile.contacts.phone")
+			.row.margin
+				.col-xs-4.label Адрес
+				.col-xs-8
+					input(type="text", ng-model="profile.contacts.address")
+			.row.margin
+				.col-xs-4.label Ссылка на социальную сеть
+				.col-xs-8
+					input(type="text", ng-model="profile.contacts.socialNetwork")
+			.row.margin
+				.col-xs-4.label дополнитнльно
+				.col-xs-8
+					textarea(ng-model="profile.contacts.other")
+
+	.row.save-btn
+		.col-xs-8
+			button.btn.btn-success(ng-click="save()") сохранить информацию о компании

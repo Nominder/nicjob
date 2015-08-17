@@ -1,0 +1,105 @@
+<div>
+	<style type="text/css">
+		.panel-default>.panel-heading {
+			background-color: #fff;
+			background-image: none;
+			border: none;
+			border-top: 1px solid #aaa;
+			border-radius: 0px;
+			cursor: pointer;
+		}
+		.panel-default>.panel-heading h4 {
+			font-size: 200%;
+		}
+
+		.panel, .panel-default>.panel-heading, .panel-group .panel-heading+.panel-collapse>.panel-body, .panel-group .panel-heading+.panel-collapse>.list-group {
+			border: none;
+		}
+
+		.panel-group .panel {
+			border-radius: 0px;
+		}
+
+		.panel input, .panel select {
+			width: 100%;
+			height: 32px;
+			border-color: #DEDEDE !important;
+			background-color: #F2F2F2;
+		}
+
+		.panel textarea {
+			width: 100%;
+			height: 240px;
+			border-color: #DEDEDE !important;
+			background-color: #F2F2F2;
+		}
+
+		.panel * {
+			line-height: 32px;
+		}
+
+		.panel-body>div {
+			margin-top: 12px;
+		}
+
+	</style>
+	<tabset>
+		<tab heading="Моё резюме">
+			<ng-include src="profileUrl"></ng-include>
+		</tab>
+		<tab heading="Мои собеседования">
+			<ng-include src="interviewUrl"></ng-include>
+		</tab>
+		<tab heading="Мои отклики">
+			
+		</tab>
+		<tab heading="Чёрный список">
+			
+		</tab>
+		<tab heading="Настройки">
+			
+		</tab>
+	</tabset>
+
+
+
+<div class="cstmModal" ng-show="!!cstmModal" style="position: fixed; left: 50%; top: 50%; width: 600px; height: 400px; margin-top: -200px; margin-left: -300px; background-color: rgba(255,0,0,.7);">
+	<div>
+		<div ng-show="(cstmModal=='image')">
+			<div class="imageUpload">
+				<style type="text/css">
+				.imageUpload .preview img {
+					max-width: 300px;
+					max-height: 300px;
+				}
+				</style>
+				<div class="preview" ng-show="!imageUploadFormView">
+					<img src="">
+				</div>
+				<form ng-submit="imageUpload()" class="form-horizontal" enctype="multipart/form-data">
+					<span ng-show="imageUploadFormView">
+						<input type="file" name="file" accept="image/*" onchange="angular.element(this).scope().imageChange(event)"/>
+					</span>
+					<button class="btn btn-primary" type="submit">Готово</button>
+				</form>
+				<input type="text" ng-model="imageUploadTitle"> title
+				<input type="text" ng-model="imageUploadDescription"> description
+				добавить фото
+			</div>
+		</div>
+		<div ng-show="(cstmModal=='video')">
+			<div class="videoUpload">
+				<div class="videoIframe" ng-show="videoUploadFormView"></div>
+				<div class="videoProgress" ng-show="!videoUploadFormView">
+					<progress max="100" value="0">Загружено на <span id="value">0</span>%</progress>
+				</div>
+			</div>
+		</div>
+		<button ng-click="cstmModal = false;">cansel</button>
+	</div>
+</div>
+
+
+
+
+</div>

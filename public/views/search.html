@@ -1,0 +1,780 @@
+
+		<div class="page_centr">
+						<div class="nav_action">
+				<div class="nav_action_item"><a class="nav_action_link" href="" id="registration" data-role="registration" ng-click="modalOpen(2)">Разместить резюме</a></div>
+				<div class="nav_action_item"><a class="nav_action_link" href="" id="" data-role="" ng-click="modalOpen(2)">Добавить вакансию</a></div>
+				<div class="nav_action_item"><a class="nav_action_link" href="" id="" data-role="">Создать команду</a></div>
+			</div>
+						<div class="applicants">
+
+	<div class="applicants_head">
+		<h1>Соискатели</h1>
+	</div>
+
+
+
+
+	<div class="applicants_body">
+		<ul class="applicants_list">
+			<li class="applicants_listitem" ng-repeat="(k, v) in results">
+				<div class="applicants_item">
+					<div class="applicants_item_figure">
+						<img  ng-src="{{get_avatar_uri(v.profile.images)}}" alt="applicants1" style="max-width:200px; max-height:196px;">
+						<div class="applicants_item_action"><a class="type_btn3" ng-click="startCall(v.id)" ng-show="account.type == 'employer'"><span class="icon icon_video2"></span> ВИДЕОСОБЕСЕДОВАНИЕ</a></div>
+					</div>
+					<div class="applicants_item_body">						
+					<a ng-href="#/profile/{{v.id}}" style="text-decoration:none;">
+						<div class="applicants_item_params">
+							<div class="applicants_item_name">{{v.profile.info.firstname||'Anonimous'}} {{v.profile.info.lastname||'Anonimous'}}, {{get_current_age(v.profile.info.birthday)}} лет<span class="profile_status __online" ng-show="v.online"></span> <span class="applicants_item_price">{{v.profile.salary.summa||0}} <span class="applicants_item_size">руб/{{getFromList('period', v.profile.salary.period)||'мес'}}</span></span></div>
+							<div class="applicants_item_direct"><span ng-repeat="v1 in v.profile.industryPost">{{getFromList('industry', v1.industry)}} {{v1.post}}{{$last ? '' : ', '}}</span></div>
+							<div class="applicants_item_latestwork">Последнее место работы: <strong>{{v.profile.career[v.profile.career.length-1].organization}}</strong> <br>Должность: <strong>{{v.profile.career[v.profile.career.length-1].vac_industryPost.post}}</strong></div>
+							<div class="applicants_item_statement"><strong>О себе:</strong> {{v.profile.about}}</div>
+						</div>
+						<div class="applicants_item_vars">
+							<ul>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'Машина: ' + (v.profile.car ? 'есть' : 'нет'); v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-car"></i></a></li>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'Водителькое удостоверение: ' + (v.profile.driverLicense ? v.profile.driverLicense : 'нет'); v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-credit-card"></i></a></li>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'Положительные качества: ' + (v.profile.positiveQualities ? v.profile.positiveQualities : 'нет'); v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-smile-o"></i></a></li>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'a'; v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-close"></i></a></li>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'a'; v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-close"></i></a></li>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'a'; v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-close"></i></a></li>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'a'; v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-close"></i></a></li>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'a'; v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-close"></i></a></li>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'a'; v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-close"></i></a></li>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'a'; v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-close"></i></a></li>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'a'; v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-close"></i></a></li>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'a'; v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-close"></i></a></li>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'a'; v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-close"></i></a></li>
+								<li><a class="applicants_item_varlink" ng-mouseover="v.additionalText = 'a'; v.additionalShow = true;" ng-mouseleave="v.additionalShow = false;"><i class="fa fa-close"></i></a></li>
+							</ul>
+							<div ng-show="v.additionalShow" style="overflow:hidden; height:40px;">
+								{{v.additionalText}}
+							</div>
+						</div>
+					</a>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+</div>
+		</div>
+		<!-- .page_sidebar -->
+		<div class="page_sidebar" id="js_page_sidebar">
+			<div class="filter left" id="js_filter">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+	.left .item .block {
+		text-align: center;
+	}
+	.left select {
+		width: 100%;
+		height: 100%;
+		border: none !important;
+	}
+	.left input {
+		border: none !important;
+		outline:0px !important;
+	}
+</style>
+
+
+
+<style type="text/css">
+	
+
+
+.left [type="checkbox"]:not(:checked),
+.left [type="checkbox"]:checked {
+	position: absolute;
+	left: -9999px;
+}
+
+
+.left label {
+	display: inline-block;
+	width: 45%;
+	margin: 0px;
+	padding: 0px;
+	font-weight: normal;
+	text-align: center;
+}
+
+
+.left input[type="checkbox"],
+.left input[type="radio"] {
+	display:none;
+}
+.left input[type="checkbox"] + span, 
+.left input[type="radio"] + span {
+	line-height: 20px;
+	cursor: pointer;
+}
+.left input[type="checkbox"] + span::after,
+.left input[type="radio"] + span::after {
+	content: "";
+	display: inline-block;
+	height: 8px;
+	width: 8px;
+	margin: 5px 5px 0 5px;
+	line-height: 40px;
+	border: 2px solid #63aa5b;
+	border-radius: 10px;
+}
+.left input[type="checkbox"] + span::after {
+	
+}
+.left input[type="radio"] + span::after {
+	
+}
+.left input[type="checkbox"]:checked + span::after {
+	background-color: #63aa5b;
+}
+.left input[type="radio"]:checked + span::after {
+	background-color: #63aa5b;
+}
+.left input[type="checkbox"]:disabled + span::after {
+	background-color: #31aa5b;
+}
+.left input[type="checkbox"]:checked:disabled + span::after {
+	background-color: #31aa5b;
+}
+.left input[type="radio"]:disabled + span::after {
+	background-color: #31aa5b;
+}
+.left input[type="radio"]:checked:disabled + span::after {
+	background-color: #31aa5b;
+}​
+
+
+
+
+
+
+
+
+
+
+
+
+.left {
+	margin: 0px;
+	padding: 0px;
+	margin-bottom: 40px;
+	color: #fff;
+}
+
+.left select {
+	color: #333;
+}
+
+.left>div:not(:last-child) {
+	background-color: #75787c;
+}
+
+.left>.item {
+	color: #fff;
+	margin: 0px;
+	padding: 0px;
+}
+
+.left>.item .title {
+	display: block;
+	margin: 0px;
+	padding: 0px 0px 0px 10px;
+	height: 40px;
+	line-height: 40px;
+	background-color: #75787c;
+}
+
+.left>.item .title i {
+	display: inline-block;
+	position: relative;
+	line-height: 40px;
+	float: right;
+	margin-right: 15px;
+	cursor: pointer;
+	transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+	-moz-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+}
+
+.left>.item .block {
+	display: block;
+	overflow: hidden;
+	height: 0px;
+	transition: height .3s;
+	-webkit-transition: height .3s;
+	background-color: #bcbcbc;
+}
+
+
+.left>.item.open .block {
+	display: block;
+	height: 40px;
+}
+
+.left>.item.open .title i {
+	transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+}
+
+
+.left .item .block i {
+	float: left;
+	margin: 10px 0px;
+	width: 20px;
+	line-height: 20px;
+	text-align: center;
+}
+
+.left .item .block input {
+	float: left;
+	width: 172px;
+	color: #fff;
+	line-height: 40px;
+	text-align: center;
+	border: none;
+	background-color: inherit;
+}
+
+
+
+</style>
+
+
+
+	<div class="item open" ng-class="{open:view.menu.search}">
+		<div class="title" ng-click="view.menuUp('search')">
+			Поиск соискателей
+			<i class="filter_row1"></i>
+		</div>
+		<div class="block">
+			<div class="item">
+				<i class="fa fa-search"></i>
+				<input ng-model="findObject.text" type="text" placeholder="Поиск по словам">
+			</div>
+		</div>
+	</div>
+	<div class="item" ng-class="{open:view.menu.industry}">
+		<div class="title" ng-click="view.menuUp('industry')">
+			Сфера деятельности
+			<i class="filter_row1"></i>
+		</div>
+		<div class="block">
+			<select ng-model="findObject.industry">
+				<option ng-repeat="i in lists.industry" value="{{+i.id}}">{{i.title}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="item" ng-class="{open:view.menu.part}">
+		<div class="title" ng-click="view.menuUp('part')">
+			Занятость
+			<i class="filter_row1"></i>
+		</div>
+		<div class="block">
+			<select ng-model="findObject.part">
+				<option ng-repeat="i in lists.part" value="{{+i.id}}">{{i.title}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="item" ng-class="{open:view.menu.education}">
+		<div class="title" ng-click="view.menuUp('education')">
+			Образование
+			<i class="filter_row1"></i>
+		</div>
+		<div class="block">
+			<select ng-model="findObject.level">
+				<option ng-repeat="i in lists.level" value="{{+i.id}}">{{i.title}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="item" ng-class="{open:view.menu.language}">
+		<div class="title" ng-click="view.menuUp('language')">
+			Знание языков
+			<i class="filter_row1"></i>
+		</div>
+		<div class="block">
+			<select ng-model="findObject.language">
+				<option ng-repeat="i in lists.tag" value="{{+i.id}}">{{i.title}}</option>
+			</select>
+		</div>
+	</div>
+
+	<div>
+		<label>
+			<input type="checkbox" ng-model="findObject.images">
+			<span>Фото</span>
+		</label>
+		<label>
+			<input type="checkbox" ng-model="findObject.videos">
+			<span>Видео</span>
+		</label>
+	</div>
+
+	<div>
+		<div class="filter_vars_title">Возраст</div>
+		<div class="filter_slider">
+			<div class="js_rangeslider" data-min="0" data-max="100" data-start="18" data-end="45" data-inputstart=".js_start1" data-inputend=".js_end1"></div>
+		</div>
+		<div class="filter_rangeslider_val">
+			<div class="filter_rangeslider_val_row">
+				<span>От</span>&nbsp;<span class="js_start1"></span>
+				<input class="js_start1" type="hidden" name="start1" value="16">
+			</div>
+			<div class="filter_rangeslider_val_row">
+				<span>До</span>&nbsp;<span class="js_end1"></span>
+				<input class="js_end1" type="hidden" name="end1"  value="45">
+			</div>
+		</div>
+	
+		<div class="filter_vars_title">Зарплата</div>
+			<div class="filter_slider">
+			<div class="js_rangeslider" data-min="1000" data-max="50000" data-start="2000" data-end="20000" data-inputstart=".js_start2" data-inputend=".js_end2"></div>
+		</div>
+		<div class="filter_rangeslider_val">
+			<div class="filter_rangeslider_val_row">
+				<span>От</span>&nbsp;<span class="js_start2"></span>
+				<input class="js_start2" type="hidden" name="start2" value="">
+			</div>
+			<div class="filter_rangeslider_val_row">
+				<span>До</span>&nbsp;<span class="js_end2"></span>
+				<input class="js_end2" type="hidden" name="end2" value="">
+			</div>
+		</div>
+	
+
+
+
+	</div>
+
+	<div>
+		<div class="text-center">Зарплата</div>
+		<div range-slider min="1000" max="300000" model-min="pay.min" model-max="pay.max" step="500"></div>
+		<div class="text-center">
+			<div ng-repeat="i in lists.period">
+				<label>
+					<input type="radio" value="{{+i.id}}" ng-model="findObject.period">
+					<span>Руб/{{i.title}}</span>
+				</label>
+			</div>
+		</div>
+	</div>
+
+				
+				<div>
+					<a class="filter_reset" href="" ng-click="refind()">Сбросить параметры</a>
+				</div>
+				
+				<div class="filter_social">
+					<ul>
+						<li><a class="filter_icon __icon1" href=""></a></li>
+						<li><a class="filter_icon __icon2" href=""></a></li>
+						<li><a class="filter_icon __icon3" href=""></a></li>
+						<li><a class="filter_icon __icon4" href=""></a></li>
+						<li><a class="filter_icon __icon5" href=""></a></li>
+						<li><a class="filter_icon __icon6" href=""></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- /.page_sidebar -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<link rel="stylesheet" href="/css/search.css">
+
+<style type="text/css">
+	
+.filter_slider { height:2px;background:#bcbcbc;padding:0 11px; }
+.filter_rangeslider_val { padding:14px 14px 0;overflow:hidden; }
+.filter_rangeslider_val_row { width:50%;float:left;text-align:center; }
+.filter_rangeslider_val span { color:#e3e3e3;font:normal 14px/20px 'Open Sans', 'sans-serif'; }
+/* /.filter */
+
+/* .noUi */
+.noUi-target { height:2px; }
+.noUi-target { -webkit-touch-callout: none;-webkit-user-select: none;-ms-touch-action: none;-ms-user-select: none;-moz-user-select: none;-moz-box-sizing: border-box;box-sizing: border-box; }
+.noUi-target * { -webkit-touch-callout: none;-webkit-user-select: none;-ms-touch-action: none;-ms-user-select: none;-moz-user-select: none;-moz-box-sizing: border-box;box-sizing: border-box; }
+.noUi-base { width: 100%;height: 100%;position: relative; }
+.noUi-origin { position: absolute;right: 0;top: 0;left: 0;bottom: 0; }
+.noUi-state-drag * { cursor: inherit !important; }
+.noUi-dragable { cursor: w-resize; }
+.noUi-handle {
+	width:22px;height:22px;background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAYAAAGzs1ytAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkUxMzY5QjU1RUUxRDExRTM4OEZGQjVFNzYwQzU0OEEyIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkUxMzY5QjU2RUUxRDExRTM4OEZGQjVFNzYwQzU0OEEyIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RTEzNjlCNTNFRTFEMTFFMzg4RkZCNUU3NjBDNTQ4QTIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RTEzNjlCNTRFRTFEMTFFMzg4RkZCNUU3NjBDNTQ4QTIiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5kE7xMAAADtUlEQVR42mL+//8/w7eff5dZ29itZQYyVp99tDqcw5GrgREkk7I65j8DEAAEEENpRQ0IXwcJsrwzug8WzZqd/p+JAQp47onVAAQQqh4omBO6hBFk8s3vkh+EX2w4zMCjIc8gwCnIsOb0KrgtDGwfuP//4frJIHBFtrirvbkPIIAYQTYCARsQfwbiGKDgapDgNKDtmTCzOV7yMzAmr4qGW/jv918GJlZmBoizbn4GU0/XHwHTLDz3xRi+qENUyobZg2mmL4qvGIXOKzAw/Gdk4HkgCnYvQADBnSV0TnHaR+0nmX/ZfyP7CeRbkJMVga56AHIV2wfdxz//sf5hwAdAtoAc9gmm8P6GMwwPlu2HK3i4/ADYByDwzuAhWHEyTFIxwIRB2cwUrtg4JRTsVbBzHoowgN1cVlmr+E327b0fop9wOEGRoautmREggGDBCwNhQNwJxCJAvBmIE4Ae+wWTBIUwKCQUfgl8u/9F6SWKicw/WRn4r8pMB2rIAocniPgm/Q5DIQiAghEUf0BnTgObXFpZ/f+d4QO8wcb0m5lB4LIcOzCmXjMgRzQM3NtwGiHOChZfxvSL/xtc4a1FiDD++eYjw4vd55Et8GVi/sUCCR4+EQYuHha4DCMQK6irIyt+zsT5XADM+vD9PYNRUihcRt3GjOGHHBey4homtnc81TDem68I9zNq8CESEzBZAoNvCRMwaNpAMYQLcLzmY2B7z60ETszgRGJ4nxEYMUW/hL70fpN6D/Y920cuoImiwGhuYYRpBAgweHpGSQtAjcBU0wuMVQYQ/sP9A2wAIzAjMP1iZmD+zg5M41xgDMwc4GyJ7iLkjKIADK7736TeMfwQ/8hACgDlYq5nQkBLGMAZCp6MgIZW/RL4eh/oTZINBQGQHpBekBnAJAeOCFBRFA0Mr6nIqQkZgBIMIzMTQTEQ+CX4FZQBnPZtOXoXJNsKigRsBoJyOnIqhIEb8/cxPNl+FiU5wwDUrBaQwUL/mf+hSH64/ozh5kKggd8+M/AJsmFmGiZGhv+fvzC82HyU4cu9F6gOguQRSVAS2sn6mTMEGD5wSQFNKQYVE32GdxfvMTy+cA5rECmZGjPw6yiiJGhwYf0RnPo3g0tEYNr4+UHnCQO2UlGEWxRDMzYxePa/IgtKghwo5TKwkMkkJ1XAk9xTIdRSC5yjjO5nASW0gRZMBxXyoOKNEACpAakF6QHq1YEZCs8gwLSHTR8o1kDFRyCoNAdiaaj4UyA+C8TrgXg1KJUBDcTQDABdpq3/hT6eAQAAAABJRU5ErkJggg==) no-repeat 0 0;
+	position: relative;z-index: 1;left: -11px;top: -11px;cursor: pointer;
+}
+.noUi-connect { background: #63aa5b; }
+.noUi-background { background:#bcbcbc; }
+/* /.noUi */
+</style>
+<style type="text/css">
+	.left .item .block {
+		text-align: center;
+	}
+	.left select {
+		width: 100%;
+		height: 100%;
+		border: none !important;
+	}
+	.left input {
+		border: none !important;
+		outline:0px !important;
+	}
+</style>
+<div class="left  col-md-3">
+	<div class="item open" ng-class="{open:view.menu.search}">
+		<div class="title" ng-click="view.menuUp('search')">
+			Поиск соискателей
+			<i class="filter_row1"></i>
+		</div>
+		<div class="block">
+			<div class="item">
+				<i class="fa fa-search"></i>
+				<input ng-model="findObject.text" type="text" placeholder="Поиск по словам">
+			</div>
+		</div>
+	</div>
+	<div class="item" ng-class="{open:view.menu.industry}">
+		<div class="title" ng-click="view.menuUp('industry')">
+			Сфера деятельности
+			<i class="filter_row1"></i>
+		</div>
+		<div class="block">
+			<select ng-model="findObject.industry">
+				<option ng-repeat="i in lists.industry" value="{{+i.id}}">{{i.title}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="item" ng-class="{open:view.menu.part}">
+		<div class="title" ng-click="view.menuUp('part')">
+			Занятость
+			<i class="filter_row1"></i>
+		</div>
+		<div class="block">
+			<select ng-model="findObject.part">
+				<option ng-repeat="i in lists.part" value="{{+i.id}}">{{i.title}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="item" ng-class="{open:view.menu.education}">
+		<div class="title" ng-click="view.menuUp('education')">
+			Образование
+			<i class="filter_row1"></i>
+		</div>
+		<div class="block">
+			<select ng-model="findObject.level">
+				<option ng-repeat="i in lists.level" value="{{+i.id}}">{{i.title}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="item" ng-class="{open:view.menu.language}">
+		<div class="title" ng-click="view.menuUp('language')">
+			Знание языков
+			<i class="filter_row1"></i>
+		</div>
+		<div class="block">
+			<select ng-model="findObject.language">
+				<option ng-repeat="i in lists.tag" value="{{+i.id}}">{{i.title}}</option>
+			</select>
+		</div>
+	</div>
+
+	<div>
+		<label>
+			<input type="checkbox" ng-model="findObject.images">
+			<span>Фото</span>
+		</label>
+		<label>
+			<input type="checkbox" ng-model="findObject.videos">
+			<span>Видео</span>
+		</label>
+	</div>
+
+	<div>
+		<div class="filter_vars_title">Возраст</div>
+		<div class="filter_slider">
+			<div class="js_rangeslider" data-min="0" data-max="100" data-start="18" data-end="45" data-inputstart=".js_start1" data-inputend=".js_end1"></div>
+		</div>
+		<div class="filter_rangeslider_val">
+			<div class="filter_rangeslider_val_row">
+				<span>От</span>&nbsp;<span class="js_start1"></span>
+				<input class="js_start1" type="hidden" name="start1" value="16">
+			</div>
+			<div class="filter_rangeslider_val_row">
+				<span>До</span>&nbsp;<span class="js_end1"></span>
+				<input class="js_end1" type="hidden" name="end1"  value="45">
+			</div>
+		</div>
+	
+		<div class="filter_vars_title">Зарплата</div>
+			<div class="filter_slider">
+			<div class="js_rangeslider" data-min="1000" data-max="50000" data-start="2000" data-end="20000" data-inputstart=".js_start2" data-inputend=".js_end2"></div>
+		</div>
+		<div class="filter_rangeslider_val">
+			<div class="filter_rangeslider_val_row">
+				<span>От</span>&nbsp;<span class="js_start2"></span>
+				<input class="js_start2" type="hidden" name="start2" value="">
+			</div>
+			<div class="filter_rangeslider_val_row">
+				<span>До</span>&nbsp;<span class="js_end2"></span>
+				<input class="js_end2" type="hidden" name="end2" value="">
+			</div>
+		</div>
+	
+
+
+
+	</div>
+
+	<div>
+		<div class="text-center">Зарплата</div>
+		<div range-slider min="1000" max="300000" model-min="pay.min" model-max="pay.max" step="500"></div>
+		<div class="text-center">
+			<div ng-repeat="i in lists.period">
+				<label>
+					<input type="radio" value="{{+i.id}}" ng-model="findObject.period">
+					<span>Руб/{{i.title}}</span>
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="item" ng-class="{open:view.menu.more}">
+		<div class="title" ng-click="view.menuUp('more')">
+			Расширенный поиск
+			<i class="filter_row1"></i>
+		</div>
+		<div class="block">
+			<div class="item">
+				
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<button class="btn  btn-clear" ng-click="refind()">Сбросить параметры</button>
+	</div>
+
+	<div class="social">
+		<div>
+		</div>
+		<div>
+			<div></div>
+		</div>
+	</div>
+
+</div>
+
+
+<div class="right  col-md-9">
+
+	<div class="submenu  col-md-12">
+		<div class="item  col-md-3" ng-click="signup('competitor')">
+			+ Разместить резюме
+		</div>
+		<div class="item  col-md-3" ng-click="signup('employer')">
+			+ Добавить вакансию
+		</div>
+		<div class="item  col-md-3" ng-click="signup('team')">
+			+ Создать команду
+		</div>
+		<div class="item  col-md-3">
+			<i class="fa fa-map-marker"></i>
+			Соискатели на карте
+		</div>
+	</div>
+	<hr>
+	<style type="text/css">
+		.results .avatar {
+			margin: 0px;
+			padding: 0px;
+		}
+		.results .avatar img {
+			max-width:200px;
+			max-height:300px;
+		}
+		.results .res, .results>div {
+			padding: 0px;
+		}
+		.results .avatar .videocall {
+			color: #fff;
+			font-weight: bold;
+			margin: 0px;
+			padding: 10px;
+			background-color: #ff4b00;
+			cursor: pointer;
+		}
+		.results .res {
+			margin-bottom: 20px !important;
+		}
+		.results .res .info>div:nth-child(1) {
+			margin: 0 0 4px;
+			padding: 0 0 8px;
+			border-bottom: 1px solid #d0d2d7;
+			color: #000;
+			font: normal 18px/20px 'Open Sans', 'sans-serif';
+			font-weight: 600;
+			overflow: hidden;
+		}
+		.results .res .info>div:nth-child(2) {
+			margin: 0 0 5px;
+			padding: 0 0 6px;
+			border-bottom: 1px solid #d0d2d7;
+			color: #000;
+			font: normal 14px/20px 'Open Sans', 'sans-serif';
+			font-weight: 600;
+		}
+		.results .res .info>div:nth-child(3) {
+			margin: 0 0 7px;
+			padding: 0 0 5px;
+			border-bottom: 1px solid #d0d2d7;
+			color: #777;
+			font: normal 13px/20px 'Open Sans', 'sans-serif';
+		}
+		.results .res .info>div:nth-child(4) {
+			margin: 0 0 3px;
+			padding: 0;
+			color: #777;
+			font: normal 13px/20px 'Open Sans', 'sans-serif';
+		}
+
+
+
+		.results .res .info [class*=col-] {
+			margin: 0px !important;
+			padding: 0px !important;
+			
+		}
+		.results .res .info .bold {
+			font: normal 18px/20px 'Open Sans', 'sans-serif';
+		}
+		.results .res .green {
+			color: #1eb570;
+		}
+		.results .res .grey {
+			color: #999;
+			font-size: 14px;
+		}
+	</style>
+	<div class="results">
+		<div class="  col-md-12" ng-repeat="(k, v) in results">
+			<hr>
+			<div class="res  col-md-12">
+				<div class="avatar  col-md-4 text-center">
+					<img ng-src="{{get_avatar_uri(v.profile.images)}}">
+					<div class="videocall  col-md-12" ng-click="startCall(v.id)" ng-show="account.type == 'employer'">
+						<i class="fa fa-video-camera"></i>
+						Видеособеседование
+					</div>
+				</div>
+				<div class="info  col-md-8">
+					<div class="  col-md-12">
+						<div class="name  col-md-7">
+							<a ng-href="#/profile/{{v.id}}">
+								<span>
+									{{v.profile.info.firstname||'Anonimous'}} {{v.profile.info.lastname||'Anonimous'}}
+								</span>
+								<span ng-show="get_current_age(v.profile.info.birthday)">, {{get_current_age(v.profile.info.birthday)}} лет</span>
+								<span class="green" ng-show="v.online">
+									<i class="fa fa-certificate" style="font-size:10px;" title="online"></i>
+								</span>
+							</a>
+						</div>
+						<div class="  text-center col-md-1">
+							<i class="green  fa fa-map-marker"></i>
+						</div>
+						<div class="  text-center col-md-4">
+							<span>
+								<span>{{v.profile.salary.summa||0}}</span>
+								<span class="grey"> руб/{{getFromList('period', v.profile.salary.period)||'месяц'}}</span>
+
+							</span>
+						</div>
+					</div>
+					<div class="  col-md-12">
+						<span ng-repeat="v1 in v.profile.industryPost">
+							{{getFromList('industry', v1.industry)}} {{v1.post}}{{$last ? '' : ', '}}
+						</span>
+					</div>
+					<div class="  col-md-12">
+						<div class="  col-md-12">
+							<div>
+								<span>Последние место работы </span>
+								<b>{{v.profile.career[v.profile.career.length-1].organization}}</b>
+							</div>
+							<div>
+								<span>Должность </span>
+								<b>{{v.profile.career[v.profile.career.length-1].vac_industryPost.post}}</b>
+							</div>
+						</div>
+					</div>
+					<div class="  col-md-12">
+						<b>О себе:</b> {{v.profile.about}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	
+	jQuery(function() {
+		$('.js_rangeslider').each(function(indx){
+			var rangeslider = $(this);
+			var min = rangeslider.data('min');
+			var max = rangeslider.data('max');
+			var start = rangeslider.data('start');
+			var inputstart = $(rangeslider.data('inputstart'));
+			var end = rangeslider.data('end');
+			var inputend = $(rangeslider.data('inputend'));
+			rangeslider.noUiSlider({
+				start: [
+					start, end
+				],
+				connect: true,
+				range: { 'min': min, 'max': max },
+				serialization: {
+					lower: [
+						$.Link({ target: inputstart,method: 'text' }),
+					],
+					upper: [
+						$.Link({ target: inputend, method: 'text' })
+					],
+					format: { decimals:0 }
+				}
+			});
+		});
+	});
+
+</script>-->

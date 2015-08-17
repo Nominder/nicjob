@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>vacancies</title>
+</head>
+<body>
+	<% if (item.profile) { %>
+		<% if (item.profile.company.name) { %>
+			<h2><%= item.profile.company.name %></h2>
+		<% } %>
+		<%= item.profile.individual ? "Юридическое" : "Физическое" %> лицо
+		<% if (item.profile.contacts) { %>
+			<p><%= item.profile.contacts.country%> <%= item.profile.contacts.city %>
+		<% } %>
+		<ul><% if (item.profile.company) { %>
+			<li>Сфера деятельности: <%= item.profile.company.industry %></li>
+		<% } %>
+		<li>Описание: <%= item.profile.company.description %></li>
+		</ul>
+	<% } %>
+</body>
+</html>

@@ -1,0 +1,182 @@
+.col-xs-10.menu
+	.col-xs-12.menu-inner
+		.menu-container
+			.col-xs-12.item.text-center
+				| Поиск Людей
+			.col-xs-12.item.text-search
+				i.fa.fa-search
+				input(type="text", placeholder="Поиск по словам", ng-model="_data.search.competitors.fields.text")
+			.col-xs-12.item
+				select(chosen, multiple="true", data-placeholder="Сфера деятельности", ng-options="item.title as item.title for item in getList('industry')", ng-model="_data.search.competitors.fields.industry")
+			.col-xs-12.item
+				select(chosen, multiple="true", data-placeholder="Должность", ng-options="item.title as item.title for item in getList('post')", ng-model="_data.search.competitors.fields.post")
+			.col-xs-12.item
+				select(chosen, multiple="true", data-placeholder="Образование", ng-options="item.title as item.title for item in getList('level')", ng-model="_data.search.competitors.fields.level")
+			.col-xs-12.item
+				select(chosen, multiple="true", data-placeholder="Занятость", ng-options="item.title as item.title for item in getList('part')", ng-model="_data.search.competitors.fields.part")
+			.col-xs-12.item
+				select(chosen, multiple="true", data-placeholder="Знание языков", ng-options="item.title as item.title for item in getList('tag')", ng-model="_data.search.competitors.fields.tag")
+			.col-xs-12.item
+				select(chosen, multiple="true", data-placeholder="Страна", ng-options="item.title as item.title for item in getList('country')", ng-model="e")
+			.col-xs-12.item.text-left
+				.col-xs-6.radio-btn
+					input(type="checkbox", id="c1", ng-model="_data.search.competitors.fields.images")
+					label(for="c1") С фото
+				.col-xs-6.radio-btn
+					input(type="checkbox", id="c2", ng-model="_data.search.competitors.fields.videos")
+					label(for="c2") С видео
+			.col-xs-12.slider
+				.col-xs-12.text-center Возраст
+				.col-xs-12
+					.js_rangeslider(data-type="competitor", data-param="age", data-start='18', data-end='45', data-inputstart='.js_start1', data-inputend='.js_end1', data-model-min='birthdayMin', data-model-max='birthdayMax')
+				.col-xs-6.text-center
+					.filter_rangeslider_val_row
+						span от 
+						input.js_start1(type='text', name='start1', value='', style="width:40px;")
+				.col-xs-6.text-center
+					.filter_rangeslider_val_row
+						span до 
+						input.js_end1(type='text', name='end1', value='', style="width:40px;")
+			.col-xs-12.slider
+				.col-xs-12.text-center Заработная плата
+				.col-xs-12
+					.js_rangeslider(data-step='100', data-type="competitor", data-param="salary", data-start='1000', data-end='5000', data-inputstart='.js_start2', data-inputend='.js_end2', data-model-min='summMin', data-model-max='summMax')
+				.col-xs-6.text-center
+					.filter_rangeslider_val_row
+						span от 
+						input.js_start2(type='text', name='start1', value='', style="width:50px;")
+				.col-xs-6.text-center
+					.filter_rangeslider_val_row
+						span до 
+						input.js_end2(type='text', name='end1', value='', style="width:50px;")
+			.col-xs-12.item
+					span.text-left.radio-btn(ng-repeat="i in getList('period')", style="width:50%; display:inline-block;")
+						input(type="radio", name="period_{{i.id}}", id="period_{{i.id}}", value="{{i.id}}", ng-model="_data.search.competitors.fields.period")
+						label(for="period_{{i.id}}") {{i.title}}
+			accordion.col-xs-12(close-others="false")
+				accordion-group
+					accordion-heading
+						.arr(onclick="$(this).toggleClass('up')")
+							| Расширенный фильтр
+							i.pull-right.fa.fa-angle-right
+					.col-xs-12.item.text-left
+						.col-xs-8.radio-btn
+							input(type="checkbox", id="c3", ng-model="_data.search.competitors.fields.online")
+							label(for="c3") Сейчас на сайте
+					.col-xs-12.slider
+						.col-xs-12.text-center Опыт работы
+						.col-xs-12
+							.js_rangeslider(data-step='100', data-type="competitor", data-param="experience", data-start='1000', data-end='5000', data-inputstart='.js_start3', data-inputend='.js_end3', data-model-min='expMin', data-model-max='expMax')
+						.col-xs-6.text-center
+							.filter_rangeslider_val_row
+								span от 
+								input.js_start3(type='text', value='', style="width:40px;")
+						.col-xs-6.text-center
+							.filter_rangeslider_val_row
+								span до 
+								input.js_end3(type='text', value='', style="width:40px;")
+					.col-xs-12.item
+						.col-xs-12.text-center Пол
+						.col-xs-12
+							span.text-left.radio-btn(style="width:50%; display:inline-block;")
+								input(type="radio", name="sex", id="sex_true", value="true", ng-model="_data.search.competitors.fields.sex")
+								label(for="sex_true") Мужской
+							span.text-left.radio-btn(style="width:50%; display:inline-block;")
+								input(type="radio", name="sex", id="sex_false", value="false", ng-model="_data.search.competitors.fields.sex")
+								label(for="sex_false") Женский
+					.col-xs-12.item.text-left
+						.col-xs-12.radio-btn
+							input(type="checkbox", id="c4", ng-model="_data.search.competitors.fields.portfolio")
+							label(for="c4") Наличие портфолио
+					.col-xs-12.item
+						.col-xs-12.text-center Семейное положение
+						.col-xs-12
+							span.text-left.radio-btn(style="width:50%; display:inline-block;")
+								input(type="radio", name="marital", id="marital_true", value="true", ng-model="_data.search.competitors.fields.maritalStatus")
+								label(for="marital_true") Женат
+							span.text-left.radio-btn(style="width:50%; display:inline-block;")
+								input(type="radio", name="marital", id="marital_false", value="false", ng-model="_data.search.competitors.fields.maritalStatus")
+								label(for="marital_false") Не женат
+					.col-xs-12.item
+						.col-xs-6.text-left.radio-btn Дети:
+						.col-xs-6
+							input(type="text", value="0", ng-model="_data.search.competitors.fields.children")
+					.col-xs-12.item
+						select(chosen, multiple="true", data-placeholder="Гражданство", ng-options="item.title as item.title for item in getList('сitizenship')", ng-model="_data.search.competitors.fields.citizenship")
+					.col-xs-12.item
+						select(chosen, multiple="true", data-placeholder="Вероисповедание", ng-options="item.title as item.title for item in getList('religion')", ng-model="_data.search.competitors.fields.religion")
+					.col-xs-12.item.text-left
+						.col-xs-12.radio-btn
+							input(type="checkbox", id="c5", ng-model="_data.search.competitors.fields.car")
+							label(for="c5") Наличие авто
+					.col-xs-12.item.text-left
+						.col-xs-12.radio-btn
+							input(type="checkbox", id="c6", ng-model="_data.search.competitors.fields.passport")
+							label(for="c6") Загранпаспорт
+					.col-xs-12.item.text-left
+						.col-xs-12.radio-btn
+							input(type="checkbox", id="c7", ng-model="_data.search.competitors.fields.move")
+							label(for="c7") Готовность к переезду
+					.col-xs-12.item.text-left
+						.col-xs-12.radio-btn
+							input(type="checkbox", id="c8", ng-model="_data.search.competitors.fields.smoking")
+							label(for="c8") Курение
+					.col-xs-12.item.text-left
+						.col-xs-12.radio-btn
+							input(type="checkbox", id="c9", ng-model="_data.search.competitors.fields.diplomas")
+							label(for="c9") Наличие фотографий дипломов, наград и сертификатов
+					.col-xs-12.item.text-left
+						.col-xs-12.radio-btn
+							input(type="checkbox", id="c10", ng-model="_data.search.competitors.fields.portfolio")
+							label(for="c10") Наличие портфолио
+						
+			.col-xs-12.refresh
+				button.btn.btn-success(ng-click="clear()") Сбросить параметры
+		!= partial("./../_menuFooter.jade")
+script.
+	$(document).on('scroll', function() {
+		if(false) {
+			if(!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+				if($(this).scrollTop() > $('.search .menu').height() - $(window).height()) {
+					$('.search .menu').addClass('fix');
+				} else {
+					$('.search .menu').removeClass('fix');
+				}
+			}
+		}
+	});
+	
+	
+	$('.js_rangeslider').each(function(indx){
+		var rangeslider = $(this);
+		var type = rangeslider.data('type');
+		var param = rangeslider.data('param');
+		var min = (window._searchLimits[type][param]||{min:0,max:0}).min;
+		var max = (window._searchLimits[type][param]||{min:0,max:0}).max;
+		var step = rangeslider.data('step')||1;
+		var start = min;
+		var end = max;
+		var inputstart = $(rangeslider.data('inputstart'));
+		var inputend = $(rangeslider.data('inputend'));
+		$(inputstart).val(start);
+		$(inputend).val(end);
+		rangeslider.noUiSlider({
+			start: [
+				start, end
+			],
+			connect: true,
+			range: { 'min': min, 'max': max },
+			step: step
+		}).change(function(element, data) {
+			var $rootScope = angular.element('[ng-app]').scope();
+			$rootScope._data.search.competitors.fields[$(element.target).data('model-min')] = +data[0];
+			$rootScope._data.search.competitors.fields[$(element.target).data('model-max')] = +data[1];
+			$rootScope.$apply();
+			$(inputstart).val(accounting.formatNumber(+data[0], 0, " "));
+			$(inputend).val(accounting.formatNumber(+data[1], 0, " "));
+		});
+		$(inputend).on('change', function(element, data) {
+			rangeslider.val([+($(inputstart).val()),+($(inputend).val())]);
+		})
+	});
+

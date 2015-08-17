@@ -1,0 +1,17 @@
+.col-xs-12.office(ng-controller="office.competitorCtrl")
+	tabset.tabs
+		tab()
+			tab-heading Моё резюме
+			!= partial("./competitor/profile.jade")
+		tab()
+			tab-heading Мои собеседования
+			!= partial("./competitor/interviews.jade")
+		tab()
+			tab-heading Мои отклики
+			!= partial("./competitor/response.jade")
+		tab()
+			tab-heading Чёрный список
+			!= partial("./competitor/blacklist.jade")
+		tab()
+			tab-heading Настройки
+			!= partial("./competitor/settings.jade")

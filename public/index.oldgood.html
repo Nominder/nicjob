@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello world</title>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/font-awesome/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/imgareaselect-default.css" />
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<script type="text/javascript" src="/js/angular/angular.min.js"></script>
+	<script type="text/javascript" src="/js/angular/angular-resource.min.js"></script>
+	<script type="text/javascript" src="/js/angular/angular-route.min.js"></script>
+	
+	<script type="text/javascript" src="/js/out/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="/js/out/jquery.nouislider.min.js"></script>
+	<script type="text/javascript" src="/js/out/jquery.imgareaselect.pack.js"></script>
+	<script type="text/javascript" src="/js/out/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/js/ui-bootstrap/ui-bootstrap-0.11.2.min.js"></script>
+	<script type="text/javascript" src="/js/ui-bootstrap/ui-bootstrap-tpls-0.11.2.min.js"></script>
+	<script type="text/javascript" src="/js/init.jquery.js"></script>
+	<script type="text/javascript" src="http://cdn.peerjs.com/0.3/peer.js"></script>
+
+	<script type="text/javascript" src="/js/modules/application.js"></script>
+
+	<script type="text/javascript" src="/js/services/dataSrv.js"></script>
+	<script type="text/javascript" src="/js/services/callSrv.js"></script>
+
+	<script type="text/javascript" src="/js/controllers/notificationsCtrl.js"></script>
+	<script type="text/javascript" src="/js/controllers/searchCtrl.js"></script>
+	<script type="text/javascript" src="/js/controllers/profileCtrl.js"></script>
+	<script type="text/javascript" src="/js/controllers/vacansyCtrl.js"></script>
+	<script type="text/javascript" src="/js/controllers/menuCtrl.js"></script>
+	<script type="text/javascript" src="/js/controllers/officeCtrl.js"></script>
+	<script type="text/javascript" src="/js/controllers/office/competitorCtrl.js"></script>
+	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript" src="/WebRTC/customWRTC.js"></script>
+	<style type="text/css">
+		[class*=col-md-] {
+			border: 1px dashed #aaa;
+		}
+	</style>
+	<style type="text/css">
+		.debug {
+			display: block;
+			position: fixed;
+			right: 5px;
+			bottom: 10px;
+			padding: 10px;
+			background-color: rgba(255,200,200,.8);
+		}
+		body {
+			/*background-color: rgb(30,30,30);*/
+			font-family: 'Open Sans', sans-serif;
+		}
+		.notifications-stack {
+			display: block;
+			float: left;
+			position: fixed;
+			color: black;
+			z-index: 5;
+			right: 0px;
+			bottom: 50px;
+		}
+		.notifications-stack .notification {
+			width: 240px;
+			margin: 10px 20px 10px 0px;
+			padding: 5px;
+			min-height: 80px;
+		}
+		.notifications-stack .notification.type-info {
+			color: #fff;
+			background-color: rgba(0,0,200,.5);
+		}
+		.notifications-stack .notification.type-error {
+			background-color: rgba(200,0,0,.5);
+		}
+		.notifications-stack .notification.type-warn {
+			background-color: rgba(200,200,0,.5);
+		}
+		.notifications-stack .notification .title {
+			font-size: 18px;
+			margin-left: 15px;
+		}
+		.notifications-stack .notification .title i {
+			float: right;
+			margin: 5px;
+			cursor: pointer;
+		}
+		.notifications-stack .notification .description i {
+			float: left;
+			text-align: center;
+			margin: 5px;
+			font-size: 32px;
+			width: 32px;
+			height: 32px;
+			border: 1px solid;
+			border-radius: 16px;
+		}
+	</style>
+</head>
+<body ng-app="application">
+	<div class="container-fluid">
+		<div class="border"></div>
+		<div class="container">
+			<div ng-include src="'/views/menu.html'" ng-controller="menuCtrl"></div>
+			<div class="main  col-md-12" ng-view></div>
+		</div>
+	</div>
+	<div>
+		<div ng-controller="notificationsCtrl">
+			<div class="notifications-stack" ng-repeat="(i, item) in notifications">
+				<div class="notification type-{{item.type}}">
+					<div class="title">
+						{{item.title}}
+						<i class="fa fa-close" ng-click="del(i)"></i>
+					</div>
+					<div class="description">
+						<i class="fa fa-{{item.icon}}"></i>
+						{{item.desc}}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<style type="text/css">
+		.videocallmodal {
+			position: fixed;
+			left: 50%;
+			top: 50%;
+			width: 500px;
+			margin-top: -150px;
+			margin-left: -150px;
+			background-color: rgba(255, 0, 0, .5);
+		}
+		.videocallmodal video {
+			float: left;
+			margin: 0px;
+			padding: 0px;
+			max-width: 250px;
+			max-height: 200px;
+		}
+
+		.videocallmodal button {
+			margin-top: 20px;
+		}
+	</style>
+	<div ng-show="iscall" class="videocallmodal">
+		<video class="their-video" id="their-video" autoplay=""></video>
+		<video class="my-video" id="my-video" muted="true" autoplay=""></video>
+		<button class="col-md-12 btn btn-danger" ng-click="endCall()">end call</button>
+	</div>
+</body>
+</html>

@@ -1,0 +1,236 @@
+.competitorPage {
+	margin-top: 100px;
+  	h2{
+	  	font-size: 24px;
+	  	font-weight: 600;
+	}
+	.left {
+	  	.user-avatar-wrap{
+			position: fixed;
+			width: 285px;
+			.images {
+				//text-align: center;
+			  	.smallImages{
+				  	margin-left: -5px;
+					.image {
+						display: inline-block;
+						width:25%;
+						padding-left: 5px;
+					  	margin-top: 5px;
+					}
+				}
+				img {
+					width: 100%;
+				}
+			}
+			.button{
+				button {
+					margin-top: 5px;
+					text-transform: uppercase;
+					width: 100%;
+				}
+			  	.btn-warning{
+					background-color: @orange;
+					border-color: @orange;
+				}
+			  	.btn-success{
+					background-color: @green;
+					border-color: @green;
+				}
+			}
+			.sumary {
+				span{
+				  	font-size: 18px;
+				}
+			  	.sum{
+				  	font-weight: 600;
+				  	font-size: 24px;
+				}
+			}
+		}
+	}
+	.right {
+		line-height: @lineHeight;
+	  	.name{
+		  	line-height: 36px;
+		  	padding-bottom: 0px;
+		  	b{
+				font-size: 24px;
+			  	font-weight: 600;
+			}
+		  	span{
+			  	font-size: 18px;
+			  	font-weight: 600;
+			}
+		}
+	  	.industryPost, .lastCarrer, .about{
+		  padding: 10px 0;
+		}
+		.name {
+			font-size: 26px;
+			border-bottom: 2px solid #d0d2d7;
+			.green {
+				color: @green;
+			  	margin-left: 5px;
+			}
+		}
+		.industryPost {
+			line-height: @lineHeight / 3 * 2;
+			font-size: 18px;
+			border-bottom: 1px solid rgb(206, 206, 206);
+		  	b{
+			  	font-weight: 600;
+			}
+		}
+		.lastCarrer {
+			line-height: @lineHeight / 3 * 2;
+			font-size: 16px;
+			border-bottom: 1px solid rgb(206, 206, 206);
+		}
+		.about {
+		  	b{
+			  	font-size: 16px;
+			  	font-weight: bold;
+			}
+			line-height: 26px;
+			font-size: 14px;
+			border-bottom: 1px solid rgb(206, 206, 206);
+		}
+		.video {
+			h2 {
+				//font-weight: normal;
+				i {
+					color: #000;
+				}
+			}
+			.player {
+				height: 400px;
+				background-color: @gray;
+			}
+		}
+		.carrer, .education {
+			line-height: @lineHeight / 3;
+			.block {
+				&:nth-child(even) {
+					>div:nth-child(2) {
+						border: 2px solid @lightBlue;
+						width: ~"calc(50% - 50px)";
+						height: 100px;
+						padding: 10px;
+						margin: 0px 40px 0px 10px;
+					}
+					>div:nth-child(1) {
+						padding: 20px;
+						height: 100px;
+						border-right: 2px solid @green;
+						&:before {
+							position: absolute;
+							display: block;
+							content: ' ';
+							width: 10px;
+							height: 10px;
+							border-radius: 5px;
+							right: -6px;
+							top: 45px;
+							background-color: @green;
+						}
+					}
+				}
+				&:nth-child(odd) {
+					>div:nth-child(1) {
+						float: right;
+						padding: 20px;
+						margin-right: 2px;
+						margin-left: -2px;
+						height: 100px;
+						border-left: 2px solid @green;
+						&:before {
+							position: absolute;
+							display: block;
+							content: ' ';
+							width: 10px;
+							height: 10px;
+							border-radius: 5px;
+							left: -6px;
+							top: 45px;
+							background-color: @green;
+						}
+					}
+					>div:nth-child(2) {
+						float: right;
+						border: 2px solid #e4e4e4;
+						width: ~"calc(50% - 50px)";
+						height: 100px;
+						padding: 10px;
+						margin: 0px 40px 0px 10px;
+					}
+				}
+			}
+		}
+		.portfolio, .diplomas {
+			h2 {
+				//font-weight: normal;
+				i {
+					color: #000;
+				}
+			}
+			.image {
+				display: inline-block;
+				width: ~"calc(100% / 4 - 20px)";
+				margin: 10px;
+				img {
+					max-width: 100%;
+					max-height: 100%;
+				}
+			}
+		}
+		.languages {
+			.language {
+				.lang-lvl-icon{
+						display: inline-block !important;
+						width: 15px;
+						height: 15px;
+						margin: 8px;
+						border-radius: 10px;
+						background-color: @green;
+				}
+			}
+		}
+		.skills {
+			.skill {
+				& div:nth-child(1) {
+					
+				}
+				& div:nth-child(2) {
+					display: inline-block !important;
+					>div {
+						display: inline-block !important;
+						width: 20px;
+						height: 20px;
+						margin: 10px;
+						border-radius: 0px;
+						background-color: @green;
+					}
+				}
+			}
+		}
+		.additional, .contacts {
+			>div {
+				font-size: 16px;
+				i {
+					margin: 5px;
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+

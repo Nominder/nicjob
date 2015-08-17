@@ -1,0 +1,79 @@
+.competitorOfficeSettings.row
+
+	.col-xs-9
+		h3 Изменение пароля
+		.row
+			.col-xs-3
+				b Старый пароль
+			.col-xs-9
+				input(type="text", ng-model="settings.oldpassword")
+		.row
+			.col-xs-3
+				b Новый пароль
+			.col-xs-9
+				input(type="text", ng-model="settings.password")
+		.row
+			.col-xs-3
+				b Подтверждение пароля
+			.col-xs-9
+				input(type="text", ng-model="settings.password1")
+
+		hr
+
+		h3 Оповещения
+		.row
+			.col-xs-3
+				b По sms
+			.col-xs-9
+				.col-xs-6
+					input(type="radio", id="settings_a1", name="settings_a", ng-value="true", ng-model="settings.notificationssms")
+					label(for="settings_a1") Да (рекомендуется)
+				.col-xs-6
+					input(type="radio", id="settings_a2", name="settings_a", ng-value="false", ng-model="settings.notificationssms")
+					label(for="settings_a2") Нет
+		.row
+			.col-xs-3
+				b По email
+			.col-xs-9
+				.col-xs-6
+					input(type="radio", id="settings_b1", name="settings_b", ng-value="true", ng-model="settings.notificationsemail")
+					label(for="settings_b1") Да (рекомендуется)
+				.col-xs-6
+					input(type="radio", id="settings_b2", name="settings_b", ng-value="false", ng-model="settings.notificationsemail")
+					label(for="settings_b2") Нет
+		.row
+			.col-xs-12
+				p При приглашении на видеособедование и за 10  минут до начала
+
+		hr
+
+		h3 Невидимый режим
+		.row
+			.col-xs-3
+				b Скрыть резюме
+			.col-xs-9
+				.row
+					.col-xs-4
+						input(type="checkbox", id="settings_c", ng-model="settings.hide")
+						label(for="settings_c") От всех
+					.col-xs-8
+						input(type="checkbox", id="settings_d", ng-model="settings.hidetotal")
+						label(for="settings_d") От всех, кроме тех на кого я откликнулся
+
+		hr
+
+		.row
+			.col-xs-5
+				button.btn.btn-success(ng-click="saveSettings(settings)") Сохранить
+			.col-xs-5.col-xs-offset-2
+				button.btn.btn-danger(ng-click="removeAccount()") Удалить аккаунт
+
+
+
+
+
+
+
+
+
+

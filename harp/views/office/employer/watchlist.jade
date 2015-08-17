@@ -1,0 +1,14 @@
+.competitorOfficeBlacklist.employerOfficeWatchlist
+		.row.company
+			.col-xs-3.text-center.avatar
+				img.img-responsive(ng-src="{{get_avatar_uri(i.profile.images)}}")
+			.col-xs-6
+				.col-xs-12.title
+					h4 {{i.profile.info.firstname}} {{i.profile.info.lastname}} {{i.profile.info.middlename}}
+				.col-xs-12.desc
+			.col-xs-3.text-right
+				.col-xs-12
+					button.btn.btn-success(ng-click="removeOfWatchlist(i.id)") Отмена
+				.col-xs-12
+					a(href="#/competitor/{{i.id}}") Подробнее
+			hr

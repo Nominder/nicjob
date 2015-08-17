@@ -1,0 +1,335 @@
+.row
+	.col-xs-3
+		img.img-responsive(src="http://robohash.org/7.png?set=set3")
+	.col-xs-9
+
+		h3 Имя
+		.row.fio
+			.col-xs-4.name
+				input.form-control
+			.col-xs-4.lastname
+				input.form-control
+			.col-xs-4.patronymic
+				input.form-control
+		hr
+
+		h3 Дата рождения
+		.row.birthday
+			.col-xs-2
+				select.form-control
+			.col-xs-3
+				select.form-control
+			.col-xs-2
+				select.form-control
+		hr
+
+		h3 Фото
+		.row
+			.col-xs-3(style="margin-bottom: 20px")
+				img.img-responsive(src="http://robohash.org/7.png?set=set3")
+			.col-xs-3(style="margin-bottom: 20px")
+				img.img-responsive(src="http://robohash.org/7.png?set=set3")
+			.col-xs-3(style="margin-bottom: 20px")
+				img.img-responsive(src="http://robohash.org/7.png?set=set3")
+			.col-xs-3(style="margin-bottom: 20px")
+				img.img-responsive(src="http://robohash.org/7.png?set=set3")
+		hr
+
+		h3 Видео
+		.row
+			.col-xs-3(style="margin-bottom: 20px")
+				img.img-responsive(src="http://robohash.org/7.png?set=set3")
+			.col-xs-3(style="margin-bottom: 20px")
+				img.img-responsive(src="http://robohash.org/7.png?set=set3")
+			.col-xs-3(style="margin-bottom: 20px")
+				img.img-responsive(src="http://robohash.org/7.png?set=set3")
+			.col-xs-3(style="margin-bottom: 20px")
+				img.img-responsive(src="http://robohash.org/7.png?set=set3")
+		hr
+
+		h3 Отрасаль и должность
+		.row.form-group
+			.col-xs-3
+				label Укажите вашу отрасль
+			.col-xs-9
+				input.form-control
+		.row.form-group
+			.col-xs-3
+				label Укажите вашу отрасль
+			.col-xs-9
+				input.form-control
+		.row.form-group
+			.col-xs-3
+				label Занятость
+			.col-xs-9
+				label.radio-inline
+					input(type="radio")
+					| Полная
+				label.radio-inline
+					input(type="radio")
+					| Частичная
+		hr
+
+		h3 Образование
+		.row.form-group
+			.col-xs-3
+				label Уровень образования
+			.col-xs-9
+				select.form-control
+		.row.form-group
+			.col-xs-3
+				label Учебное заведение
+			.col-xs-9
+				input.form-control
+		.row.form-group
+			.col-xs-3
+				label Специальность/год
+			.col-xs-9
+				.row
+					.col-xs-6
+						input.form-control
+					.col-xs-6
+						sselect.form-control
+		hr
+
+		h3 Дипломы
+		.row
+			.col-xs-3(style="margin-bottom: 20px")
+				img.img-responsive(src="http://robohash.org/7.png?set=set3")
+				div(style="margin-top: 10px")
+					.btn-group
+						button.btn.btn-default Удалить
+						button.btn.btn-default Заблокировать
+			.col-xs-3(style="margin-bottom: 20px")
+				img.img-responsive(src="http://robohash.org/7.png?set=set3")
+			.col-xs-3(style="margin-bottom: 20px")
+				img.img-responsive(src="http://robohash.org/7.png?set=set3")
+			.col-xs-3(style="margin-bottom: 20px")
+				img.img-responsive(src="http://robohash.org/7.png?set=set3")
+		hr
+
+		h3 Портфолио
+			.row
+				.col-xs-3(style="margin-bottom: 20px")
+					img.img-responsive(src="http://robohash.org/7.png?set=set3")
+				.col-xs-3(style="margin-bottom: 20px")
+					img.img-responsive(src="http://robohash.org/7.png?set=set3")
+				.col-xs-3(style="margin-bottom: 20px")
+					img.img-responsive(src="http://robohash.org/7.png?set=set3")
+				.col-xs-3(style="margin-bottom: 20px")
+					img.img-responsive(src="http://robohash.org/7.png?set=set3")
+		hr
+
+		h3 Каръера
+		.row.form-group
+			.col-xs-3
+				label Учебное заведение
+			.col-xs-9
+				input.form-control
+		.row.form-group
+			.col-xs-3
+				label Название организации
+			.col-xs-9
+				input.form-control
+		.row.form-group
+			.col-xs-3
+				label Cфера деятельности
+			.col-xs-9
+				select.form-control
+		.row.form-group
+			.col-xs-3
+				label Должность/период
+			.col-xs-3
+				select.form-control
+			.col-xs-2
+				input.form-control
+			.col-xs-2
+				input.form-control
+			.col-xs-2
+				label.radio-inline
+					input(type="radio")
+					| Частичная
+
+		hr
+
+		h3 Языки
+		.row.form-group
+			.col-xs-3
+				label Русский
+			.col-xs-9
+				select.form-control
+		hr
+
+		h3 Навыки
+		.row.form-group
+			.col-xs-3
+				label Ура!
+			.col-xs-9
+				select.form-control
+		hr
+
+		h3 Дополнительно
+		.row.form-group
+			.col-xs-2
+				label Национальность
+			.col-xs-5
+				input.form-control
+				//select(placeholder="Укажите вашу национальность", ng-model="profile.nationality")
+					 option(ng-repeat="i in getList('nationality')", value="{{i.id}}") {{i.title}}
+			.col-xs-5
+				input.form-control
+				//select(placeholder="Укажите своё гражданство", ng-model="profile.citizenship")
+					 option(ng-repeat="i in getList('citizenship')", value="{{i.id}}") {{i.title}}
+		.row.form-group
+			.col-xs-2
+				label Вероисповедание
+			.col-xs-5
+				input.form-control
+				//select(placeholder="Укажите вашу религию", ng-model="profile.religion")
+					 option(ng-repeat="i in getList('religion')", value="{{i.id}}") {{i.title}}
+			.col-xs-5
+				select.form-control
+		.row.form-group
+			.col-xs-2
+				label О себе
+			.col-xs-10
+				textarea.form-control
+		.row.form-group
+			.col-xs-2
+				label Сеймейное положение
+			.col-xs-6
+				span.radio-inline
+					label
+						input(type="radio")
+						| женат
+
+				span.radio-inline
+					label
+						input(type="radio")
+						| холост
+
+				span.radio-inline
+					label
+						input(type="radio")
+						| замужем
+
+				span.radio-inline
+					label
+						input(type="radio")
+						| не замужем
+
+			.col-xs-1
+				label Детеи
+			.col-xs-3
+				input.form-control
+		.row.form-group
+			.col-xs-2
+				label Хобби
+			.col-xs-10
+				textarea.form-control
+
+		.row.form-group
+			.col-xs-2
+				label Загран паспорт
+			.col-xs-5
+				span.radio-inline
+					label
+						input(type="radio")
+						| есть
+				span.radio-inline
+					label
+						inputinput(type="radio")
+						| нет
+
+			.col-xs-2
+				label Курение
+			.col-xs-3
+				span.radio-inline
+					label
+						input(type="radio")
+						| курю
+				span.radio-inline
+					label
+						input(type="radio")
+						| не курю
+
+		.row.form-group
+			.col-xs-2.label Командировки
+			.col-xs-5
+				span.radio-inline
+					label
+						input(type="radio")
+						| возможны
+				span.radio-inline
+					label
+						input(type="radio")
+						| невозможны
+			.col-xs-2.label Переезд
+			.col-xs-3
+				span.radio-inline
+					label
+						input(type="radio")
+						| Да
+				span.radio-inline
+					label
+						input(type="radio")
+						| Нет
+		.row.form-group
+			.col-xs-2.label Водительские права
+			.col-xs-5
+				span.radio-inline
+					label
+						input(type="radio")
+						| A
+			.col-xs-2.label Автомобиль
+			.col-xs-3
+				span.radio-inline
+					label
+						input(type="radio")
+						| есть
+				span.radio-inline
+					label
+						input(type="radio")
+						| нет
+		.row.form-group
+			.col-xs-2
+				label Личные качества
+			.col-xs-5
+				textarea.form-control
+			.col-xs-5
+				textarea.form-control
+		hr
+
+		h3 Контакты
+		.row.form-group
+			.col-xs-3
+				label email
+			.col-xs-9
+				input.form-control
+		.row.form-group
+			.col-xs-3
+				label skype
+			.col-xs-9
+				input.form-control
+		.row.form-group
+			.col-xs-3
+				label телефон
+			.col-xs-9
+				input.form-control
+		.row.form-group
+			.col-xs-3
+				label адресс
+			.col-xs-9
+				input.form-control
+		.row.form-group
+			.col-xs-3
+				label ссылка на социальную сеть
+			.col-xs-9
+				input.form-control
+		.row.form-group
+			.col-xs-3
+				label дополнитнльно
+			.col-xs-9
+				textarea.form-control
+		.row(style="padding-bottom: 50px;")
+			button.btn.btn-success Сохранить

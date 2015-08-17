@@ -1,0 +1,148 @@
+.col-xs-12.competitorOfficeInterviews
+	.col-xs-12.newinvites
+		.col-xs-12.counter
+			b {{invite.length}} новых собеседования
+		.col-xs-12.invite(ng-repeat="i in interviews | filter: {status: 'pending'}")
+			.col-xs-3.col-xs-offset-9
+				.summ
+					b {{i.vacansy.salary.summa}} руб / {{getFromList('period', i.vacansy.salary.period)||'мес'}}
+			.col-xs-12.body
+				.col-xs-2.avatar
+					img(ng-src="{{i.employer.company.logo ? get_avatar_uri(i.employer.company.logo) : '/img/company.png'}}")
+				.col-xs-10.data
+					.row.user-info
+						.col-xs-9.name
+							span.label Работодатель:
+							b {{i.employer.company.name}}
+						.col-xs-3.status.text-right
+							span Статус:
+							span.red Не подтверждено
+					.col-xs-12.vacancy
+						span.label Вакансия:
+						b {{i.vacansy.name}}
+					.row.times
+						.col-xs-4(ng-repeat="j in i.times")
+							button.btn.btn-success(ng-click="accept(i._id, j)") {{hotDateTime(j) | date: 'dd.MM.yyyy hh:mm'}}
+					.row.bottom
+						.col-xs-8
+							span.tip Выберите подходящую дату видеособеседования (время московское)
+						.col-xs-4
+							button.btn.btn-danger(ng-click="decline(i._id)") отклонить приглашение
+	.col-xs-12.afterinvites
+		.col-xs-12.counter
+			b Будущие собеседования
+		.col-xs-12.interview(ng-repeat="i in interviews | filter: {status: 'accepted'}")
+			.col-xs-3.col-xs-offset-9
+				.summ
+					b {{i.vacansy.salary.summa}} руб / {{getFromList('period', i.vacansy.salary.period)||'мес'}}
+			.col-xs-12.body
+				.col-xs-2.avatar
+					img(ng-src="{{i.employer.company.logo ? get_avatar_uri(i.employer.company.logo) : '/img/company.png'}}")
+				.col-xs-10.data
+					.row.user-info
+						.col-xs-9.name
+							span.label Работодатель:
+							b {{i.employer.company.name}}
+						.col-xs-3.status.text-right
+							span Статус
+							span.lime подтверждено
+					.col-xs-10
+						span.label Вакансия:
+						b {{i.vacansy.name}}
+					.col-xs-2.text-right
+						.col-xs-12(style="margin-bottom: 10px;")
+							.col-xs-4.text-left Дата:
+							.col-xs-8 {{hotDateTime(i.selectedTime) | date: 'dd.MM.yyyy'}}
+						.col-xs-12
+							.col-xs-4.text-left Время:
+							.col-xs-8 {{hotDateTime(i.selectedTime) | date: 'hh:mm'}} (МСК)
+		.col-xs-12.counter(ng-if="nowinterview")
+			b Ближайшее собеседование
+		.col-xs-12.interview(ng-if="nowinterview")
+			.col-xs-3.col-xs-offset-9
+				.summ
+					b {{nowinterview.vacansy.salary.summa}} руб / {{getFromList('period', nowinterview.vacansy.salary.period)||'мес'}}
+			.col-xs-12.body
+				.col-xs-2.avatar
+					img(ng-src="{{nowinterview.employer.company.logo ? get_avatar_uri(nowinterview.employer.company.logo) : '/img/company.png'}}")
+				.col-xs-10.data
+					.row.user-info
+						.col-xs-9.name
+							span.label Работодатель:
+							b {{nowinterview.employer.company.name}}
+						.col-xs-3.status.text-right
+							span Статус:
+							span.lime подтверждено
+					.col-xs-10
+						span.label Вакансия:
+						b {{nowinterview.vacansy.name}}
+					.col-xs-2.text-right
+						.col-xs-12(style="margin-bottom: 10px;")
+							.col-xs-4.text-left Дата:
+							.col-xs-8 {{hotDateTime(nowinterview.selectedTime) | date: 'dd.MM.yyyy'}}
+						.col-xs-12
+							.col-xs-4.text-left Время:
+							.col-xs-8 {{hotDateTime(nowinterview.selectedTime) | date: 'hh:mm'}} (МСК)
+			.col-xs-12.now
+				.timer
+					p До начала собеседования осталось
+					p.time {{nowtime.h}}:{{nowtime.m}}:{{nowtime.s}}
+					p Проверьте камеру и микрофон!
+					.out
+
+
+		.col-xs-12.counter(ng-show="false")
+			b Прошедшие собеседования
+		.col-xs-12.interview(ng-repeat="i in interviews1 | filter: {status: 'accepted'}")
+			.col-xs-3.col-xs-offset-9
+				.summ
+					b {{i.vacansy.salary.summa}} руб / {{getFromList('period', i.vacansy.salary.period)||'мес'}}
+			.col-xs-12.body
+				.col-xs-2.avatar
+					img(ng-src="{{i.employer.company.logo ? get_avatar_uri(i.employer.company.logo) : '/img/company.png'}}")
+				.col-xs-10.data
+					.row.user-info
+						.col-xs-9.name
+							span Работодатель:
+							b {{i.employer.company.name}}
+						.col-xs-3.status.text-right
+							span Статус
+							span.lime подтверждено
+					.col-xs-10
+						span Вакансия:
+						b {{i.vacansy.name}}
+					.col-xs-2.text-right
+						.col-xs-12(style="margin-bottom: 10px;")
+							.col-xs-4.text-left Дата:
+							.col-xs-8 {{hotDateTime(i.selectedTime) | date: 'dd.MM.yyyy'}}
+						.col-xs-12
+							.col-xs-4.text-left Время:
+							.col-xs-8 {{hotDateTime(i.selectedTime) | date: 'hh:mm'}} (МСК)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
